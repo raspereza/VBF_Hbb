@@ -1,6 +1,6 @@
 #include "HttStylesNew.cc"
 #include "Common.h"
-void FTestBackground(int iCAT=4) {
+void FTestBackground(int iCAT=0) {
 
   using namespace RooFit;
   SetStyle();

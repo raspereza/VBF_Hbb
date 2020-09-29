@@ -56,8 +56,8 @@ void CreateDatacards() {
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
     textfile << "CMS_vbfbb_scale_mbb_13TeV_2018  param 1.0 0.015" << endl; 
     textfile << "CMS_vbfbb_res_mbb_13TeV_2018    param 1.0 0.035" << endl;
-    textfile << "mean_sig_" << names[i] << "     param " << mean << " " << meanE << endl;
-    textfile << "sigma_sig_" << names[i] << "    param " << sigma << " " << sigmaE << endl;
+    //    textfile << "mean_sig_" << names[i] << "     param " << mean << " " << meanE << endl;
+    //    textfile << "sigma_sig_" << names[i] << "    param " << sigma << " " << sigmaE << endl;
     textfile << "bkgNorm_" << names[i] << "  rateParam  " << names[i] << "   qcd   1   [0.5,1.5]" << endl;
     textfile << endl;
   }

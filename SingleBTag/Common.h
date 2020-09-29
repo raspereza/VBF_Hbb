@@ -11,6 +11,8 @@ TString names[5] = {"CAT4",
 		    "CAT7",
 		    "CAT8"};
 
-int Nbins = 1200;
+int NbinsBkg = 150;
+int NbinsSig =  30;
+int Nbins = 1500;
 float xmin = 80;
-float xmax = 200;
+float xmax = 230;

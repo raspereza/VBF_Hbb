@@ -2,7 +2,7 @@
 #include "Common.h"
 void PlotDataFits(int iCAT=4, 
 		  int iORDER=3,
-		  bool blind = true) {
+		  bool blind=true) {
 
   using namespace RooFit;
 

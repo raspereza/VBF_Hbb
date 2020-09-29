@@ -11,8 +11,8 @@ void CreateSignalPDF(int iCAT,
 
   TH1::SetDefaultSumw2(true);
 
-  TString nameGGHHist = "mbb_ggh";
-  TString nameVBFHist = "mbb_vbf";
+  TString nameGGHHist = "mbb_ggh"+names[iCAT];
+  TString nameVBFHist = "mbb_vbf"+names[iCAT];
   TH1D * histGGH = new TH1D(nameGGHHist,"",NbinsSig,xmin,xmax);
   TH1D * histVBF = new TH1D(nameVBFHist,"",NbinsSig,xmin,xmax);
 
@@ -60,6 +60,8 @@ void CreateSignalPDF(int iCAT,
   RooAddPdf signal("sig_"+names[iCAT],"signal",RooArgList(cb,BRN),fsig);
 
   alpha.setConstant(true);
+  mean.setConstant(true);
+  sigma.setConstant(true);
   n.setConstant(true);
   fsig.setConstant(true);
   b0.setConstant(true);
