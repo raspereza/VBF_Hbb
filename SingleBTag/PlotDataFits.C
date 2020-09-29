@@ -1,8 +1,7 @@
 #include "HttStylesNew.cc"
 #include "Common.h"
-void PlotDataFits(int iCAT=3, 
+void PlotDataFits(int iCAT=4, 
 		  int iORDER=3,
-		  int nB = 120,
 		  bool blind = true) {
 
   using namespace RooFit;
@@ -22,14 +21,14 @@ void PlotDataFits(int iCAT=3,
   TCanvas * dummy = new TCanvas("dummy","",800,700);
   TString nameHist = "mbb_";
   TString nameBlindHist = "mbb_blind";
-  hist = new TH1D(nameHist,"",nB,80,200);
-  histBlind = new TH1D(nameBlindHist,"",nB,80,200);
+  hist = new TH1D(nameHist,"",NbinsBkg,xmin,xmax);
+  histBlind = new TH1D(nameBlindHist,"",NbinsBkg,xmin,xmax);
   tree->Draw("mbb>>"+nameHist,cuts[iCAT]);
   tree->Draw("mbb>>"+nameBlindHist,cutsBlind);
   delete dummy;
   InitData(hist);
 
-  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",80,200);
+  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
   RooRealVar b0("b0_"+names[iCAT],"b0",0,300);
   RooRealVar b1("b1_"+names[iCAT],"b1",0,300);
   RooRealVar b2("b2_"+names[iCAT],"b2",0,300);
@@ -63,12 +62,12 @@ void PlotDataFits(int iCAT=3,
     dataBlind.plotOn(xframe);
 
   xframe->SetTitle("              "+names[iCAT]);
-  xframe->GetYaxis()->SetTitle("Events / 2 GeV");
+  xframe->GetYaxis()->SetTitle("Events / 1 GeV");
   xframe->GetXaxis()->SetTitle("m_{bb} [GeV]");
   xframe->GetYaxis()->SetTitleOffset(1.6);
 
   RooChi2Var chi2Roo = RooChi2Var("chi2"+names[iCAT],"chi2",BRN,data) ;
-  double ndof = nB - iORDER;
+  double ndof = NbinsBkg - iORDER;
   double chi2 = chi2Roo.getVal();
   double prob = TMath::Prob(chi2,ndof);
   cout << "Chi2/ndof = " << chi2 << "/" << ndof << " = " << chi2/ndof << "  prob = " << prob << endl;

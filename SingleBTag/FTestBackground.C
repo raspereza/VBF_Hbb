@@ -1,6 +1,6 @@
 #include "HttStylesNew.cc"
 #include "Common.h"
-void FTestBackground(int iCAT=0) {
+void FTestBackground(int iCAT=4) {
 
   using namespace RooFit;
   SetStyle();
@@ -17,13 +17,13 @@ void FTestBackground(int iCAT=0) {
   for (int i=0; i<5; ++i) {
     TString nameHist = "mbb_"+names[i];
     TString nameRatioHist = "mbb_ratio_"+names[i];
-    hist[i] = new TH1D(nameHist,"",120,80,200);
-    ratioHist[i] = new TH1D(nameRatioHist,"",120,80,200);
+    hist[i] = new TH1D(nameHist,"",NbinsBkg,xmin,xmax);
+    ratioHist[i] = new TH1D(nameRatioHist,"",NbinsBkg,xmin,xmax);
     tree->Draw("mbb>>"+nameHist,cuts[i]);
   }
   delete dummy;
 
-  RooRealVar mbb("mbb","mass(bb)",80,199);
+  RooRealVar mbb("mbb","mass(bb)",xmin,xmax);
   RooRealVar b0("b0","b0",0,1);
   RooRealVar b1("b1","b1",0,1);
   RooRealVar b2("b2","b2",0,1);
@@ -49,13 +49,13 @@ void FTestBackground(int iCAT=0) {
     RooBernstein BRN("Bernstein","Bernstein",mbb,argList);    
     RooFitResult * fitRes = BRN.fitTo(data);  
     RooChi2Var chi2Roo = RooChi2Var("chi2"+names[iCAT],"chi2",BRN,data) ;
-    ndof[j] = 120 - j;
+    ndof[j] = NbinsBkg - j;
     chi2[j] = chi2Roo.getVal();
     prob[j] = TMath::Prob(chi2[j],ndof[j]);
     double numerator = chi2[j-1]-chi2[j];
-    double denominator = chi2[j]/(120-j);
+    double denominator = chi2[j]/(NbinsBkg-j);
     double h = numerator/denominator;
-    ftest[j] = TMath::FDistI(h,1,120-j);
+    ftest[j] = TMath::FDistI(h,1,NbinsBkg-j);
   }
   for (int j=2; j<7; ++j)
     cout << "BRN order " << j << "  Chi2 = " << chi2[j] << "  Prob = " << prob[j] << endl; 

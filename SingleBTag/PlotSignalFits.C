@@ -22,8 +22,8 @@ void PlotSignalFits(int iCAT=4) {
   Float_t yieldVBF;
   TString nameGGHHist = "mbb_ggh";
   TString nameVBFHist = "mbb_vbf";
-  histGGH = new TH1D(nameGGHHist,"",30,80,200);
-  histVBF = new TH1D(nameVBFHist,"",30,80,200);
+  histGGH = new TH1D(nameGGHHist,"",NbinsSig,xmin,xmax);
+  histVBF = new TH1D(nameVBFHist,"",NbinsSig,xmin,xmax);
   TCanvas * dummy = new TCanvas("dummy","",800,700);
   treeGGH->Draw("mbb>>"+nameGGHHist,"weight*("+cuts[iCAT]+")");
   treeVBF->Draw("mbb>>"+nameVBFHist,"weight*("+cuts[iCAT]+")");
@@ -36,7 +36,7 @@ void PlotSignalFits(int iCAT=4) {
     histGGH->SetBinError(iB,0);
 
 
-  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",80,200);
+  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
 
   RooRealVar mean("mean_sig_"+names[iCAT],"Mean",125,80,200);
   RooRealVar meanScale("CMS_mbb_scale","Mean",125,80,200);
@@ -50,8 +50,8 @@ void PlotSignalFits(int iCAT=4) {
 
   RooRealVar fsig("fsig_"+names[iCAT],"fsig",0,1);
 
-  RooRealVar mean_scale("CMS_vbfbb_scale_mbb_selsingle_13TeV_2016","Mbb_scale",1.0,0.5,1.5);
-  RooRealVar sigma_res("CMS_vbfbb_res_mbb_selsingle_13TeV_2016","Mbb_scale",1.0,0.5,1.5);
+  RooRealVar mean_scale("CMS_vbfbb_scale_mbb_selsingle_13TeV_2018","Mbb_scale",1.0,0.5,1.5);
+  RooRealVar sigma_res("CMS_vbfbb_res_mbb_selsingle_13TeV_2018","Mbb_scale",1.0,0.5,1.5);
     
   RooFormulaVar mean_shifted("mean_shifted_sig","@0*@1",RooArgList(mean,mean_scale));
   RooFormulaVar sigma_shifted("sigma_res_sig","@0*@1",RooArgList(sigma,sigma_res));
@@ -69,7 +69,7 @@ void PlotSignalFits(int iCAT=4) {
   signalx.plotOn(frame,Components(BRN),LineStyle(kDashed));
 
   frame->SetTitle("              "+names[iCAT]);
-  frame->GetYaxis()->SetTitle("Events / 2 GeV");
+  frame->GetYaxis()->SetTitle("Events / 5 GeV");
   frame->GetXaxis()->SetTitle("m_{bb} [GeV]");
   frame->GetYaxis()->SetTitleOffset(1.5);
   frame->GetYaxis()->SetRangeUser(0.,1.2*histVBF->GetMaximum());

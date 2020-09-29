@@ -4,10 +4,10 @@ using namespace RooFit;
 
 void CreateDataTemplates_TF() {
 
-  int iORDER = 5; // Order of BRN polynome for baseline function 
+  int iORDER = 6; // Order of BRN polynome for baseline function 
   int iorder[5] = {3,3,3,2,2}; // order of BRN polynomes in transfer functions
 
-  TFile * file = new TFile("Full_Data_stat.root");
+  TFile * file = new TFile(".root");
   TTree * tree = (TTree*)file->Get("Stat");
 
   TFile * fileOutput = new TFile("data_singleb_shapes_tf.root","recreate");
@@ -20,9 +20,12 @@ void CreateDataTemplates_TF() {
   TString nameHist = "mbb_"+names[0];
   TH1D * hist = new TH1D(nameHist,"",Nbins,xmin,xmax);
   tree->Draw("mbb>>"+nameHist,cuts[0]);
+  TString nameHist0 = "mbb_base_"+names[0];
+  TH1D * hist0 = new TH1D(nameHist0,"",Nbins,xmin,xmax);
+  tree->Draw("mbb>>"+nameHist0,cuts[0]);
   delete dummy;
 
-  RooRealVar mbb0("mbb_"+names[0],"mass(bb)",80,200);
+  RooRealVar mbb0("mbb_"+names[0],"mass(bb)",xmax,xmin);
   RooRealVar b0("b0_"+names[0],"b0",1.);
   RooRealVar b1("b1_"+names[0],"b1",1.);
   RooRealVar b2("b2_"+names[0],"b2",1.);
@@ -49,19 +52,14 @@ void CreateDataTemplates_TF() {
   w->import(data);
   w->import(qcd_yield);
 
-  for (int iCAT=0; iCAT<5; ++iCAT) {
+  for (int iCAT=1; iCAT<5; ++iCAT) {
 
     TCanvas * dummy = new TCanvas("dummy","",800,700);
     TString nameHist = "mbb_"+names[iCAT];
     TString nameRatHist = "mbb_ratio_"+names[iCAT];
-
-    TH1D * hist = new TH1D(nameHist,"",Nbins,80,200);
-    TH1D * ratio = new TH1D(nameRatHist,"",Nbins,80,200);
-    tree->Draw("mbb>>"+nameHist,cuts[iCAT]);
-    
-    TString nameHist0 = "mbb_base_"+names[0];
-    TH1D * hist0 = new TH1D(nameHist0,"",Nbins,80,200);
-    tree->Draw("mbb>>"+nameHist0,cuts[0]);
+    TH1D * hist = new TH1D(nameHist,"",Nbins,xmin,xmax);
+    TH1D * ratio = new TH1D(nameRatHist,"",Nbins,xmin,xmax);
+    tree->Draw("mbb>>"+nameHist,cuts[iCAT]);    
     delete dummy;
 
     double norm = hist->GetSumOfWeights();
@@ -85,7 +83,7 @@ void CreateDataTemplates_TF() {
       }
     }
 
-    RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",80,200);
+    RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
     RooRealVar a0("a0_"+names[iCAT],"a0",1.);
     RooRealVar a1("a1_"+names[iCAT],"a1",1.);
     RooRealVar a2("a2_"+names[iCAT],"a2",1.);

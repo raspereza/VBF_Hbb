@@ -15,7 +15,7 @@ void CreatePDF (int iCAT,
   tree->Draw("mbb>>"+nameHist,cuts[iCAT]);
   delete dummy;
 
-  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",80,200);
+  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
   RooRealVar b0("b0_"+names[iCAT],"b0",0,1);
   RooRealVar b1("b1_"+names[iCAT],"b1",0,1);
   RooRealVar b2("b2_"+names[iCAT],"b2",0,1);
@@ -75,7 +75,7 @@ void CreateDataTemplates() {
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","data");
 
-  int iorder[5] = {5,3,3,3,3};
+  int iorder[5] = {6,3,3,3,3};
 
   for (int i=0; i<5; ++i) 
     CreatePDF(i,iorder[i],tree,w);

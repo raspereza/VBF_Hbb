@@ -1,5 +1,7 @@
 #include "Common.h"
 
+
+
 using namespace RooFit;
 
 void CreateSignalPDF(int iCAT,
@@ -11,11 +13,12 @@ void CreateSignalPDF(int iCAT,
 
   TString nameGGHHist = "mbb_ggh";
   TString nameVBFHist = "mbb_vbf";
-  TH1D * histGGH = new TH1D(nameGGHHist,"",120,80,200);
-  TH1D * histVBF = new TH1D(nameVBFHist,"",120,80,200);
+  TH1D * histGGH = new TH1D(nameGGHHist,"",NbinsSig,xmin,xmax);
+  TH1D * histVBF = new TH1D(nameVBFHist,"",NbinsSig,xmin,xmax);
+
   TCanvas * dummy = new TCanvas("dummy","",800,700);
-  treeGGH->Draw("mbb>>"+nameGGHHist,"0.6*0.024*weight*("+cuts[iCAT]+")");
-  treeVBF->Draw("mbb>>"+nameVBFHist,"0.6*0.0034*weight*("+cuts[iCAT]+")");
+  treeGGH->Draw("mbb>>"+nameGGHHist,"weight*("+cuts[iCAT]+")");
+  treeVBF->Draw("mbb>>"+nameVBFHist,"weight*("+cuts[iCAT]+")");
   delete dummy;
 
   Float_t yieldGGH = histGGH->GetSumOfWeights();
@@ -23,7 +26,7 @@ void CreateSignalPDF(int iCAT,
   RooRealVar yield_GGH("ggh_yield_"+names[iCAT],"Yield",yieldGGH,0.,2*yieldGGH);
   RooRealVar yield_VBF("vbf_yield_"+names[iCAT],"Yield",yieldVBF,0.,2*yieldVBF);
 
-  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",80,200);
+  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
 
   RooRealVar mean("mean_sig_"+names[iCAT],"Mean",125,80,200);
   RooRealVar sigma("sigma_sig_"+names[iCAT],"Width",10,0,30);
@@ -82,10 +85,9 @@ void CreateSignalPDF(int iCAT,
 
 void CreateSignalTemplates() {
 
-  TFile * fileGGH = new TFile("GluGluHToBB_M125_stat.root");
-  TFile * fileVBF = new TFile("VBFHToBB_M_125_stat.root");  
-  TNtuple * treeGGH = (TNtuple*)fileGGH->Get("Stat");
-  TNtuple * treeVBF = (TNtuple*)fileVBF->Get("Stat");
+  TFile * file = new TFile("mbb_and_BDT.root");
+  TNtuple * treeGGH = (TNtuple*)file->Get("MinvS1");
+  TNtuple * treeVBF = (TNtuple*)file->Get("MinvS0");
 
   TFile * fileOutput = new TFile("signal_singleb_shapes.root","recreate");
   fileOutput->cd("");
