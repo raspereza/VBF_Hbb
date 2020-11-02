@@ -1,10 +1,15 @@
 #include "Common.h"
-
-void CreateDatacards() {
+// TF = true  : background model with the transfer functions
+// TF = false : background model based on Bernstein polynomials, QCD spectra are fit independently in different categories 
+void CreateDatacards(bool TF = true) {
 
   using namespace RooFit;
 
-  TFile * file = new TFile("data_singleb_shapes.root");
+  TString suffix("");
+  if (TF)
+    suffix = "_tf";
+
+  TFile * file = new TFile("data_singleb_shapes"+suffix+".root");
   TFile * fileSig = new TFile("signal_singleb_shapes.root");
   RooWorkspace * w = (RooWorkspace*)file->Get("w");
   RooWorkspace * wSig = (RooWorkspace*)fileSig->Get("w");
@@ -29,7 +34,7 @@ void CreateDatacards() {
     float sigmaE = sigmaVar->getError();
 
     ostringstream str;
-    str << "datacards_singleb_" << names[i] << ".txt";
+    str << "datacards_singleb_" << names[i] << suffix << ".txt";
     string nn = str.str();
     const char * p = nn.c_str();
     std::ofstream textfile(p);
@@ -37,8 +42,8 @@ void CreateDatacards() {
     textfile << "jmax *" << endl;
     textfile << "kmax *" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
-    textfile << "shapes          qcd             *   data_singleb_shapes.root     w:qcd_$CHANNEL" << endl;
-    textfile << "shapes          data_obs        *   data_singleb_shapes.root     w:data_$CHANNEL" << endl;
+    textfile << "shapes          qcd             *   data_singleb_shapes" << suffix << ".root     w:qcd_$CHANNEL" << endl;
+    textfile << "shapes          data_obs        *   data_singleb_shapes" << suffix << ".root     w:data_$CHANNEL" << endl;
     textfile << "shapes          qqH_hbb         *   signal_singleb_shapes.root   w:sig_$CHANNEL" << endl;
     textfile << "shapes          ggH_hbb         *   signal_singleb_shapes.root   w:sig_$CHANNEL" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
@@ -58,7 +63,7 @@ void CreateDatacards() {
     textfile << "CMS_vbfbb_res_mbb_13TeV_2018    param 1.0 0.035" << endl;
     //    textfile << "mean_sig_" << names[i] << "     param " << mean << " " << meanE << endl;
     //    textfile << "sigma_sig_" << names[i] << "    param " << sigma << " " << sigmaE << endl;
-    textfile << "bkgNorm_" << names[i] << "  rateParam  " << names[i] << "   qcd   1   [0.5,1.5]" << endl;
+    //    textfile << "bkgNorm_" << names[i] << "  rateParam  " << names[i] << "   qcd   1   [0.5,1.5]" << endl;
     textfile << endl;
   }
 
