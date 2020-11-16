@@ -2,29 +2,44 @@
 
 using namespace RooFit;
 
-void CreateDataTemplates_TF() {
+void CreateQCDTemplates_TF() {
 
   int iORDER = 6; // Order of BRN polynome for baseline function 
   int iorder[5] = {1,2,2,2,2}; // order polynomials of the transfer functions
 
   TFile * file = new TFile("/afs/cern.ch/work/m/mukherje/public/ForVBFHbb/mbb_and_bdt_all_BJETbtg.root");
   TTree * tree = (TTree*)file->Get("Mass_and_BDT_DATA");
-
+  TNtuple * tree_tt = (TNtuple*)file->Get("Mass_and_BDT_tt");
+  TNtuple * tree_zj = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
   TFile * fileOutput = new TFile("root_shape/data_singleb_nominalModel_TF_14_10_2020.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","data");
   
   TH1::SetDefaultSumw2(true);
-
   TCanvas * dummy = new TCanvas("dummy","",800,700);
   TString nameHist = "mbb_"+names[0];
   TString nameHistRatio = "mbb_ratio_"+names[0];
+  TString nameHist_tt = "mbb_tt_"+names[0];
+  TString nameHistRatio_tt = "mbb_ratio_tt_"+names[0];
+  TString nameHist_zj = "mbb_zj_"+names[0];
+  TString nameHistRatio_zj = "mbb_ratio_zj_"+names[0];
   TH1D * hist = new TH1D(nameHist,"",Nbins,xmin,xmax);
   TH1D * histRatio = new TH1D(nameHistRatio,"",NbinsBkg,xmin,xmax); 
+  TH1D * hist_tt = new TH1D(nameHist_tt,"",Nbins,xmin,xmax);
+  TH1D * histRatio_tt = new TH1D(nameHistRatio_tt,"",NbinsBkg,xmin,xmax);
+  TH1D * hist_zj = new TH1D(nameHist_zj,"",Nbins,xmin,xmax);
+  TH1D * histRatio_zj = new TH1D(nameHistRatio_zj,"",NbinsBkg,xmin,xmax);
   tree->Draw("mbb>>"+nameHist,cuts[0]);
   tree->Draw("mbb>>"+nameHistRatio,cuts[0]);
+  tree_tt->Draw("mbb>>"+nameHist_tt,cuts[0]);
+  tree_tt->Draw("mbb>>"+nameHistRatio_tt,cuts[0]);
+  tree_zj->Draw("mbb>>"+nameHist_zj,cuts[0]);
+  tree_zj->Draw("mbb>>"+nameHistRatio_zj,cuts[0]);
+  hist->Add(hist_tt,-1);
+  hist->Add(hist_zj,-1);
+  histRatio->Add(histRatio_tt,-1);
+  histRatio->Add(histRatio_zj,-1);
   delete dummy;
-
   RooRealVar mbb("mbb_"+names[0],"mass(bb)",xmin,xmax);
   RooRealVar b0("b0_"+names[0],"b0",0,1);
   RooRealVar b1("b1_"+names[0],"b1",0,1);
@@ -79,11 +94,27 @@ void CreateDataTemplates_TF() {
     TCanvas * dummy = new TCanvas("dummy","",800,700);
     TString nameHist_ = "mbb_"+names[iCAT];
     TString nameHistRatio_ = "mbb_ratio_"+names[iCAT];
+    TString nameHist_tt_ = "mbb_tt_"+names[iCAT];
+    TString nameHistRatio_tt_ = "mbb_ratio_tt_"+names[iCAT];
+    TString nameHist_zj_ = "mbb_zj_"+names[iCAT];
+    TString nameHistRatio_zj_ = "mbb_ratio_zj_"+names[iCAT];
     TH1D * hist_ = new TH1D(nameHist_,"",Nbins,xmin,xmax);
     TH1D * histRatio_ = new TH1D(nameHistRatio_,"",NbinsBkg,xmin,xmax); // coarser binning
+    TH1D * hist_tt_ = new TH1D(nameHist_tt_,"",Nbins,xmin,xmax);
+    TH1D * histRatio_tt_ = new TH1D(nameHistRatio_tt_,"",NbinsBkg,xmin,xmax); // coarser binning
+    TH1D * hist_zj_ = new TH1D(nameHist_zj_,"",Nbins,xmin,xmax);
+    TH1D * histRatio_zj_ = new TH1D(nameHistRatio_zj_,"",NbinsBkg,xmin,xmax); // coarser binning
     tree->Draw("mbb>>"+nameHist_,cuts[iCAT]);    
     tree->Draw("mbb>>"+nameHistRatio_,cuts[iCAT]);    
+    tree_tt->Draw("mbb>>"+nameHist_tt_,cuts[iCAT]);
+    tree_tt->Draw("mbb>>"+nameHistRatio_tt_,cuts[iCAT]);
+    tree_zj->Draw("mbb>>"+nameHist_zj_,cuts[iCAT]);
+    tree_zj->Draw("mbb>>"+nameHistRatio_zj_,cuts[iCAT]);
     delete dummy;
+    hist_->Add(hist_tt_,-1);
+    hist_->Add(hist_zj_,-1);
+    histRatio_->Add(histRatio_tt_,-1);
+    histRatio_->Add(histRatio_zj_,-1);
 
     TH1D * ratio = DivideHist(histRatio_,histRatio,"ratio_"+names[iCAT]);
 
