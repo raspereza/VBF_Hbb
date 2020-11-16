@@ -53,12 +53,12 @@ void CreateDatacards_all(bool TF = true) {
     textfile << "jmax *" << endl;
     textfile << "kmax *" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
-    textfile << "shapes          qcd             *   root_shape/data_singleb_nominalModel_TF_14_10_2020.root       w:qcd_$CHANNEL" << endl;
-    textfile << "shapes          data_obs        *   root_shape/data_singleb_nominalModel_TF_14_10_2020.root       w:data_$CHANNEL" << endl;
-    textfile << "shapes          qqH_hbb         *   root_shape/signal_SingleB_14_11_2020.root   w:sig_$CHANNEL" << endl;
-    textfile << "shapes          ggH_hbb         *   root_shape/signal_SingleB_14_11_2020.root   w:sig_$CHANNEL" << endl;
-    textfile << "shapes          tt              *   root_shape/tt_singleb_shapes_14_11_2020.root  w:tt_$CHANNEL" << endl;
-    textfile << "shapes          zj              *   root_shape/zjets_singleb_shapes_14_11_2020.root  w:zj_$CHANNEL" << endl;
+    textfile << "shapes          qcd             *   SingleBTag/root_shape/data_singleb_nominalModel_TF_14_10_2020.root       w:qcd_$CHANNEL" << endl;
+    textfile << "shapes          data_obs        *   SingleBTag/root_shape/data_singleb_nominalModel_TF_14_10_2020.root       w:data_$CHANNEL" << endl;
+    textfile << "shapes          qqH_hbb         *   SingleBTag/root_shape/signal_SingleB_14_11_2020.root   w:sig_$CHANNEL" << endl;
+    textfile << "shapes          ggH_hbb         *   SingleBTag/root_shape/signal_SingleB_14_11_2020.root   w:sig_$CHANNEL" << endl;
+    textfile << "shapes          tt              *   SingleBTag/root_shape/tt_singleb_shapes_14_11_2020.root  w:tt_$CHANNEL" << endl;
+    textfile << "shapes          zj              *   SingleBTag/root_shape/zjets_singleb_shapes_14_11_2020.root  w:zj_$CHANNEL" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
     textfile << "bin             " << names[i] << endl;
     textfile << "observation   -1" << endl;
