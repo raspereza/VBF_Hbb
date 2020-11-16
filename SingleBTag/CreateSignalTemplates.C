@@ -87,11 +87,11 @@ void CreateSignalPDF(int iCAT,
 
 void CreateSignalTemplates() {
 
-  TFile * file = new TFile("mbb_and_BDT.root");
-  TNtuple * treeGGH = (TNtuple*)file->Get("MinvS1");
-  TNtuple * treeVBF = (TNtuple*)file->Get("MinvS0");
+  TFile * file = new TFile("/afs/cern.ch/work/m/mukherje/public/ForVBFHbb/mbb_and_bdt_all_BJETbtg.root");
+  TNtuple * treeGGH = (TNtuple*)file->Get("Mass_and_BDT_ggF_Hbb");
+  TNtuple * treeVBF = (TNtuple*)file->Get("Mass_and_BDT_VBF_Hbb");
 
-  TFile * fileOutput = new TFile("signal_singleb_shapes.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/signal_SingleB_14_11_2020.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","signal");
 

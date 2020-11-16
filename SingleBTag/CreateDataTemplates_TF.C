@@ -7,10 +7,10 @@ void CreateDataTemplates_TF() {
   int iORDER = 6; // Order of BRN polynome for baseline function 
   int iorder[5] = {1,2,2,2,2}; // order polynomials of the transfer functions
 
-  TFile * file = new TFile("mbb_and_BDT.root");
-  TTree * tree = (TTree*)file->Get("MinvO");
+  TFile * file = new TFile("/afs/cern.ch/work/m/mukherje/public/ForVBFHbb/mbb_and_bdt_all_BJETbtg.root");
+  TTree * tree = (TTree*)file->Get("Mass_and_BDT_DATA");
 
-  TFile * fileOutput = new TFile("data_singleb_shapes_tf.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/data_singleb_nominalModel_TF_14_10_2020.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","data");
   
