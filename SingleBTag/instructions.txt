@@ -1,0 +1,48 @@
+Input root file: /afs/cern.ch/work/m/mukherje/public/ForVBFHbb/mbb_and_bdt_all_BJETbtg.root 
+It is in public directory so no need to change it: 
+
+
+(i) signal modelling: 
+CreateSignalTemplates.C
+
+It creates signal modelling root workspaces in root_shape/ directory named: "signal_SingleB_14_11_2020.root" 
+
+(ii) background modelling: 
+A. CreateQCDTemplates_TF.C 
+
+It creates QCD background modelling after the substraction of the two backgrounds tt & zjets-->bb 
+It uses the TF function method and creates root workspace in root_shape/ with a name: data_singleb_nominalModel_TF_14_10_2020.root 
+
+
+B. CreateDataTemplates_TF.C
+
+It creates QCD backgrounds directly from data no mc backgrounds substraction. 
+It uses the TF function method and creates root workspace in root_shape/ with a name: data_singleb_nominalModel_QCDonly_TF_14_10_2020.root
+
+
+(iii) tt and zjets contribution
+
+CreateZJetsTemplates.C --> output file in root_shape/ with named: zjets_singleb_shapes_14_11_2020.root 
+CreateTopTemplates.C   --> output file in root_shape/ with named: tt_singleb_shapes_14_11_2020.root
+
+
+(iv) datacard production: 
+CreateDatacards_all.C
+
+takes the worskpaces from root_shape/ directory
+and makes the datacards here: datacard 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
