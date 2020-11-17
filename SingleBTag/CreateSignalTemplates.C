@@ -91,7 +91,7 @@ void CreateSignalTemplates() {
   TNtuple * treeGGH = (TNtuple*)file->Get("Mass_and_BDT_ggF_Hbb");
   TNtuple * treeVBF = (TNtuple*)file->Get("Mass_and_BDT_VBF_Hbb");
 
-  TFile * fileOutput = new TFile("root_shape/signal_SingleB_14_11_2020.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/signal_singleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","signal");
 

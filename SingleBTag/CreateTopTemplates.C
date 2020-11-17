@@ -86,7 +86,7 @@ void CreateTopTemplates() {
   TFile * file = new TFile("/afs/cern.ch/work/m/mukherje/public/ForVBFHbb/mbb_and_bdt_all_BJETbtg.root");
   TNtuple * treett = (TNtuple*)file->Get("Mass_and_BDT_tt");
 
-  TFile * fileOutput = new TFile("root_shape/tt_singleb_shapes_14_11_2020.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/tt_singleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","w");
 

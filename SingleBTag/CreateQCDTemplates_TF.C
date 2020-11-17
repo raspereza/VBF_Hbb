@@ -11,7 +11,7 @@ void CreateQCDTemplates_TF() {
   TTree * tree = (TTree*)file->Get("Mass_and_BDT_DATA");
   TNtuple * tree_tt = (TNtuple*)file->Get("Mass_and_BDT_tt");
   TNtuple * tree_zj = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
-  TFile * fileOutput = new TFile("root_shape/data_singleb_nominalModel_TF_14_10_2020.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/data_singleb_shapes_TF.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","data");
   
@@ -31,12 +31,8 @@ void CreateQCDTemplates_TF() {
   TH1D * histRatio_zj = new TH1D(nameHistRatio_zj,"",NbinsBkg,xmin,xmax);
   tree->Draw("mbb>>"+nameHist,cuts[0]);
   tree->Draw("mbb>>"+nameHistRatio,cuts[0]);
-  tree_tt->Draw("mbb>>"+nameHist_tt,cuts[0]);
-  tree_tt->Draw("mbb>>"+nameHistRatio_tt,cuts[0]);
-  tree_zj->Draw("mbb>>"+nameHist_zj,cuts[0]);
-  tree_zj->Draw("mbb>>"+nameHistRatio_zj,cuts[0]);
-  hist->Add(hist_tt,-1);
-  hist->Add(hist_zj,-1);
+  tree_tt->Draw("mbb>>"+nameHistRatio_tt,"weight*("+cuts[0]+")");
+  tree_zj->Draw("mbb>>"+nameHistRatio_zj,"weight*("+cuts[0]+")");
   histRatio->Add(histRatio_tt,-1);
   histRatio->Add(histRatio_zj,-1);
   delete dummy;
@@ -54,7 +50,7 @@ void CreateQCDTemplates_TF() {
   b4.setConstant(false);
   b5.setConstant(false);
 
-  Float_t yield = hist->GetSumOfWeights();
+  Float_t yield = histRatio->GetSumOfWeights();
   RooRealVar qcd_yield("qcd_yield_"+names[0],"Yield",yield,0.5*yield,2*yield);
 
   RooArgList argList(b0,b1,b2);
@@ -66,9 +62,10 @@ void CreateQCDTemplates_TF() {
     argList.add(b5);
   
   RooBernstein BRN("qcd_"+names[0],"qcd_"+names[0],mbb,argList);
+  RooDataHist dataSubtr("data_subtr_"+names[0],"data",mbb,histRatio);
   RooDataHist data("data_"+names[0],"data",mbb,hist);
 
-  RooFitResult * res = BRN.fitTo(data,Save());  
+  RooFitResult * res = BRN.fitTo(dataSubtr,Save());  
 
   cout << endl;
   cout << "+++++++++++++++ " << names[0] << " +++++++++++++++++++" << endl;
@@ -100,19 +97,13 @@ void CreateQCDTemplates_TF() {
     TString nameHistRatio_zj_ = "mbb_ratio_zj_"+names[iCAT];
     TH1D * hist_ = new TH1D(nameHist_,"",Nbins,xmin,xmax);
     TH1D * histRatio_ = new TH1D(nameHistRatio_,"",NbinsBkg,xmin,xmax); // coarser binning
-    TH1D * hist_tt_ = new TH1D(nameHist_tt_,"",Nbins,xmin,xmax);
     TH1D * histRatio_tt_ = new TH1D(nameHistRatio_tt_,"",NbinsBkg,xmin,xmax); // coarser binning
-    TH1D * hist_zj_ = new TH1D(nameHist_zj_,"",Nbins,xmin,xmax);
     TH1D * histRatio_zj_ = new TH1D(nameHistRatio_zj_,"",NbinsBkg,xmin,xmax); // coarser binning
     tree->Draw("mbb>>"+nameHist_,cuts[iCAT]);    
     tree->Draw("mbb>>"+nameHistRatio_,cuts[iCAT]);    
-    tree_tt->Draw("mbb>>"+nameHist_tt_,cuts[iCAT]);
-    tree_tt->Draw("mbb>>"+nameHistRatio_tt_,cuts[iCAT]);
-    tree_zj->Draw("mbb>>"+nameHist_zj_,cuts[iCAT]);
-    tree_zj->Draw("mbb>>"+nameHistRatio_zj_,cuts[iCAT]);
+    tree_tt->Draw("mbb>>"+nameHistRatio_tt_,"weight*("+cuts[iCAT]+")");
+    tree_zj->Draw("mbb>>"+nameHistRatio_zj_,"weight*("+cuts[iCAT]+")");
     delete dummy;
-    hist_->Add(hist_tt_,-1);
-    hist_->Add(hist_zj_,-1);
     histRatio_->Add(histRatio_tt_,-1);
     histRatio_->Add(histRatio_zj_,-1);
 
@@ -152,7 +143,7 @@ void CreateQCDTemplates_TF() {
 
     RooBernstein baseFunc("qcd_aux_"+names[iCAT],"aux",mbb_,argList);
     RooProdPdf qcd("qcd_"+names[iCAT],"qcd"+names[iCAT],RooArgSet(baseFunc,tf));
-    Float_t yield = hist_->GetSumOfWeights();
+    Float_t yield = histRatio_->GetSumOfWeights();
     RooRealVar qcd_yield_("qcd_yield_"+names[iCAT],"Yield",yield,0.5*yield,2*yield);
   
     w->import(qcd);
