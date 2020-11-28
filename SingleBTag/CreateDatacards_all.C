@@ -25,7 +25,7 @@ void CreateDatacards_all(bool TF = true) {
 
     RooRealVar * qqHRateVar = wSig->var("vbf_yield_"+names[i]);
     RooRealVar * ggHRateVar = wSig->var("ggh_yield_"+names[i]);
-    RooRealVar * qcdRateVar = w->var("qcd_yield_"+names[i]);
+    RooRealVar * qcdRateVar = w->var("qcd_"+names[i]+"_norm");
     RooRealVar * ttRateVar = wtt->var("tt_yield_"+names[i]);
     RooRealVar * wjRateVar = wzj->var("zj_yield_"+names[i]);
     
@@ -66,7 +66,7 @@ void CreateDatacards_all(bool TF = true) {
     textfile << "bin             " << names[i] << "   " << names[i] << "   " << names[i] << "   " <<   names[i] << "   " << names[i] <<  endl;
     textfile << "process          ggH_hbb   qqH_hbb   qcd   tt    zj " << endl;
     textfile << "process            -1         0       1     2    3 " << endl;
-    textfile << "rate            " << ggH_rate << "  " << qqH_rate << " " << qcd_rate <<  " " << tt_rate << "  " << wj_rate << endl;
+    textfile << "rate            " << ggH_rate << "  " << qqH_rate << " 1.0  " << tt_rate << "  " << wj_rate << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
     textfile << "CMS_ggH_sys       lnN  1.15   -      -     -    -" << endl;
     textfile << "CMS_qqH_sys       lnN   -    1.15    -     -    -" << endl;
