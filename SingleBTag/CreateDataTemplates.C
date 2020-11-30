@@ -41,7 +41,8 @@ void CreatePDF (int iCAT,
   b5.setConstant(false);
 
   Float_t yield = hist->GetSumOfWeights();
-  RooRealVar qcd_yield("qcd_yield_"+names[iCAT],"Yield",yield,0.5*yield,2*yield);
+  RooRealVar qcd_yield("qcd_"+names[iCAT]+"_norm","Yield",yield,0.5*yield,2*yield);
+  //RooRealVar qcd_yield("qcd_yield_"+names[iCAT],"Yield",yield,0.5*yield,2*yield);
 
   RooArgList argList(b0,b1,b2);
   if (iORDER>=4)
