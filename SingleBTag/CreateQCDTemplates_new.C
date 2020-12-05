@@ -1,17 +1,17 @@
-#include "Common.h"
+#include "Common_new.h"
 
 using namespace RooFit;
 
-void CreateQCDTemplates_TF() {
+void CreateQCDTemplates_new() {
 
-  int iORDER = 6; // Order of BRN polynome for baseline function 
-  int iorder[5] = {1,2,2,2,2}; // order polynomials of the transfer functions
+  int iORDER = 5; // Order of BRN polynome for baseline function 
+  int iorder[5] = {1,3,3,3,3}; // order polynomials of the transfer functions
 
   TFile * file = new TFile("/afs/cern.ch/work/m/mukherje/public/ForVBFHbb/mbb_and_bdt_all_BJETbtg.root");
   TTree * tree = (TTree*)file->Get("Mass_and_BDT_DATA");
   TNtuple * tree_tt = (TNtuple*)file->Get("Mass_and_BDT_tt");
   TNtuple * tree_zj = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
-  TFile * fileOutput = new TFile("root_shape/data_singleb_shapes_TF_order3.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/data_singleb_new.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","data");
   
@@ -37,12 +37,12 @@ void CreateQCDTemplates_TF() {
   histRatio->Add(histRatio_zj,-1);
   delete dummy;
   RooRealVar mbb("mbb_"+names[0],"mass(bb)",xmin,xmax);
-  RooRealVar b0("b0_"+names[0],"b0",0,1);
-  RooRealVar b1("b1_"+names[0],"b1",0,1);
-  RooRealVar b2("b2_"+names[0],"b2",0,1);
-  RooRealVar b3("b3_"+names[0],"b3",0,1);
-  RooRealVar b4("b4_"+names[0],"b4",0,1);
-  RooRealVar b5("b5_"+names[0],"b5",0,1);
+  RooRealVar b0("b0_"+names[0],"b0",-2.0,2.0);
+  RooRealVar b1("b1_"+names[0],"b1",-2.0,2.0);
+  RooRealVar b2("b2_"+names[0],"b2",-2.0,2.0);
+  RooRealVar b3("b3_"+names[0],"b3",-2.0,2.0);
+  RooRealVar b4("b4_"+names[0],"b4",-2.0,2.0);
+  RooRealVar b5("b5_"+names[0],"b5",-2.0,2.0);
   b0.setConstant(false);
   b1.setConstant(false);
   b2.setConstant(false);
@@ -61,11 +61,12 @@ void CreateQCDTemplates_TF() {
   if (iORDER>=6)
     argList.add(b5);
   
-  RooBernstein BRN("qcd_"+names[0],"qcd_"+names[0],mbb,argList);
+
+  RooGenericPdf base_func("base_func",genericPolynoms.at(iORDER).c_str(),RooArgSet(mbb,argList));
   RooDataHist dataSubtr("data_subtr_"+names[0],"data",mbb,histRatio);
   RooDataHist data("data_"+names[0],"data",mbb,hist);
 
-  RooFitResult * res = BRN.fitTo(dataSubtr,Save());  
+  RooFitResult * res = base_func.fitTo(dataSubtr,Save());  
 
   cout << endl;
   cout << "+++++++++++++++ " << names[0] << " +++++++++++++++++++" << endl;
@@ -82,7 +83,7 @@ void CreateQCDTemplates_TF() {
   cout << "+++++++++++++++++++++++++++++++++++++++++" << endl;
   cout << endl;
 
-  w->import(BRN);
+  w->import(base_func);
   w->import(data);
   w->import(qcd_yield);
 

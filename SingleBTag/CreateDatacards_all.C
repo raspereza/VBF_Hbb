@@ -1,13 +1,13 @@
 #include "Common.h"
 // TF = true  : background model with the transfer functions
 // TF = false : background model based on Bernstein polynomials, QCD spectra are fit independently in different categories 
-void CreateDatacards_all(bool TF = true) {
+void CreateDatacards_all(bool TF = false) {
 
   using namespace RooFit;
 
   TString suffix("");
   if (TF)
-    suffix = "_TF";
+    suffix = "_TF_order3";
 
   TFile * file = new TFile("root_shape/data_singleb_shapes"+suffix+".root");
   TFile * fileSig = new TFile("root_shape/signal_singleb_shapes.root");
@@ -45,7 +45,7 @@ void CreateDatacards_all(bool TF = true) {
     float sigmaE = sigmaVar->getError();
 
     ostringstream str;
-    str << "datacard/datacards_singleb_" << names[i] << "_NominalModel" << suffix << ".txt";
+    str << "datacard"<< suffix << "/datacards_singleb_" << names[i] << "_NominalModel" << suffix << ".txt";
     string nn = str.str();
     const char * p = nn.c_str();
     std::ofstream textfile(p);
