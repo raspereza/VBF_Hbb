@@ -11,7 +11,7 @@ void CreateQCDTemplates_new() {
   TTree * tree = (TTree*)file->Get("Mass_and_BDT_DATA");
   TNtuple * tree_tt = (TNtuple*)file->Get("Mass_and_BDT_tt");
   TNtuple * tree_zj = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
-  TFile * fileOutput = new TFile("root_shape/data_singleb_new.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/data_singleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","data");
   
@@ -62,7 +62,7 @@ void CreateQCDTemplates_new() {
     argList.add(b5);
   
 
-  RooGenericPdf base_func("base_func",genericPolynoms.at(iORDER).c_str(),RooArgSet(mbb,argList));
+  RooGenericPdf base_func("qcd_"+names[0],genericPolynoms.at(iORDER).c_str(),RooArgSet(mbb,argList));
   RooDataHist dataSubtr("data_subtr_"+names[0],"data",mbb,histRatio);
   RooDataHist data("data_"+names[0],"data",mbb,hist);
 
@@ -142,8 +142,8 @@ void CreateQCDTemplates_new() {
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << endl;
 
-    RooBernstein baseFunc("qcd_aux_"+names[iCAT],"aux",mbb_,argList);
-    RooProdPdf qcd("qcd_"+names[iCAT],"qcd"+names[iCAT],RooArgSet(baseFunc,tf));
+    RooGenericPdf qcd_aux("qcd_aux_"+names[iCAT],genericPolynoms.at(iORDER).c_str(),RooArgSet(mbb_,argList));
+    RooProdPdf qcd("qcd_"+names[iCAT],"qcd"+names[iCAT],RooArgSet(qcd_aux,tf));
     Float_t yield = histRatio_->GetSumOfWeights();
     RooRealVar qcd_yield_("qcd_"+names[iCAT]+"_norm","Yield",yield,0.5*yield,2*yield);
   

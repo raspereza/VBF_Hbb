@@ -1,15 +1,11 @@
 #include "Common.h"
 // TF = true  : background model with the transfer functions
 // TF = false : background model based on Bernstein polynomials, QCD spectra are fit independently in different categories 
-void CreateDatacards_all(bool TF = false) {
+void CreateDatacards_all() {
 
   using namespace RooFit;
 
-  TString suffix("");
-  if (TF)
-    suffix = "_TF_order3";
-
-  TFile * file = new TFile("root_shape/data_singleb_shapes"+suffix+".root");
+  TFile * file = new TFile("root_shape/data_singleb_shapes.root");
   TFile * fileSig = new TFile("root_shape/signal_singleb_shapes.root");
   TFile * fileTop = new TFile("root_shape/tt_singleb_shapes.root");
   TFile * fileZj  = new TFile("root_shape/zjets_singleb_shapes.root");
@@ -45,7 +41,7 @@ void CreateDatacards_all(bool TF = false) {
     float sigmaE = sigmaVar->getError();
 
     ostringstream str;
-    str << "datacard"<< suffix << "/datacards_singleb_" << names[i] << "_NominalModel" << suffix << ".txt";
+    str << "datacard/datacards_singleb_" << names[i] << "_NominalModel.txt";
     string nn = str.str();
     const char * p = nn.c_str();
     std::ofstream textfile(p);
@@ -53,8 +49,8 @@ void CreateDatacards_all(bool TF = false) {
     textfile << "jmax *" << endl;
     textfile << "kmax *" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
-    textfile << "shapes          qcd             *   SingleBTag/root_shape/data_singleb_shapes" << suffix << ".root       w:qcd_$CHANNEL" << endl;
-    textfile << "shapes          data_obs        *   SingleBTag/root_shape/data_singleb_shapes" << suffix << ".root       w:data_$CHANNEL" << endl;
+    textfile << "shapes          qcd             *   SingleBTag/root_shape/data_singleb_shapes.root       w:qcd_$CHANNEL" << endl;
+    textfile << "shapes          data_obs        *   SingleBTag/root_shape/data_singleb_shapes.root       w:data_$CHANNEL" << endl;
     textfile << "shapes          qqH_hbb         *   SingleBTag/root_shape/signal_singleb_shapes.root   w:sig_$CHANNEL" << endl;
     textfile << "shapes          ggH_hbb         *   SingleBTag/root_shape/signal_singleb_shapes.root   w:sig_$CHANNEL" << endl;
     textfile << "shapes          tt              *   SingleBTag/root_shape/tt_singleb_shapes.root  w:tt_$CHANNEL" << endl;
