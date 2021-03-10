@@ -1,4 +1,4 @@
-#include "Common_new.h"
+#include "Common.h"
 // TF = true  : background model with the transfer functions
 // TF = false : background model based on Bernstein polynomials, QCD spectra are fit independently in different categories 
 void CreateDatacards_sys(bool TF = false) {
@@ -73,28 +73,17 @@ void CreateDatacards_sys(bool TF = false) {
   TH1F * zj_isr_dn = (TH1F*)fs->Get("ZJets_PS-ISR_dn");
   TH1F * zj_fsr_up = (TH1F*)fs->Get("ZJets_PS-FSR_up");
   TH1F * zj_fsr_dn = (TH1F*)fs->Get("ZJets_PS-FSR_dn");
+
   for (int i=0; i<5; ++i) {
 
-    RooRealVar * qqHRateVar = wSig->var("vbf_yield_"+names[i]);
-    RooRealVar * ggHRateVar = wSig->var("ggh_yield_"+names[i]);
-    RooRealVar * qcdRateVar = w->var("qcd_"+names[i]+"_norm");
-    RooRealVar * ttRateVar = wtt->var("tt_yield_"+names[i]);
-    RooRealVar * zjRateVar = wzj->var("zj_yield_"+names[i]);
-    
-    float qqH_rate = qqHRateVar->getValV();
-    float ggH_rate = ggHRateVar->getValV();
-    float qcd_rate = qcdRateVar->getValV();
-    float tt_rate  = ttRateVar->getValV();
-    float zj_rate  = zjRateVar->getValV();
+    //    RooRealVar * meanVar = wSig->var("mean_sig_"+names[i]);
+    //    RooRealVar * sigmaVar = wSig->var("sigma_sig_"+names[i]);
 
-    RooRealVar * meanVar = wSig->var("mean_sig_"+names[i]);
-    RooRealVar * sigmaVar = wSig->var("sigma_sig_"+names[i]);
+    //    float mean = meanVar->getValV();
+    //    float meanE = meanVar->getError();
 
-    float mean = meanVar->getValV();
-    float meanE = meanVar->getError();
-
-    float sigma = sigmaVar->getValV();
-    float sigmaE = sigmaVar->getError();
+    //    float sigma = sigmaVar->getValV();
+    //    float sigmaE = sigmaVar->getError();
 
     ostringstream str;
     str << "datacards_with_sys/datacards_singleb_" << names[i] << "_with_sys.txt";
@@ -107,8 +96,8 @@ void CreateDatacards_sys(bool TF = false) {
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
     textfile << "shapes          qcd             *   SingleBTag/root_shape/data_singleb_shapes.root       w:qcd_$CHANNEL" << endl;
     textfile << "shapes          data_obs        *   SingleBTag/root_shape/data_singleb_shapes.root       w:data_$CHANNEL" << endl;
-    textfile << "shapes          qqH_hbb         *   SingleBTag/root_shape/signal_singleb_shapes.root   w:sig_$CHANNEL" << endl;
-    textfile << "shapes          ggH_hbb         *   SingleBTag/root_shape/signal_singleb_shapes.root   w:sig_$CHANNEL" << endl;
+    textfile << "shapes          qqH_hbb         *   SingleBTag/root_shape/signal_singleb_shapes.root   w:qqH_$CHANNEL" << endl;
+    textfile << "shapes          ggH_hbb         *   SingleBTag/root_shape/signal_singleb_shapes.root   w:ggH_$CHANNEL" << endl;
     textfile << "shapes          tt              *   SingleBTag/root_shape/tt_singleb_shapes.root  w:tt_$CHANNEL" << endl;
     textfile << "shapes          zj              *   SingleBTag/root_shape/zjets_singleb_shapes.root  w:zj_$CHANNEL" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
@@ -118,30 +107,25 @@ void CreateDatacards_sys(bool TF = false) {
     textfile << "bin             " << names[i] << "   " << names[i] << "   " << names[i] << "   " <<   names[i] << "   " << names[i] <<  endl;
     textfile << "process          ggH_hbb   qqH_hbb   qcd   tt    zj " << endl;
     textfile << "process            -1         0       1     2    3 " << endl;
-    textfile << "rate            " << ggH_rate << "  " << qqH_rate << " 1.0  " << tt_rate << "  " << zj_rate << endl;
+    //    textfile << "rate            " << ggH_rate << "  " << qqH_rate << " 1.0  " << tt_rate << "  " << zj_rate << endl;
+    textfile << "rate     1     1    1    1    1" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
-    textfile << "CMS_BR_hbb     lnN	1.007/0.994	1.007/0.994	-	1.007/0.994	1.007/0.994" << endl;
+    textfile << "CMS_BR_hbb     lnN	1.007/0.994	1.007/0.994	-      -     -" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
-    textfile << "lumi_13TeV_2018      lnN  1.015    1.015    -    1.015    1.015 " << endl;
-    textfile << "lumi_13TeV_BBD_2018  lnN  -     -      -    -    -" << endl;
+    //    textfile << "lumi_13TeV_BBD_2018  lnN  -     -      -    -    -" << endl;
     textfile << "lumi_13TeV_BCC_2018  lnN  1.002    1.002    -     1.002   1.002" << endl;
-    textfile << "lumi_13TeV_DB_2018   lnN  -     -      -    -    -" << endl;
-    textfile << "lumi_13TeV_GS_2018   lnN  -     -      -    -    -" << endl;
+    //    textfile << "lumi_13TeV_DB_2018   lnN  -     -      -    -    -" << endl;
+    //    textfile << "lumi_13TeV_GS_2018   lnN  -     -      -    -    -" << endl;
     textfile << "lumi_13TeV_LS_2018   lnN  1.002    1.002    -    1.002   1.002" << endl;
     textfile << "lumi_13TeV_XY_2018   lnN  1.020    1.020    -    1.020   1.020" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
-    textfile << fixed << setprecision(3)<< "CMS_JER_2018        lnN     " << (1 + ggh_jer_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_jer_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_jer_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_jer_dn->GetBinContent(i+1))    <<  "        -       " <<   (1 + tt_jer_up->GetBinContent(i+1)) << "/" <<  (1 + tt_jer_dn->GetBinContent(i+1)) << "      " << (1 + zj_jer_up->GetBinContent(i+1)) << "/" <<  (1 + zj_jer_dn->GetBinContent(i+1))    << endl;
-    textfile << fixed << setprecision(3)<< "CMS_JEC_2018        lnN     " << (1 + ggh_jec_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_jec_dn->GetBinContent(i+1)) << "	" << (1 + vbfh_jec_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_jec_dn->GetBinContent(i+1))    <<  "	-	" <<   (1 + tt_jec_up->GetBinContent(i+1)) << "/" <<  (1 + tt_jec_dn->GetBinContent(i+1)) << "      " << (1 + zj_jec_up->GetBinContent(i+1)) << "/" <<  (1 + zj_jec_dn->GetBinContent(i+1))    << endl;                              
     textfile << fixed << setprecision(3)<< "CMS_BTag_2018       lnN     " << (1 + ggh_btg_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_btg_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_btg_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_btg_dn->GetBinContent(i+1))    << "        -       " <<   (1 + tt_btg_up->GetBinContent(i+1)) << "/" <<  (1 + tt_btg_dn->GetBinContent(i+1)) << "      " << (1 + zj_btg_up->GetBinContent(i+1)) << "/" <<  (1 + zj_btg_dn->GetBinContent(i+1))    << endl;
     textfile << fixed << setprecision(3)<< "CMS_PUweight_2018   lnN     " << (1 + ggh_pu_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_pu_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_pu_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_pu_dn->GetBinContent(i+1))    << "        -       " <<   (1 + tt_pu_up->GetBinContent(i+1)) << "/" <<  (1 + tt_pu_dn->GetBinContent(i+1)) << "      " << (1 + zj_pu_up->GetBinContent(i+1)) << "/" <<  (1 + zj_pu_dn->GetBinContent(i+1))    << endl;
     textfile << fixed << setprecision(3)<< "CMS_QGLweight_2018  lnN     " << (1 + ggh_qgl->GetBinContent(i+1)) <<  "  " << (1 + vbfh_qgl->GetBinContent(i+1)) << "        -       " <<   (1 + tt_qgl->GetBinContent(i+1)) << "      " << (1 + zj_qgl->GetBinContent(i+1))  << endl;
     textfile << fixed << setprecision(3)<< "CMS_PS_ISR_2018     lnN     " << (1 + ggh_isr_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_isr_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_isr_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_isr_dn->GetBinContent(i+1))    << "        -       " <<   (1 + tt_isr_up->GetBinContent(i+1)) << "/" <<  (1 + tt_isr_dn->GetBinContent(i+1)) << "      " << (1 + zj_isr_up->GetBinContent(i+1)) << "/" <<  (1 + zj_isr_dn->GetBinContent(i+1))    << endl;
     textfile << fixed << setprecision(3)<< "CMS_PS_FSR_2018     lnN     " << (1 + ggh_fsr_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_fsr_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_fsr_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_fsr_dn->GetBinContent(i+1))    << "        -       " <<   (1 + tt_fsr_up->GetBinContent(i+1)) << "/" <<  (1 + tt_fsr_dn->GetBinContent(i+1)) << "      " << (1 + zj_fsr_up->GetBinContent(i+1)) << "/" <<  (1 + zj_fsr_dn->GetBinContent(i+1))    << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
-    textfile << "CMS_ggH_sys       lnN  1.15   -      -     -    -" << endl;
-    textfile << "CMS_qqH_sys       lnN   -    1.15    -     -    -" << endl;
-    textfile << "CMS_sig_corrsys   lnN  1.20  1.10    -     -    -" << endl;
-    textfile << "CMS_norm_zjets    lnN   -     -      -     -  1.3" << endl;
+    textfile << "CMS_norm_zj       lnN   -     -      -     -  1.3" << endl;
     textfile << "CMS_norm_tt       lnN   -     -      -   1.3    -" << endl;   
     textfile << "QCDscale_ggH      lnN  1.046/0.933   -    -    -    -" << endl;
     textfile << "PDFscale_ggH      lnN  1.019/0.981   -    -    -    -" << endl;
@@ -150,12 +134,14 @@ void CreateDatacards_sys(bool TF = false) {
     textfile << "PDFscale_qqH      lnN  -   1.021/0.979    -    -    -" << endl;
     textfile << "alphas_qqH        lnN  -   1.005/0.995    -    -    -" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
-    textfile << "CMS_vbfbb_scale_mbb_13TeV_2018  param 1.0 0.015" << endl; 
-    textfile << "CMS_vbfbb_res_mbb_13TeV_2018    param 1.0 0.035" << endl;
-    textfile << "CMS_zj_scale_mbb_13TeV_2018  param 1.0 0.015" << endl; 
-    textfile << "CMS_zj_res_mbb_13TeV_2018    param 1.0 0.035" << endl;
-    textfile << "CMS_tt_scale_mbb_13TeV_2018  param 1.0 0.015" << endl; 
-    textfile << "CMS_tt_res_mbb_13TeV_2018    param 1.0 0.035" << endl;
+    textfile << "CMS_JES_2018  param 0.0 1.0" << endl;
+    textfile << "CMS_JER_2018  param 0.0 1.0" << endl;
+    //    textfile << "CMS_vbfbb_scale_mbb_13TeV_2018  param 1.0 0.015" << endl; 
+    //    textfile << "CMS_vbfbb_res_mbb_13TeV_2018    param 1.0 0.035" << endl;
+    //    textfile << "CMS_zj_scale_mbb_13TeV_2018  param 1.0 0.015" << endl; 
+    //    textfile << "CMS_zj_res_mbb_13TeV_2018    param 1.0 0.035" << endl;
+    //    textfile << "CMS_tt_scale_mbb_13TeV_2018  param 1.0 0.015" << endl; 
+    //    textfile << "CMS_tt_res_mbb_13TeV_2018    param 1.0 0.035" << endl;
     //    textfile << "mean_sig_" << names[i] << "     param " << mean << " " << meanE << endl;
     //    textfile << "sigma_sig_" << names[i] << "    param " << sigma << " " << sigmaE << endl;
     //    textfile << "bkgNorm_" << names[i] << "  rateParam  " << names[i] << "   qcd   1   [0.5,1.5]" << endl;
