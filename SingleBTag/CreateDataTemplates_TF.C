@@ -40,7 +40,7 @@ void CreateDataTemplates_TF() {
   b5.setConstant(false);
 
   Float_t yield = hist->GetSumOfWeights();
-  RooRealVar qcd_yield("qcd_yield_"+names[0],"Yield",yield,0.5*yield,2*yield);
+  RooRealVar qcd_yield("qcd_"+names[0]+"_norm","Yield",yield,0.5*yield,2*yield);
 
   RooArgList argList(b0,b1,b2);
   if (iORDER>=4)
@@ -122,7 +122,7 @@ void CreateDataTemplates_TF() {
     RooBernstein baseFunc("qcd_aux_"+names[iCAT],"aux",mbb_,argList);
     RooProdPdf qcd("qcd_"+names[iCAT],"qcd"+names[iCAT],RooArgSet(baseFunc,tf));
     Float_t yield = hist_->GetSumOfWeights();
-    RooRealVar qcd_yield_("qcd_yield_"+names[iCAT],"Yield",yield,0.5*yield,2*yield);
+    RooRealVar qcd_yield_("qcd_"+names[iCAT]+"_norm","Yield",yield,0.5*yield,2*yield);
   
     w->import(qcd);
     w->import(data_);
