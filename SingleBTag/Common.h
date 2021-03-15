@@ -1,6 +1,14 @@
 #include "TH1.h"
 #include <string>
 
+std::map<TString,TString> label = {
+    {"Nom",    "Nominal"},
+    {"JESUp",  "JESUp  "},
+    {"JESDown","JESDown"},
+    {"JERUp",  "JERUp  "},
+    {"JERDown","JERDown"},
+};
+
 TString cuts[5] = {"bdtout<0.0",
 		   "bdtout>=0.0&&bdtout<0.3",
 		   "bdtout>=0.3&&bdtout<0.6",
@@ -9,7 +17,7 @@ TString cuts[5] = {"bdtout<0.0",
 
 TString dirName = "/afs/cern.ch/user/t/tumasyan/public/For_Soumya/Systematics_ROOTS";
 TString FileNamesBDT[5] = {
-  "mbb_and_bdt_all_Nom_JEC.root",
+  "mbb_and_bdt_all_Nom_JER.root",
   "mbb_and_bdt_all_Up_JEC.root",
   "mbb_and_bdt_all_Down_JEC.root",
   "mbb_and_bdt_all_Up_JER.root",
@@ -50,7 +58,7 @@ std::vector<std::string> namesCAT = {
 }; // needed to define transfer functions
 
 int NbinsBkg = 150;
-int NbinsSig =  30;
+int NbinsSig = 30;
 int Nbins = 1500;
 float xmin = 80;
 float xmax = 230;

@@ -1,7 +1,7 @@
 #include "HttStylesNew.cc"
 #include "Common.h"
 
-void PlotTTDSCB(int iCAT=0) {
+void PlotTTDSCB(int iCAT=-1) {
 
   using namespace RooFit;
 
@@ -9,77 +9,123 @@ void PlotTTDSCB(int iCAT=0) {
   
   SetStyle();
 
-  TFile * file = new TFile("/afs/cern.ch/user/t/tumasyan/public/ToBeChecked/mbb_and_bdt_all_BJETbtg.root");
+  double B0 = 0.5;
+  double B1 = 0.5;
+  double B2 = 0.5;
+  double FSig = 0.5;
+
+  std::map<TString, TNtuple*> tree;
+  for (int i=0; i<5; ++i) {
+    TFile * file = new TFile(dirName+"/"+FileNamesBDT[i]);
+    tree[sysNames[i]] = (TNtuple*)file->Get("Mass_and_BDT_tt");
+  }
   
-  TNtuple * treewbb = (TNtuple*)file->Get("Mass_and_BDT_tt");
+  std::map<TString, double> mapMean;
+  std::map<TString, double> mapSigma;
+  std::map<TString, double> mapAlpha;
+  std::map<TString, double> mapN;
+  std::map<TString, double> mapFSig;
+  std::map<TString, double> mapNorm;
 
-
-  TH1D * histwbb;
-
-  Float_t yieldwbb;
-  
-  TString namewbbhist = "mbb_wbb";
-
-  histwbb = new TH1D(namewbbhist,"",NbinsSig,xmin,xmax);
-
-  TCanvas * dummy = new TCanvas("dummy","",800,700);
-  treewbb->Draw("mbb>>"+namewbbhist,"weight*("+cuts[iCAT]+")");
-
-  delete dummy;
-
-  InitData(histwbb);
-  InitHist(histwbb,"","",kYellow,1001);
-
-  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
-
-  RooRealVar mean("mean_sig_"+names[iCAT],"Mean",125,80,200);
-  RooRealVar meanScale("CMS_mbb_scale","Mean",125,80,200);
-  RooRealVar sigma("sigma_sig_"+names[iCAT],"Width",50,0,50);
-  RooRealVar alpha1("alpha1_sig_"+names[iCAT],"Alpha",2.0,0.5,10.);
-  RooRealVar n1("n1_sig_"+names[iCAT],"n",4,3,20);
-  RooRealVar alpha2("alpha2_sig_"+names[iCAT],"Alpha",1.0,0,10.);
-  RooRealVar n2("n2_sig_"+names[iCAT],"n",2,0,20);
+  for (auto sysName : sysNames) {
     
-  RooRealVar b0("b0_sig_"+names[iCAT],"b0",0,1);
-  RooRealVar b1("b1_sig_"+names[iCAT],"b1",0,1);
-  RooRealVar b2("b2_sig_"+names[iCAT],"b2",0,1);
+    TNtuple * treezbb = tree[sysName];
 
-  RooRealVar fsig("fsig_"+names[iCAT],"fsig",0,1);
+    TString namezbbhist = "mbb_zbb";
 
-  RooRealVar mean_scale("CMS_vbfbb_scale_mbb_selsingle_13TeV_2018","Mbb_scale",1.0,0.5,1.5);
-  RooRealVar sigma_res("CMS_vbfbb_res_mbb_selsingle_13TeV_2018","Mbb_scale",1.0,0.5,1.5);
+    TH1D * histzbb = new TH1D(namezbbhist,"",NbinsSig,xmin,xmax);
+
+    TCanvas * dummy = new TCanvas("dummy","",800,700);
+    if (iCAT>=0)
+      treezbb->Draw("mbb>>"+namezbbhist,"weight*("+cuts[iCAT]+")");
+    else
+      treezbb->Draw("mbb>>"+namezbbhist,"weight");
+
+    delete dummy;
+
+    InitData(histzbb);
+    InitHist(histzbb,"","",kYellow,1001);
+
+    RooRealVar mbb("mbb","mass(bb)",xmin,xmax);
+
+    RooRealVar mean("mean","Mean",92,80,200);
+    RooRealVar sigma("sigma","Width",10,0,100);
+    RooRealVar alpha("alpha","Alpha",2,0,100);
+    RooRealVar n("n","n",1,0,100);
     
-  RooFormulaVar mean_shifted("mean_shifted_sig","@0*@1",RooArgList(mean,mean_scale));
-  RooFormulaVar sigma_shifted("sigma_res_sig","@0*@1",RooArgList(sigma,sigma_res));
+    RooRealVar b0("b0","b0",0.5,0,1);
+    RooRealVar b1("b1","b1",0.5,0,1);
+    RooRealVar b2("b2","b2",0.5,0,1);
+    RooRealVar fsig("fsig","fsig",0.5,0,1);
 
-  RooBernstein BRN("brn_sig_"+names[iCAT],"Bernstein",mbb,RooArgList(b0,b1,b2));
-  RooDoubleCB dscb("dscb_sig_"+names[iCAT],"DSCBshape",mbb,mean,sigma,alpha1,n1,alpha2,n2);
-  RooAddPdf signalx("signalx","signal",RooArgList(dscb),fsig);
+    if (!sysName.Contains("Nom")) {
+      b0.setVal(B0);
+      b1.setVal(B1);
+      b2.setVal(B2);
+      fsig.setVal(FSig);
+      b0.setConstant(kTRUE);
+      b1.setConstant(kTRUE);
+      b2.setConstant(kTRUE);
+      fsig.setConstant(kTRUE);
+    }
+    
+    RooBernstein BRN("brn","Bernstein",mbb,RooArgList(b0,b1,b2));
+    RooCBShape cb("cb","CBshape",mbb,mean,sigma,alpha,n);
+    RooGaussian gaus("gaus","gauss",mbb,mean,sigma);
+    RooAddPdf signal("signal","signal",RooArgList(gaus,BRN),fsig);
+    
+    RooDataHist data("data","data",mbb,histzbb);
 
-  RooDataHist data("dataGGH","dataGGH",mbb,histwbb);
+    signal.fitTo(data,Save(),SumW2Error(kTRUE));
+    RooPlot * frame = mbb.frame();
+    data.plotOn(frame);
+    signal.plotOn(frame,Name("signal"));
+    signal.plotOn(frame,Components(BRN),LineStyle(kDashed));
 
-  signalx.fitTo(data,Save());
-  RooPlot * frame = mbb.frame();
-  data.plotOn(frame);
-  signalx.plotOn(frame);
-  signalx.plotOn(frame,Components(BRN),LineStyle(kDashed));
-  frame->chiSquare();
-  frame->SetTitle("              "+names[iCAT]);
-  frame->GetYaxis()->SetTitle("Events / 5 GeV");
-  frame->GetXaxis()->SetTitle("m_{bb} [GeV]");
-  frame->GetYaxis()->SetTitleOffset(1.5);
-  frame->GetYaxis()->SetRangeUser(0.,1.2*histwbb->GetMaximum()); 
-  TCanvas * canv = new TCanvas("canv","",700,700);
-  frame->Draw();
-  histwbb->Draw("hsame"); 
-  frame->Draw("same");
-  TLegend * leg = new TLegend(0.6,0.65,0.8,0.8);
-  SetLegendStyle(leg);
-  leg->AddEntry(frame->FindObject("dscb"),"Fit", "L");
-  leg->AddEntry(histwbb,"TT","Fp");
-  leg->Draw();
-  canv->Update();
-  canv->Print("VBFHbb_meeting_20_10_2020/TT_"+names[iCAT]+"DSCB.png");
-  
+    mapMean[sysName] = mean.getValV();
+    mapSigma[sysName] = sigma.getValV();
+    mapAlpha[sysName] = alpha.getValV();
+    mapN[sysName] = n.getValV();
+    mapFSig[sysName] = fsig.getValV();
+    mapNorm[sysName] = histzbb->GetSumOfWeights();
+
+    if (sysName.Contains("Nom")) {
+      B0 = b0.getValV();
+      B1 = b1.getValV();
+      B2 = b2.getValV();
+      FSig = fsig.getValV();
+    }
+
+    TH1D * linezbb = new TH1D("linezbb","",2,0,1);
+    linezbb->SetLineColor(kBlue);
+    linezbb->SetLineWidth(3);
+
+    frame->SetTitle("");
+    frame->GetYaxis()->SetTitle("Events / 5 GeV");
+    frame->GetXaxis()->SetTitle("m_{bb} [GeV]");
+    frame->GetYaxis()->SetTitleOffset(1.5);
+    frame->GetYaxis()->SetRangeUser(0.,1.2*histzbb->GetMaximum()); 
+    TCanvas * canv = new TCanvas("canv","",700,700);
+    frame->Draw();
+    histzbb->Draw("hsame"); 
+    frame->Draw("same");
+    TLegend * leg = new TLegend(0.7,0.65,0.9,0.8);
+    SetLegendStyle(leg);
+    leg->AddEntry(linezbb,"Fit", "L");
+    leg->AddEntry(histzbb,"t#bar{t}","F");
+    leg->Draw();
+    canv->Update();
+    canv->Print("TT_"+sysName+".png");
+    delete canv;
+  }
+
+  std::cout << "           Mean  Sigma  Fsig   Norm" << std::endl;
+  //            Nominal :  92.6  11.18  0.66  1312.8 
+  for (auto sysName : sysNames) {
+    std::cout << label[sysName] << " : ";
+    printf("%5.1f  %5.2f  %4.2f  %6.1f\n",
+	   mapMean[sysName],mapSigma[sysName],
+	   mapFSig[sysName],mapNorm[sysName]);
+  }
 
 }

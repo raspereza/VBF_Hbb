@@ -13,14 +13,17 @@ void CreatePDF (int iCAT,
 
   TCanvas * dummy = new TCanvas("dummy","",800,700);
   TString nameHist = "mbb_"+names[iCAT];
-  TString nameHist_tt = "mbb_tt_"+names[0];
-  TString nameHist_zj = "mbb_zj_"+names[0];
+  TString nameHist_tt = "mbb_tt_"+names[iCAT];
+  TString nameHist_zj = "mbb_zj_"+names[iCAT];
   TH1D * hist = new TH1D(nameHist,"",Nbins,xmin,xmax);
   TH1D * hist_tt = new TH1D(nameHist_tt,"",Nbins,xmin,xmax);
   TH1D * hist_zj = new TH1D(nameHist_zj,"",Nbins,xmin,xmax);
   tree->Draw("mbb>>"+nameHist,cuts[iCAT]);
   tree_tt->Draw("mbb>>"+nameHist_tt,"weight*("+cuts[iCAT]+")");
   tree_zj->Draw("mbb>>"+nameHist_zj,"weight*("+cuts[iCAT]+")");
+
+  TH1D * histData = (TH1D*)hist->Clone("dataHist_"+names[iCAT]);
+
   hist->Add(hist_tt,-1);
   hist->Add(hist_zj,-1);
 
@@ -42,7 +45,6 @@ void CreatePDF (int iCAT,
 
   Float_t yield = hist->GetSumOfWeights();
   RooRealVar qcd_yield("qcd_"+names[iCAT]+"_norm","Yield",yield,0.5*yield,2*yield);
-  //RooRealVar qcd_yield("qcd_yield_"+names[iCAT],"Yield",yield,0.5*yield,2*yield);
 
   RooArgList argList(b0,b1);
   if (iORDER>=3)
@@ -55,9 +57,10 @@ void CreatePDF (int iCAT,
     argList.add(b5);
   
   RooChebychev CHV("qcd_"+names[iCAT],"qcd_"+names[iCAT],mbb,argList);
-  RooDataHist data("data_"+names[iCAT],"data",mbb,hist);
+  RooDataHist dataSubtr("data_subtr_"+names[iCAT],"data",mbb,hist);
+  RooDataHist data("data_"+names[iCAT],"data",mbb,histData);  
 
-  RooFitResult * res = CHV.fitTo(data,Save());  
+  RooFitResult * res = CHV.fitTo(dataSubtr,Save(),SumW2Error(kTRUE));  
 
   cout << endl;
   cout << "+++++++++++++++ " << names[iCAT] << " +++++++++++++++++++" << endl;
@@ -82,7 +85,7 @@ void CreatePDF (int iCAT,
 
 void CreateDataTemplates_chb() {
 
-  TFile * file = new TFile("/afs/cern.ch/work/m/mukherje/public/ForVBFHbb/mbb_and_bdt_all_BJETbtg.root");
+  TFile * file = new TFile(dirName+"/mbb_and_bdt_all_Nom_JER.root");
   TTree * tree = (TTree*)file->Get("Mass_and_BDT_DATA");
   TNtuple * tree_tt = (TNtuple*)file->Get("Mass_and_BDT_tt");
   TNtuple * tree_zj = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
