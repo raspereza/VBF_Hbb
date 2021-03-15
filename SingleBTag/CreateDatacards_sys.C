@@ -12,7 +12,7 @@ void CreateDatacards_sys(bool TF = false) {
   TFile * file = new TFile("root_shape/data_singleb_shapes"+suffix+".root");
   TFile * fileSig = new TFile("root_shape/signal_singleb_shapes.root");
   TFile * fileTop = new TFile("root_shape/tt_singleb_shapes.root");
-  TFile * fileZj  = new TFile("root_shape/zjets_singleb_shapes.root");
+  TFile * fileZj  = new TFile("root_shape/zj_singleb_shapes.root");
 
   TFile  *fs = new TFile("VBFHbb_2018_Sys_Unc.root");
 
@@ -85,6 +85,16 @@ void CreateDatacards_sys(bool TF = false) {
     //    float sigma = sigmaVar->getValV();
     //    float sigmaE = sigmaVar->getError();
 
+    RooRealVar * rate_ggH_var = wSig->var("norm_GGH_Nom_sig_"+names[i]);
+    RooRealVar * rate_qqH_var = wSig->var("norm_VBF_Nom_sig_"+names[i]);
+    RooRealVar * rate_tt_var = wtt->var("norm_Nom_tt_"+names[i]);
+    RooRealVar * rate_zj_var = wzj->var("norm_Nom_zj_"+names[i]);
+    
+    double ggH_rate = rate_ggH_var->getValV();
+    double qqH_rate = rate_qqH_var->getValV();
+    double tt_rate = rate_tt_var->getValV();
+    double zj_rate = rate_zj_var->getValV();
+
     ostringstream str;
     str << "datacards_with_sys/datacards_singleb_" << names[i] << "_with_sys.txt";
     string nn = str.str();
@@ -99,7 +109,7 @@ void CreateDatacards_sys(bool TF = false) {
     textfile << "shapes          qqH_hbb         *   SingleBTag/root_shape/signal_singleb_shapes.root   w:qqH_$CHANNEL" << endl;
     textfile << "shapes          ggH_hbb         *   SingleBTag/root_shape/signal_singleb_shapes.root   w:ggH_$CHANNEL" << endl;
     textfile << "shapes          tt              *   SingleBTag/root_shape/tt_singleb_shapes.root  w:tt_$CHANNEL" << endl;
-    textfile << "shapes          zj              *   SingleBTag/root_shape/zjets_singleb_shapes.root  w:zj_$CHANNEL" << endl;
+    textfile << "shapes          zj              *   SingleBTag/root_shape/zj_singleb_shapes.root  w:zj_$CHANNEL" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
     textfile << "bin             " << names[i] << endl;
     textfile << "observation   -1" << endl;
@@ -107,7 +117,7 @@ void CreateDatacards_sys(bool TF = false) {
     textfile << "bin             " << names[i] << "   " << names[i] << "   " << names[i] << "   " <<   names[i] << "   " << names[i] <<  endl;
     textfile << "process          ggH_hbb   qqH_hbb   qcd   tt    zj " << endl;
     textfile << "process            -1         0       1     2    3 " << endl;
-    //    textfile << "rate            " << ggH_rate << "  " << qqH_rate << " 1.0  " << tt_rate << "  " << zj_rate << endl;
+    //    textfile << "rate            " << ggH_rate << "  " << qqH_rate << " 1  " << tt_rate << "  " << zj_rate << endl;
     textfile << "rate     1     1    1    1    1" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
     textfile << "CMS_BR_hbb     lnN	1.007/0.994	1.007/0.994	-      -     -" << endl;
