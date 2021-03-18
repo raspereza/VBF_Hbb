@@ -19,12 +19,21 @@ void CreateSignalPDF(int iCAT,
   TCanvas * dummy = new TCanvas("dummy","",800,700);
   treeGGH->Draw("mbb>>"+nameGGHHist,"weight*("+cuts[iCAT]+")");
   treeVBF->Draw("mbb>>"+nameVBFHist,"weight*("+cuts[iCAT]+")");
-  delete dummy;
 
   Float_t yieldGGH = histGGH->GetSumOfWeights();
   Float_t yieldVBF = histVBF->GetSumOfWeights();
-  RooRealVar yield_GGH("ggh_yield_"+names[iCAT],"Yield",yieldGGH,0.,2*yieldGGH);
-  RooRealVar yield_VBF("vbf_yield_"+names[iCAT],"Yield",yieldVBF,0.,2*yieldVBF);
+  RooRealVar yield_GGH("ggH_"+names[iCAT]+"_norm","Yield",yieldGGH,0.,2*yieldGGH);
+  RooRealVar yield_VBF("qqH_"+names[iCAT]+"_norm","Yield",yieldVBF,0.,2*yieldVBF);
+
+  delete histGGH;
+  delete histVBF;
+
+  histGGH = new TH1D(nameGGHHist,"",NbinsSig,xmin,xmax);
+  histVBF = new TH1D(nameVBFHist,"",NbinsSig,xmin,xmax);
+  treeGGH->Draw("mbb>>"+nameGGHHist,"weight");
+  treeVBF->Draw("mbb>>"+nameVBFHist,"weight");
+  delete dummy;
+
 
   RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
 
@@ -42,12 +51,6 @@ void CreateSignalPDF(int iCAT,
 
   RooRealVar fsig("fsig_"+names[iCAT],"fsig",0,1);
 
-  RooRealVar mean_scale("CMS_vbfbb_scale_mbb_13TeV_2018","Mbb_scale",1.0,0.5,1.5);
-  RooRealVar sigma_res("CMS_vbfbb_res_mbb_13TeV_2018","Mbb_scale",1.0,0.5,1.5);
-    
-  RooFormulaVar mean_shifted("mean_shifted_sig_"+names[iCAT],"@0*@1",RooArgList(mean,mean_scale));
-  RooFormulaVar sigma_shifted("sigma_res_sig_"+names[iCAT],"@0*@1",RooArgList(sigma,sigma_res));
-
   RooBernstein BRN("brn_sig_"+names[iCAT],"Bernstein",mbb,RooArgList(b0,b1,b2));
   RooCBShape cbx("cb_sig_"+names[iCAT],"CBshape",mbb,mean,sigma,alpha,n);
   RooAddPdf signalx("signalx","signal",RooArgList(cbx,BRN),fsig);
@@ -56,8 +59,12 @@ void CreateSignalPDF(int iCAT,
   RooDataHist data("dataGGH","dataGGH",mbb,histVBF);
   RooFitResult * res = signalx.fitTo(data,Save());
 
-  RooCBShape cb("cb_sig_"+names[iCAT],"CBshape",mbb,mean_shifted,sigma_shifted,alpha,n);
-  RooAddPdf signal("sig_"+names[iCAT],"signal",RooArgList(cb,BRN),fsig);
+  RooBernstein BRN_qqH("brn_qqH_"+names[iCAT],"Bernstein",mbb,RooArgList(b0,b1,b2));
+  RooBernstein BRN_ggH("brn_ggH_"+names[iCAT],"Bernstein",mbb,RooArgList(b0,b1,b2));
+  RooCBShape cb_qqH("cb_qqH_"+names[iCAT],"CBshape",mbb,mean,sigma,alpha,n);
+  RooCBShape cb_ggH("cb_ggH_"+names[iCAT],"CBshape",mbb,mean,sigma,alpha,n);
+  RooAddPdf qqH_signal("qqH_"+names[iCAT],"signal",RooArgList(cb_qqH,BRN_qqH),fsig);
+  RooAddPdf ggH_signal("ggH_"+names[iCAT],"signal",RooArgList(cb_ggH,BRN_ggH),fsig);
 
   alpha.setConstant(true);
   mean.setConstant(true);
@@ -79,7 +86,8 @@ void CreateSignalPDF(int iCAT,
        << "   total = " << yieldGGH+yieldVBF << std::endl;
   res->Print();
 
-  w->import(signal);
+  w->import(qqH_signal);
+  w->import(ggH_signal);
   w->import(yield_GGH);
   w->import(yield_VBF);
 
@@ -87,7 +95,7 @@ void CreateSignalPDF(int iCAT,
 
 void CreateSignalTemplates() {
 
-  TFile * file = new TFile("/afs/cern.ch/work/m/mukherje/public/ForVBFHbb/mbb_and_bdt_all_BJETbtg.root");
+  TFile * file = new TFile("/afs/cern.ch/user/t/tumasyan/public/For_Soumya/ggfPHG_mbb_and_bdt_all_.root");
   TNtuple * treeGGH = (TNtuple*)file->Get("Mass_and_BDT_ggF_Hbb");
   TNtuple * treeVBF = (TNtuple*)file->Get("Mass_and_BDT_VBF_Hbb");
 
