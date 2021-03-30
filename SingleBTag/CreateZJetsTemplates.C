@@ -24,13 +24,10 @@ void CreateTopPDF(int iCAT,
 
   RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
 
-  RooRealVar mean("mean_zj_"+names[iCAT],"Mean",125,80,200);
+  RooRealVar mean("mean_zj_"+names[iCAT],"Mean",90,80,200);
   RooRealVar sigma("sigma_zj_"+names[iCAT],"Width",50,0,50);
-  RooRealVar alpha1("alpha1_zj_"+names[iCAT],"Alpha",2.0,0.5,10.);
-  RooRealVar n1("n1_zj_"+names[iCAT],"n",4,3,20);
-  RooRealVar alpha2("alpha2_zj_"+names[iCAT],"Alpha",1.0,0,10.);
-  RooRealVar n2("n2_zj_"+names[iCAT],"n",2,0,20);
-
+  RooRealVar alpha("alpha_zj_"+names[iCAT],"Alpha",2.0,0.5,10.);
+  RooRealVar n("n_zj_"+names[iCAT],"n",2,0,20);
   RooRealVar b0("b0_zj_"+names[iCAT],"b0",0,1);
   RooRealVar b1("b1_zj_"+names[iCAT],"b1",0,1);
   RooRealVar b2("b2_zj_"+names[iCAT],"b2",0,1);
@@ -41,28 +38,20 @@ void CreateTopPDF(int iCAT,
 
   RooRealVar fzj("fzj_"+names[iCAT],"fzj",0,1);
 
-  RooRealVar mean_scale("CMS_zj_scale_mbb_13TeV_2018","Mbb_scale",1.0,0.5,1.5);
-  RooRealVar sigma_res("CMS_zj_res_mbb_13TeV_2018","Mbb_scale",1.0,0.5,1.5);
-    
-  RooFormulaVar mean_shifted("mean_shifted_zj_"+names[iCAT],"@0*@1",RooArgList(mean,mean_scale));
-  RooFormulaVar sigma_shifted("sigma_res_zj_"+names[iCAT],"@0*@1",RooArgList(sigma,sigma_res));
-
   RooBernstein BRN("brn_zj_"+names[iCAT],"Bernstein",mbb,RooArgList(b0,b1,b2));
-  RooDoubleCB dscbx("dscb_zj_"+names[iCAT],"DoubleCB",mbb,mean,sigma,alpha1,n1,alpha2,n2);
-  RooAddPdf zjx("zjx","zj",RooArgList(dscbx,BRN),fzj);
+  RooCBShape cbx("cb_zj_"+names[iCAT],"CBshape",mbb,mean,sigma,alpha,n);
+  RooAddPdf zjx("zjx","zj",RooArgList(cbx,BRN),fzj);
 
   RooDataHist data("datazj","datazj",mbb,histopt);
   RooFitResult * res = zjx.fitTo(data,Save());
 
-  RooDoubleCB dscb("dscb_zj_"+names[iCAT],"DoubleCB",mbb,mean_shifted,sigma_shifted,alpha1,n1,alpha2,n2);
-  RooAddPdf zj("zj_"+names[iCAT],"zj",RooArgList(dscb,BRN),fzj);
+  RooCBShape cb("cb_zj_"+names[iCAT],"CBshape",mbb,mean,sigma,alpha,n);
+  RooAddPdf zj("zj_"+names[iCAT],"zj",RooArgList(cb,BRN),fzj);
 
-  alpha1.setConstant(true);
-  alpha2.setConstant(true);
+  alpha.setConstant(true);
   mean.setConstant(true);
   sigma.setConstant(true);
-  n1.setConstant(true);
-  n2.setConstant(true);
+  n.setConstant(true);
   fzj.setConstant(true);
   b0.setConstant(true);
   b1.setConstant(true);
@@ -83,7 +72,7 @@ void CreateTopPDF(int iCAT,
 }
 void CreateZJetsTemplates() {
 
-  TFile * file = new TFile("/afs/cern.ch/work/m/mukherje/public/ForVBFHbb/mbb_and_bdt_all_BJETbtg.root");
+  TFile * file = new TFile("/afs/cern.ch/user/t/tumasyan/public/For_Soumya/Systematics_ROOTS/mbb_and_bdt_all_Nom_JEC.root");
   TNtuple * treezj = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
 
   TFile * fileOutput = new TFile("root_shape/zjets_singleb_shapes.root","recreate");
@@ -96,5 +85,4 @@ void CreateZJetsTemplates() {
   w->Write("w");
   fileOutput->Write();
   fileOutput->Close();
-
 }
