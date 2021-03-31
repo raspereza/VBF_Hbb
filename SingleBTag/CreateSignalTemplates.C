@@ -95,7 +95,7 @@ void CreateSignalPDF(int iCAT,
 
 void CreateSignalTemplates() {
 
-  TFile * file = new TFile("/afs/cern.ch/user/t/tumasyan/public/For_Soumya/Systematics_ROOTS/mbb_and_bdt_all_Nom_JEC.root");
+  TFile * file = new TFile("/afs/cern.ch/user/t/tumasyan/public/For_Soumya/ggfPHG_mbb_and_bdt_all_.root");
   TNtuple * treeGGH = (TNtuple*)file->Get("Mass_and_BDT_ggF_Hbb");
   TNtuple * treeVBF = (TNtuple*)file->Get("Mass_and_BDT_VBF_Hbb");
 

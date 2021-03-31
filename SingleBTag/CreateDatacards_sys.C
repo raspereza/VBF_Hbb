@@ -85,6 +85,7 @@ void CreateDatacards_sys(bool TF = false) {
     //    float sigma = sigmaVar->getValV();
     //    float sigmaE = sigmaVar->getError();
 
+    /*
     RooRealVar * rate_ggH_var = wSig->var("norm_GGH_Nom_sig_"+names[i]);
     RooRealVar * rate_qqH_var = wSig->var("norm_VBF_Nom_sig_"+names[i]);
     RooRealVar * rate_tt_var = wtt->var("norm_Nom_tt_"+names[i]);
@@ -94,6 +95,7 @@ void CreateDatacards_sys(bool TF = false) {
     double qqH_rate = rate_qqH_var->getValV();
     double tt_rate = rate_tt_var->getValV();
     double zj_rate = rate_zj_var->getValV();
+    */
 
     ostringstream str;
     str << "datacards_with_sys/datacards_singleb_" << names[i] << "_with_sys.txt";
@@ -120,6 +122,7 @@ void CreateDatacards_sys(bool TF = false) {
     //    textfile << "rate            " << ggH_rate << "  " << qqH_rate << " 1  " << tt_rate << "  " << zj_rate << endl;
     textfile << "rate     1     1    1    1    1" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
+    
     textfile << "CMS_BR_hbb     lnN	1.007/0.994	1.007/0.994	-      -     -" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
     //    textfile << "lumi_13TeV_BBD_2018  lnN  -     -      -    -    -" << endl;
@@ -146,6 +149,10 @@ void CreateDatacards_sys(bool TF = false) {
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
     textfile << "CMS_JES_2018  param 0.0 1.0" << endl;
     textfile << "CMS_JER_2018  param 0.0 1.0" << endl;
+    textfile << "CMS_JES_2018  param 0.0 0.0001" << endl;
+    textfile << "CMS_JER_2018  param 0.0 0.0001" << endl;
+    //    textfile << "CMS_JES_2018  param 0.0 0.0001" << endl;
+    //    textfile << "CMS_JER_2018  param 0.0 0.0001" << endl;
     //    textfile << "CMS_vbfbb_scale_mbb_13TeV_2018  param 1.0 0.015" << endl; 
     //    textfile << "CMS_vbfbb_res_mbb_13TeV_2018    param 1.0 0.035" << endl;
     //    textfile << "CMS_zj_scale_mbb_13TeV_2018  param 1.0 0.015" << endl; 
