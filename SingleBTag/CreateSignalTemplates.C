@@ -109,5 +109,4 @@ void CreateSignalTemplates() {
   w->Write("w");
   fileOutput->Write();
   fileOutput->Close();
-
 }
