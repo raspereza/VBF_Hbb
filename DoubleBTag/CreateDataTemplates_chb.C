@@ -85,12 +85,12 @@ void CreatePDF (int iCAT,
 
 void CreateDataTemplates_chb() {
 
-  TFile * file = new TFile("mbb_and_bdt_all.root");
+  TFile * file = new TFile("/afs/cern.ch/user/t/tumasyan/public/For_Soumya/DoubleBTag/mbb_and_bdt_all.root");
   TTree * tree = (TTree*)file->Get("Mass_and_BDT_DATA");
   TNtuple * tree_tt = (TNtuple*)file->Get("Mass_and_BDT_tt");
   TNtuple * tree_zj = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
 
-  TFile * fileOutput = new TFile("root_shape/data_doubleb_shapes.root","recreate");
+  TFile * fileOutput = new TFile("root_shapes_sys/data_doubleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","data");
 
