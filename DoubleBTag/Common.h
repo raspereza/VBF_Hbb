@@ -1,7 +1,7 @@
 #include "TH1.h"
 #include <string>
 
-TString cuts[5] = {"bdtout<0.3",
+TString cuts[4] = {"bdtout<0.3",
 		   "bdtout>=0.3&&bdtout<0.6",
 		   "bdtout>=0.6&&bdtout<0.8",
 		   "bdtout>=0.8"};
@@ -22,7 +22,7 @@ std::vector<std::string> polynomNames = {
   "TF_POL4",
 };
   
-TString names[5] = {"CAT0",
+TString names[4] = {"CAT0",
 		    "CAT1",
 		    "CAT2",
 		    "CAT3"};

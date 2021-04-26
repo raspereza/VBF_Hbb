@@ -14,9 +14,9 @@ TString cuts[5] = {"bdtout<0.3",
 		   "bdtout>=0.6&&bdtout<0.8",
 		   "bdtout>=0.8"};
 
-TString dirName = "/afs/cern.ch/user/t/tumasyan/public/For_Soumya/DoubleBTag/Systematics_ROOTS";
+TString dirName = "/afs/cern.ch/user/t/tumasyan/public/For_Soumya/Overlap_Removed_DoubleBTag/Systematics_ROOTS";
 TString FileNamesBDT[5] = {
-  "mbb_and_bdt_all_Nom_JER.root",
+  "mbb_and_bdt_all_Central_JER.root",
   "mbb_and_bdt_all_Up_JEC.root",
   "mbb_and_bdt_all_Down_JEC.root",
   "mbb_and_bdt_all_Up_JER.root",
