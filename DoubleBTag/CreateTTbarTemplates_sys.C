@@ -212,7 +212,7 @@ void CreateTTbarTemplates_sys() {
     treeTTbar[sysName] = (TNtuple*)file->Get("Mass_and_BDT_tt");
   }
 
-  TFile * fileOutput = new TFile("root_shapes_sys/tt_singleb_shapes.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/tt_doubleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","signal");
 

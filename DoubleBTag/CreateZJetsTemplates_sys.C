@@ -212,7 +212,7 @@ void CreateZJetsTemplates_sys() {
     treeZJets[sysName] = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
   }
 
-  TFile * fileOutput = new TFile("root_shapes_sys/zj_singleb_shapes.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/zj_doubleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","signal");
 

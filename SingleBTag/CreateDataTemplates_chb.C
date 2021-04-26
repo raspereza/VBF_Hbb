@@ -94,7 +94,7 @@ void CreateDataTemplates_chb() {
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","data");
 
-  int iorder[5] = {5,2,2,2,2};
+  int iorder[5] = {4,2,2,2,2};
 
   for (int i=0; i<5; ++i) 
     CreatePDF(i,iorder[i],tree,tree_tt,tree_zj,w);
