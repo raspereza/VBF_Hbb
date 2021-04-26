@@ -21,6 +21,9 @@ void CreatePDF (int iCAT,
   tree->Draw("mbb>>"+nameHist,cuts[iCAT]);
   tree_tt->Draw("mbb>>"+nameHist_tt,"weight*("+cuts[iCAT]+")");
   tree_zj->Draw("mbb>>"+nameHist_zj,"weight*("+cuts[iCAT]+")");
+
+  TH1D * histData = (TH1D*)hist->Clone("dataHist_"+names[iCAT]);
+
   hist->Add(hist_tt,-1);
   hist->Add(hist_zj,-1);
 
@@ -53,9 +56,10 @@ void CreatePDF (int iCAT,
     argList.add(b5);
   
   RooBernstein BRN("qcd_"+names[iCAT],"qcd_"+names[iCAT],mbb,argList);
-  RooDataHist data("data_"+names[iCAT],"data",mbb,hist);
+  RooDataHist dataSubtr("data_subtr_"+names[iCAT],"data",mbb,hist);
+  RooDataHist data("data_"+names[iCAT],"data",mbb,histData);
 
-  RooFitResult * res = BRN.fitTo(data,Save());  
+  RooFitResult * res = BRN.fitTo(dataSubtr,Save(),SumW2Error(kTRUE));  
 
   cout << endl;
   cout << "+++++++++++++++ " << names[iCAT] << " +++++++++++++++++++" << endl;

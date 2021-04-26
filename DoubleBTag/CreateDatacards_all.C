@@ -5,7 +5,7 @@ void CreateDatacards_all() {
 
   using namespace RooFit;
 
-  TFile * file = new TFile("root_shape/data_doubleb_shapes.root");
+  TFile * file = new TFile("root_shape/data_doubleb_shapes_BRN.root");
   TFile * fileSig = new TFile("root_shape/signal_doubleb_shapes.root");
   TFile * fileTop = new TFile("root_shape/tt_doubleb_shapes.root");
   TFile * fileZj  = new TFile("root_shape/zjets_doubleb_shapes.root");
@@ -20,7 +20,7 @@ void CreateDatacards_all() {
   for (int i=0; i<4; ++i) {
 
     ostringstream str;
-    str << "datacards_doubleb/datacards_doubleb_" << names[i] << ".txt";
+    str << "datacards_doubleb/datacards_doubleb_" << names[i] << "_brn.txt";
     string nn = str.str();
     const char * p = nn.c_str();
     std::ofstream textfile(p);
@@ -28,8 +28,8 @@ void CreateDatacards_all() {
     textfile << "jmax *" << endl;
     textfile << "kmax *" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
-    textfile << "shapes          qcd             *   DoubleBTag/root_shape/data_doubleb_shapes.root       w:qcd_$CHANNEL" << endl;
-    textfile << "shapes          data_obs        *   DoubleBTag/root_shape/data_doubleb_shapes.root       w:data_$CHANNEL" << endl;
+    textfile << "shapes          qcd             *   DoubleBTag/root_shape/data_doubleb_shapes_BRN.root       w:qcd_$CHANNEL" << endl;
+    textfile << "shapes          data_obs        *   DoubleBTag/root_shape/data_doubleb_shapes_BRN.root       w:data_$CHANNEL" << endl;
     textfile << "shapes          qqH_hbb         *   DoubleBTag/root_shape/signal_doubleb_shapes.root   w:qqH_$CHANNEL" << endl;
     textfile << "shapes          ggH_hbb         *   DoubleBTag/root_shape/signal_doubleb_shapes.root   w:ggH_$CHANNEL" << endl;
     textfile << "shapes          tt              *   DoubleBTag/root_shape/tt_doubleb_shapes.root  w:tt_$CHANNEL" << endl;
