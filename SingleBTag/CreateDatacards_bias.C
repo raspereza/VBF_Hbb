@@ -14,7 +14,7 @@ void CreateDatacards_bias(bool TF = false) {
   TFile * fileTop = new TFile("root_shape/tt_singleb_shapes.root");
   TFile * fileZj  = new TFile("root_shape/zj_singleb_shapes.root");
 
-  TFile  *fs = new TFile("VBFHbb_2018_Sys_Unc.root");
+  TFile  *fs = new TFile("VBFHbb_2018_SingleB_unc_histograms.root");
 
   RooWorkspace * w = (RooWorkspace*)file->Get("w");
   RooWorkspace * wSig = (RooWorkspace*)fileSig->Get("w");
@@ -33,6 +33,10 @@ void CreateDatacards_bias(bool TF = false) {
   TH1F * vbfh_isr_dn = (TH1F*)fs->Get("VBF_Hbb_PS-ISR_dn");
   TH1F * vbfh_fsr_up = (TH1F*)fs->Get("VBF_Hbb_PS-FSR_up");
   TH1F * vbfh_fsr_dn = (TH1F*)fs->Get("VBF_Hbb_PS-FSR_dn");
+  TH1F * vbfh_puid_up = (TH1F*)fs->Get("VBF_Hbb_PuJetID_up");
+  TH1F * vbfh_puid_dn = (TH1F*)fs->Get("VBF_Hbb_PuJetID_dn");
+  TH1F * vbfh_trig_up = (TH1F*)fs->Get("VBF_Hbb_OnlineBTG_up");
+  TH1F * vbfh_trig_dn = (TH1F*)fs->Get("VBF_Hbb_OnlineBTG_dn");
   TH1F * ggh_jec_up = (TH1F*)fs->Get("ggF_Hbb_JEC_up");
   TH1F * ggh_jec_dn = (TH1F*)fs->Get("ggF_Hbb_JEC_dn");
   TH1F * ggh_jer_up = (TH1F*)fs->Get("ggF_Hbb_JER_up");
@@ -45,6 +49,10 @@ void CreateDatacards_bias(bool TF = false) {
   TH1F * ggh_isr_dn = (TH1F*)fs->Get("ggF_Hbb_PS-ISR_dn");
   TH1F * ggh_fsr_up = (TH1F*)fs->Get("ggF_Hbb_PS-FSR_up");
   TH1F * ggh_fsr_dn = (TH1F*)fs->Get("ggF_Hbb_PS-FSR_dn");
+  TH1F * ggh_puid_up = (TH1F*)fs->Get("ggF_Hbb_PuJetID_up");
+  TH1F * ggh_puid_dn = (TH1F*)fs->Get("ggF_Hbb_PuJetID_dn");
+  TH1F * ggh_trig_up = (TH1F*)fs->Get("ggF_Hbb_OnlineBTG_up");
+  TH1F * ggh_trig_dn = (TH1F*)fs->Get("ggF_Hbb_OnlineBTG_dn");
   TH1F * tt_jec_up = (TH1F*)fs->Get("tt_JEC_up");
   TH1F * tt_jec_dn = (TH1F*)fs->Get("tt_JEC_dn");
   TH1F * tt_jer_up = (TH1F*)fs->Get("tt_JER_up");
@@ -57,6 +65,10 @@ void CreateDatacards_bias(bool TF = false) {
   TH1F * tt_isr_dn = (TH1F*)fs->Get("tt_PS-ISR_dn");
   TH1F * tt_fsr_up = (TH1F*)fs->Get("tt_PS-FSR_up");
   TH1F * tt_fsr_dn = (TH1F*)fs->Get("tt_PS-FSR_dn");
+  TH1F * tt_puid_up = (TH1F*)fs->Get("tt_PuJetID_up");
+  TH1F * tt_puid_dn = (TH1F*)fs->Get("tt_PuJetID_dn");
+  TH1F * tt_trig_up = (TH1F*)fs->Get("tt_OnlineBTG_up");
+  TH1F * tt_trig_dn = (TH1F*)fs->Get("tt_OnlineBTG_dn");
   TH1F * zj_jec_up = (TH1F*)fs->Get("ZJets_JEC_up");
   TH1F * zj_jec_dn = (TH1F*)fs->Get("ZJets_JEC_dn");
   TH1F * zj_jer_up = (TH1F*)fs->Get("ZJets_JER_up");
@@ -73,6 +85,12 @@ void CreateDatacards_bias(bool TF = false) {
   TH1F * zj_isr_dn = (TH1F*)fs->Get("ZJets_PS-ISR_dn");
   TH1F * zj_fsr_up = (TH1F*)fs->Get("ZJets_PS-FSR_up");
   TH1F * zj_fsr_dn = (TH1F*)fs->Get("ZJets_PS-FSR_dn");
+  TH1F * zj_puid_up = (TH1F*)fs->Get("ZJets_PuJetID_up");
+  TH1F * zj_puid_dn = (TH1F*)fs->Get("ZJets_PuJetID_dn");
+  TH1F * zj_trig_up = (TH1F*)fs->Get("ZJets_OnlineBTG_up");
+  TH1F * zj_trig_dn = (TH1F*)fs->Get("ZJets_OnlineBTG_dn");
+
+
 
   for (int i=0; i<5; ++i) {
 
@@ -140,8 +158,8 @@ void CreateDatacards_bias(bool TF = false) {
     textfile << fixed << setprecision(3)<< "CMS_QGLweight_2018  lnN     " << (1 + ggh_qgl->GetBinContent(i+1)) <<  "  " << (1 + vbfh_qgl->GetBinContent(i+1)) << "        -       " <<   (1 + tt_qgl->GetBinContent(i+1)) << "      " << (1 + zj_qgl->GetBinContent(i+1))  << "   " << (1 + ggh_qgl->GetBinContent(i+1)) <<  "  " << (1 + vbfh_qgl->GetBinContent(i+1)) << endl;
     textfile << fixed << setprecision(3)<< "CMS_PS_ISR_2018     lnN     " << (1 + ggh_isr_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_isr_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_isr_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_isr_dn->GetBinContent(i+1))    << "        -       " <<   (1 + tt_isr_up->GetBinContent(i+1)) << "/" <<  (1 + tt_isr_dn->GetBinContent(i+1)) << "      " << (1 + zj_isr_up->GetBinContent(i+1)) << "/" <<  (1 + zj_isr_dn->GetBinContent(i+1)) <<  "   " << (1 + ggh_isr_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_isr_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_isr_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_isr_dn->GetBinContent(i+1))  << endl;
     textfile << fixed << setprecision(3)<< "CMS_PS_FSR_2018     lnN     " << (1 + ggh_fsr_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_fsr_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_fsr_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_fsr_dn->GetBinContent(i+1))    << "        -       " <<   (1 + tt_fsr_up->GetBinContent(i+1)) << "/" <<  (1 + tt_fsr_dn->GetBinContent(i+1)) << "      " << (1 + zj_fsr_up->GetBinContent(i+1)) << "/" <<  (1 + zj_fsr_dn->GetBinContent(i+1)) <<  "   "   << (1 + ggh_fsr_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_fsr_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_fsr_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_fsr_dn->GetBinContent(i+1))   << endl;
-    //    textfile << fixed << setprecision(3)<< "CMS_Trig_2018     lnN     " << (1 + ggh_trig_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_trig_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_trig_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_trig_dn->GetBinContent(i+1))    << "        -       " <<   (1 + tt_trig_up->GetBinContent(i+1)) << "/" <<  (1 + tt_trig_dn->GetBinContent(i+1)) << "      " << (1 + zj_trig_up->GetBinContent(i+1)) << "/" <<  (1 + zj_trig_dn->GetBinContent(i+1)) << "   " << (1 + ggh_trig_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_trig_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_trig_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_trig_dn->GetBinContent(i+1))  << endl;
-    //    textfile << fixed << setprecision(3)<< "CMS_PileUpID_2018     lnN     " << (1 + ggh_puid_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_puid_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_puid_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_puid_dn->GetBinContent(i+1))    << "        -       " <<   (1 + tt_puid_up->GetBinContent(i+1)) << "/" <<  (1 + tt_puid_dn->GetBinContent(i+1)) << "      " << (1 + zj_puid_up->GetBinContent(i+1)) << "/" <<  (1 + zj_puid_dn->GetBinContent(i+1)) << "   " <<  (1 + ggh_puid_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_puid_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_puid_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_puid_dn->GetBinContent(i+1))  << endl;
+    textfile << fixed << setprecision(3)<< "CMS_Trig_2018     lnN     " << (1 + ggh_trig_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_trig_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_trig_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_trig_dn->GetBinContent(i+1))    << "        -       " <<   (1 + tt_trig_up->GetBinContent(i+1)) << "/" <<  (1 + tt_trig_dn->GetBinContent(i+1)) << "      " << (1 + zj_trig_up->GetBinContent(i+1)) << "/" <<  (1 + zj_trig_dn->GetBinContent(i+1))    <<  "    " << (1 + ggh_trig_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_trig_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_trig_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_trig_dn->GetBinContent(i+1)) << endl;
+    textfile << fixed << setprecision(3)<< "CMS_PileUpID_2018     lnN     " << (1 + ggh_puid_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_puid_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_puid_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_puid_dn->GetBinContent(i+1))    << "        -       " <<   (1 + tt_puid_up->GetBinContent(i+1)) << "/" <<  (1 + tt_puid_dn->GetBinContent(i+1)) << "      " << (1 + zj_puid_up->GetBinContent(i+1)) << "/" <<  (1 + zj_puid_dn->GetBinContent(i+1))    << "  " << (1 + ggh_puid_up->GetBinContent(i+1)) << "/" <<  (1 + ggh_puid_dn->GetBinContent(i+1)) << "  " << (1 + vbfh_puid_up->GetBinContent(i+1)) << "/" <<  (1 + vbfh_puid_dn->GetBinContent(i+1)) << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
     textfile << "CMS_norm_zj       lnN   -     -      -     -  1.3   -   -" << endl;
     textfile << "CMS_norm_tt       lnN   -     -      -   1.3    -   -   -" << endl;   
