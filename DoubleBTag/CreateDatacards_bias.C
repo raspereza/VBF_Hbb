@@ -14,7 +14,7 @@ void CreateDatacards_bias(bool TF = false) {
   TFile * fileTop = new TFile("root_shape/tt_doubleb_shapes.root");
   TFile * fileZj  = new TFile("root_shape/zj_doubleb_shapes.root");
 
-  TFile  *fs = new TFile("VBFHbb_DoubleBTag_2018_Sys_Unc.root");
+  TFile  *fs = new TFile("VBFHbb_DoubleBTag_Removed_overlap_2018_Sys_Unc.root");
 
   RooWorkspace * w = (RooWorkspace*)file->Get("w");
   RooWorkspace * wSig = (RooWorkspace*)fileSig->Get("w");
