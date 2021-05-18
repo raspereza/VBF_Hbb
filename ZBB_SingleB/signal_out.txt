@@ -1,0 +1,140 @@
++++++++++++++ CAT3 ++++++++++++++++
+
+Mean  (ggH)  = 120.936
+Mean  (qqH)  = 120.936
+Mean  (nom)  = 121.465
+Mean  (ave)  = 120.936
+Mean  (Up)   = 122.288
+Mean  (Down) = 119.583
+
+Sigma (ggH)  = 14.1679
+Sigma (qqH)  = 14.1679
+Sigma (nom)  = 14.1525
+Sigma (ave)  = 14.1679
+Sigma (Up)   = 14.4619
+Sigma (Down) = 13.874
+
+Norm    (ggH)  = 90.5689
+JESUp   (ggH)  = 94.0796
+JESDown (ggH)  = 84.564
+JERUp   (ggH)  = 93.1575
+JERDown (ggH)  = 91.5003
+
+Norm    (qqH)  = 102.846
+JESUp   (qqH)  = 104.425
+JESDown (qqH)  = 100.516
+JERUp   (qqH)  = 101.617
+JERDown (qqH)  = 103.076
+
++++++++++++++ CAT4 ++++++++++++++++
+
+Mean  (ggH)  = 120.936
+Mean  (qqH)  = 120.936
+Mean  (nom)  = 121.465
+Mean  (ave)  = 120.936
+Mean  (Up)   = 122.288
+Mean  (Down) = 119.583
+
+Sigma (ggH)  = 14.1679
+Sigma (qqH)  = 14.1679
+Sigma (nom)  = 14.1525
+Sigma (ave)  = 14.1679
+Sigma (Up)   = 14.4619
+Sigma (Down) = 13.874
+
+Norm    (ggH)  = 23.5997
+JESUp   (ggH)  = 23.3523
+JESDown (ggH)  = 26.0695
+JERUp   (ggH)  = 23.9466
+JERDown (ggH)  = 23.0384
+
+Norm    (qqH)  = 76.2791
+JESUp   (qqH)  = 78.687
+JESDown (qqH)  = 75.3946
+JERUp   (qqH)  = 78.0552
+JERDown (qqH)  = 76.7146
+
++++++++++++++ CAT5 ++++++++++++++++
+
+Mean  (ggH)  = 120.936
+Mean  (qqH)  = 120.936
+Mean  (nom)  = 121.465
+Mean  (ave)  = 120.936
+Mean  (Up)   = 122.288
+Mean  (Down) = 119.583
+
+Sigma (ggH)  = 14.1679
+Sigma (qqH)  = 14.1679
+Sigma (nom)  = 14.1525
+Sigma (ave)  = 14.1679
+Sigma (Up)   = 14.4619
+Sigma (Down) = 13.874
+
+Norm    (ggH)  = 30.509
+JESUp   (ggH)  = 34.2504
+JESDown (ggH)  = 22.661
+JERUp   (ggH)  = 29.2892
+JERDown (ggH)  = 29.7138
+
+Norm    (qqH)  = 117.497
+JESUp   (qqH)  = 128.002
+JESDown (qqH)  = 108.332
+JERUp   (qqH)  = 117.689
+JERDown (qqH)  = 117.135
+
++++++++++++++ CAT6 ++++++++++++++++
+
+Mean  (ggH)  = 120.936
+Mean  (qqH)  = 120.936
+Mean  (nom)  = 121.465
+Mean  (ave)  = 120.936
+Mean  (Up)   = 122.288
+Mean  (Down) = 119.583
+
+Sigma (ggH)  = 14.1679
+Sigma (qqH)  = 14.1679
+Sigma (nom)  = 14.1525
+Sigma (ave)  = 14.1679
+Sigma (Up)   = 14.4619
+Sigma (Down) = 13.874
+
+Norm    (ggH)  = 13.128
+JESUp   (ggH)  = 14.4022
+JESDown (ggH)  = 14.3889
+JERUp   (ggH)  = 12.5289
+JERDown (ggH)  = 12.8831
+
+Norm    (qqH)  = 109.081
+JESUp   (qqH)  = 126.957
+JESDown (qqH)  = 93.595
+JERUp   (qqH)  = 106.912
+JERDown (qqH)  = 110.093
+
++++++++++++++ CAT7 ++++++++++++++++
+
+Mean  (ggH)  = 120.936
+Mean  (qqH)  = 120.936
+Mean  (nom)  = 121.465
+Mean  (ave)  = 120.936
+Mean  (Up)   = 122.288
+Mean  (Down) = 119.583
+
+Sigma (ggH)  = 14.1679
+Sigma (qqH)  = 14.1679
+Sigma (nom)  = 14.1525
+Sigma (ave)  = 14.1679
+Sigma (Up)   = 14.4619
+Sigma (Down) = 13.874
+
+Norm    (ggH)  = 5.64315
+JESUp   (ggH)  = 6.12524
+JESDown (ggH)  = 2.89709
+JERUp   (ggH)  = 6.11575
+JERDown (ggH)  = 5.40049
+
+Norm    (qqH)  = 43.6864
+JESUp   (qqH)  = 53.8337
+JESDown (qqH)  = 37.9064
+JERUp   (qqH)  = 43.1944
+JERDown (qqH)  = 44.3442
+
