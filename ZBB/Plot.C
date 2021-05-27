@@ -115,8 +115,8 @@ void Plot(
       double xB = total_bkg_new_hist->GetBinContent(iB);
       double eB = total_bkg_new_hist->GetBinError(iB);
       
-      std::cout << "bin " << iB << "  :  data = " << xD << " +/- " << eD << std::endl; 
-      //      std::cout << channel << ":" << iB << "  " << xB << " +/- " << eB << std::endl; 
+      //      std::cout << "bin " << iB << "  :  data = " << xD << " +/- " << eD << std::endl; 
+      std::cout << "bin " << iB << "  " << xB << " +/- " << eB << std::endl; 
       //      total_data_new_hist->SetBinContent(iB,weight*xD);    
       //      total_data_new_hist->SetBinError(iB,weight*eD);
     }
@@ -159,17 +159,23 @@ void Plot(
   sbHist->SetLineWidth(2);
   sbHist->SetLineStyle(1);
 
-  TH1D * bkgdErr = (TH1D*)bkgNewHist->Clone("bkgdErr");
+  TH1D * bkgdErr = (TH1D*)bkgHist->Clone("bkgdErr");
   bkgdErr->SetFillStyle(3013);
-  bkgdErr->SetFillColor(1);
+  bkgdErr->SetFillColor(4);
   bkgdErr->SetMarkerStyle(21);
   bkgdErr->SetMarkerSize(0);  
+
+  TH1D * sbErr = (TH1D*)sbHist->Clone("sbErr");
+  sbErr->SetFillStyle(3013);
+  sbErr->SetFillColor(2);
+  sbErr->SetMarkerStyle(21);
+  sbErr->SetMarkerSize(0);  
 
   for (int iB=1; iB<=nBins; ++iB) {
 
     sbHist->SetBinError(iB,0.);
     bkgHist->SetBinError(iB,0.);
-    sigHist->SetBinError(iB,0.);
+    //    sigHist->SetBinError(iB,0.);
 
   }
 
@@ -178,7 +184,7 @@ void Plot(
 
     sbNewHist->SetBinError(iB,0.);
     bkgNewHist->SetBinError(iB,0.);
-    sbNewHist->SetBinError(iB,0.);
+    //    sigNewHist->SetBinError(iB,0.);
 
     std::cout << "bin " << iB << " : data = " << dataNewHist->GetBinContent(iB) << " +/- " << dataNewHist->GetBinError(iB) << std::endl;
 
@@ -235,6 +241,7 @@ void Plot(
   sbHist->Draw("hsame");
   bkgHist->Draw("hsame");
   bkgdErr->Draw("e2same");
+  sbErr->Draw("e2same");
   dataNewHist->Draw("e1same");
 
   TLegend * leg  = new TLegend(0.65,0.45,0.90,0.7);
@@ -258,9 +265,12 @@ void Plot(
   upper->Update();
   canv1->cd();
 
-  TH1D * ratioH = (TH1D*)dataNewHist->Clone("ratioH");
+  TH1D * ratioH    = (TH1D*)dataNewHist->Clone("ratioH");
   TH1D * ratioErrH = (TH1D*)bkgdErr->Clone("ratioErrH");
+  TH1D * ratioBH   = (TH1D*)bkgHist->Clone("ratioB");
+  TH1D * ratioSBErrH = (TH1D*)sbErr->Clone("ratioSBErrH");
   TH1D * ratioSBH = (TH1D*)sbHist->Clone("ratioSBH");
+
   ratioH->SetMarkerColor(1);
   ratioH->SetMarkerStyle(20);
   ratioH->SetMarkerSize(1.2);
@@ -298,18 +308,23 @@ void Plot(
   }
   for (int iB=1; iB<=nBins; ++iB) {
     double xS = sigHist->GetBinContent(iB);
+    double eS = sigHist->GetBinError(iB);
+    ratioSBErrH->SetBinContent(iB,xS);
     ratioSBH->SetBinContent(iB,xS);
     ratioSBH->SetBinError(iB,0.);
-    double eBkg = bkgHist->GetBinError(iB);
+    double eBkg = bkgdErr->GetBinError(iB);
     ratioErrH->SetBinContent(iB,0.);
     ratioErrH->SetBinError(iB,eBkg);
+    ratioBH->SetBinContent(iB,0.);
+    ratioBH->SetBinError(iB,0.);
+    ratioSBErrH->SetBinError(iB,TMath::Sqrt(eS*eS+eBkg*eBkg));
   }
 
   std::cout << std::endl;
   std::cout << "(Data - Bkg) plot : " << std::endl;
   std::cout << "Xmin = " << ymin << std::endl;
   std::cout << "Xmax = " << ymax << std::endl;
-  ratioH->GetYaxis()->SetRangeUser(1.2*ymin,1.2*ymax);
+  ratioH->GetYaxis()->SetRangeUser(3.*ymin,1.2*ymax);
 
 
   // ------------>Primitives in pad: lower
@@ -339,7 +354,10 @@ void Plot(
 
   ratioH->Draw("e1");
   ratioErrH->Draw("e2same");
+  ratioSBErrH->Draw("e2same");
   ratioSBH->Draw("hsame");
+  ratioBH->Draw("hsame");
+  ratioH->Draw("e1same");
 
   lower->Modified();
   lower->RedrawAxis();
