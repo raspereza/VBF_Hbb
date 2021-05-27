@@ -19,7 +19,7 @@ void Plot(
   bool logY = false;
   TString era("2018");    
   double frameScale = 0.0;
-  double scaleYpper = 1.2;
+  double scaleYupper = 1.2;
   if (logY)
     scaleYupper = 5000.;
 
