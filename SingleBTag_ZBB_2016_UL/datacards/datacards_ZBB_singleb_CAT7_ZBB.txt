@@ -1,0 +1,47 @@
+imax 1
+jmax *
+kmax *
+----------------------------------------------------------------------------------------------------
+shapes          qcd             *   SingleB_ZBB_2016_UL/rootshape/data_singleb_shapes.root       w:qcd_$CHANNEL
+shapes          data_obs        *   SingleB_ZBB_2016_UL/rootshape/data_singleb_shapes.root       w:data_$CHANNEL
+shapes          qqH_hbb         *   SingleB_ZBB_2016_UL/rootshape/signal_singleb_shapes.root   w:qqH_$CHANNEL
+shapes          ggH_hbb         *   SingleB_ZBB_2016_UL/rootshape/signal_singleb_shapes.root   w:ggH_$CHANNEL
+shapes          tt              *   SingleB_ZBB_2016_UL/rootshape/tt_singleb_shapes.root  w:tt_$CHANNEL
+shapes          zj              *   SingleB_ZBB_2016_UL/rootshape/zj_singleb_shapes.root  w:zj_$CHANNEL
+shapes          wj              *   SingleB_ZBB_2016_UL/rootshape/wj_singleb_shapes.root  w:wj_$CHANNEL
+----------------------------------------------------------------------------------------------------
+bin             CAT7
+observation   -1
+----------------------------------------------------------------------------------------------------
+bin             CAT7   CAT7   CAT7   CAT7   CAT7   CAT7
+process          zj    qcd	wj   tt    ggH_hbb qqH_hbb
+process          0      1      2     3    4	5
+rate             1      1      1     1    1	1
+----------------------------------------------------------------------------------------------------
+CMS_BR_hbb     lnN	-	-      -	-     1.007/0.994     1.007/0.994
+----------------------------------------------------------------------------------------------------
+lumi_13TeV_BCC_2016  lnN  1.002       -	1.002     1.002   1.002   1.002 
+lumi_13TeV_LS_2016   lnN  1.002       -	1.002     1.002   1.002   1.002
+lumi_13TeV_XY_2016   lnN  1.020       -	1.020     1.020   1.002   1.002
+----------------------------------------------------------------------------------------------------
+CMS_BTag_2016       lnN     1.032/0.969    -     1.074/0.929	1.040/0.961  1.026/0.974  1.026/0.974
+CMS_PS_ISR_2016       lnN     1.041/0.946    -     1.027/0.969      1.028/0.967  1.013/0.985  1.010/0.876
+CMS_PS_FSR_2016       lnN     1.075/0.874    -     1.051/0.932      1.051/0.929  1.023/0.968  1.019/1.013
+CMS_TRIG_2016       lnN     1.040/0.960    -     1.049/0.951      1.039/0.961  1.037/0.963  1.036/0.964
+CMS_PUID_2016       lnN     1.004/0.997    -     1.001/0.998      1.010/0.992  1.002/0.999  1.001/1.000
+CMS_PileUpID_2016       lnN     1.005/0.987    -     0.995/0.994      1.016/0.978  1.019/0.975  1.025/0.969
+CMS_QGLweight_2016  lnN     1.002	-	1.011	0.995	1.007	0.992
+----------------------------------------------------------------------------------------------------
+CMS_norm_wj       lnN   -     -        1.3	-	 -    -
+CMS_norm_zj       lnN   1.3     -        -	-	 -    -
+CMS_norm_tt       lnN   -     -	-      1.3  -    -
+QCDscale_ggH      lnN   -     -	-      -    1.046/0.933   - 
+PDFscale_ggH      lnN   -     -	-      -    1.019/0.981   - 
+alphas_ggH        lnN   -     -	-      -    1.026/0.974   - 
+QCDscale_qqH      lnN   -     -	-      -    -    1.004/0.997
+PDFscale_qqH      lnN   -     -	-      -    -    1.021/0.979
+alphas_qqH        lnN   -     -	-      -    -    1.005/0.995
+----------------------------------------------------------------------------------------------------
+CMS_JES_2016  param 0.0 1.0
+CMS_JER_2016  param 0.0 1.0
+
