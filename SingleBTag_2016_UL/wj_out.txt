@@ -1,0 +1,100 @@
++++++++++++++ CAT4 ++++++++++++++
+
+Mean  (WJets) = 90.1084
+Mean  (nom)   = 90.7895
+Mean  (ave)   = 90.1084
+Mean  (Up)    = 91.3581
+Mean  (Down)  = 88.8587
+
+Sigma (WJets) = 14.0429
+Sigma (nom)   = 13.7601
+Sigma (ave)   = 14.0429
+Sigma (Up)    = 14.4866
+Sigma (Down)  = 13.5992
+
+Norm      = 404.794
+JESUp     = 408.708
+JESDown   = 396.599
+JERUp     = 404.745
+JERDown   = 409.355
+
++++++++++++++ CAT5 ++++++++++++++
+
+Mean  (WJets) = 90.1084
+Mean  (nom)   = 90.7895
+Mean  (ave)   = 90.1084
+Mean  (Up)    = 91.3581
+Mean  (Down)  = 88.8587
+
+Sigma (WJets) = 14.0429
+Sigma (nom)   = 13.7601
+Sigma (ave)   = 14.0429
+Sigma (Up)    = 14.4866
+Sigma (Down)  = 13.5992
+
+Norm      = 29.228
+JESUp     = 30.4611
+JESDown   = 27.0035
+JERUp     = 29.0292
+JERDown   = 29.2525
+
++++++++++++++ CAT6 ++++++++++++++
+
+Mean  (WJets) = 90.1084
+Mean  (nom)   = 90.7895
+Mean  (ave)   = 90.1084
+Mean  (Up)    = 91.3581
+Mean  (Down)  = 88.8587
+
+Sigma (WJets) = 14.0429
+Sigma (nom)   = 13.7601
+Sigma (ave)   = 14.0429
+Sigma (Up)    = 14.4866
+Sigma (Down)  = 13.5992
+
+Norm      = 12.0185
+JESUp     = 10.2283
+JESDown   = 10.8442
+JERUp     = 12.0411
+JERDown   = 10.7682
+
++++++++++++++ CAT7 ++++++++++++++
+
+Mean  (WJets) = 90.1084
+Mean  (nom)   = 90.7895
+Mean  (ave)   = 90.1084
+Mean  (Up)    = 91.3581
+Mean  (Down)  = 88.8587
+
+Sigma (WJets) = 14.0429
+Sigma (nom)   = 13.7601
+Sigma (ave)   = 14.0429
+Sigma (Up)    = 14.4866
+Sigma (Down)  = 13.5992
+
+Norm      = 6.66215
+JESUp     = 10.1127
+JESDown   = 7.50447
+JERUp     = 6.71873
+JERDown   = 7.66943
+
++++++++++++++ CAT8 ++++++++++++++
+
+Mean  (WJets) = 90.1084
+Mean  (nom)   = 90.7895
+Mean  (ave)   = 90.1084
+Mean  (Up)    = 91.3581
+Mean  (Down)  = 88.8587
+
+Sigma (WJets) = 14.0429
+Sigma (nom)   = 13.7601
+Sigma (ave)   = 14.0429
+Sigma (Up)    = 14.4866
+Sigma (Down)  = 13.5992
+
+Norm      = 2.07039
+JESUp     = 1.46759
+JESDown   = 2.07317
+JERUp     = 2.07028
+JERDown   = 2.07383
+
