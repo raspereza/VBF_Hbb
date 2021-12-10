@@ -1,0 +1,80 @@
++++++++++++++ CAT0 ++++++++++++++
+
+Mean  (ZJets) = 93.5835
+Mean  (nom)   = 93.5429
+Mean  (ave)   = 93.5835
+Mean  (Up)    = 94.6797
+Mean  (Down)  = 92.4873
+
+Sigma (ZJets) = 11.3226
+Sigma (nom)   = 10.9596
+Sigma (ave)   = 11.3226
+Sigma (Up)    = 11.4715
+Sigma (Down)  = 11.1736
+
+Norm      = 9865.41
+JESUp     = 9890.11
+JESDown   = 9523.52
+JERUp     = 9723.2
+JERDown   = 9800.45
+
++++++++++++++ CAT1 ++++++++++++++
+
+Mean  (ZJets) = 93.5835
+Mean  (nom)   = 93.5429
+Mean  (ave)   = 93.5835
+Mean  (Up)    = 94.6797
+Mean  (Down)  = 92.4873
+
+Sigma (ZJets) = 11.3226
+Sigma (nom)   = 10.9596
+Sigma (ave)   = 11.3226
+Sigma (Up)    = 11.4715
+Sigma (Down)  = 11.1736
+
+Norm      = 1709.98
+JESUp     = 1711.47
+JESDown   = 1685.8
+JERUp     = 1688.36
+JERDown   = 1690.19
+
++++++++++++++ CAT2 ++++++++++++++
+
+Mean  (ZJets) = 93.5835
+Mean  (nom)   = 93.5429
+Mean  (ave)   = 93.5835
+Mean  (Up)    = 94.6797
+Mean  (Down)  = 92.4873
+
+Sigma (ZJets) = 11.3226
+Sigma (nom)   = 10.9596
+Sigma (ave)   = 11.3226
+Sigma (Up)    = 11.4715
+Sigma (Down)  = 11.1736
+
+Norm      = 1508.78
+JESUp     = 1520.16
+JESDown   = 1468.89
+JERUp     = 1468.39
+JERDown   = 1503.46
+
++++++++++++++ CAT3 ++++++++++++++
+
+Mean  (ZJets) = 93.5835
+Mean  (nom)   = 93.5429
+Mean  (ave)   = 93.5835
+Mean  (Up)    = 94.6797
+Mean  (Down)  = 92.4873
+
+Sigma (ZJets) = 11.3226
+Sigma (nom)   = 10.9596
+Sigma (ave)   = 11.3226
+Sigma (Up)    = 11.4715
+Sigma (Down)  = 11.1736
+
+Norm      = 1133.38
+JESUp     = 1148.87
+JESDown   = 1087.49
+JERUp     = 1108.49
+JERDown   = 1125.66
+
