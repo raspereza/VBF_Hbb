@@ -212,7 +212,7 @@ void CreateWJetsTemplates_sys() {
     treeWJets[sysName] = (TNtuple*)file->Get("Mass_and_BDT_WJets");
   }
 
-  TFile * fileOutput = new TFile("rootshape/wj_singleb_shapes.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/wj_doubleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","signal");
 

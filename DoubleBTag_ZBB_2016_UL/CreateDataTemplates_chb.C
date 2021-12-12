@@ -8,6 +8,7 @@ void CreatePDF (int iCAT,
                 TNtuple * tree_tt,
                 TNtuple * tree_zj,
                 TNtuple * tree_wj,
+                TNtuple * tree_st,
 		RooWorkspace * w) {
 
   TH1::SetDefaultSumw2(true);
@@ -17,19 +18,27 @@ void CreatePDF (int iCAT,
   TString nameHist_tt = "mbb_tt_"+names[iCAT];
   TString nameHist_zj = "mbb_zj_"+names[iCAT];
   TString nameHist_wj = "mbb_wj_"+names[iCAT];
+  TString nameHist_st = "mbb_st_"+names[iCAT];
+
   TH1D * hist = new TH1D(nameHist,"",Nbins,xmin,xmax);
   TH1D * hist_tt = new TH1D(nameHist_tt,"",Nbins,xmin,xmax);
   TH1D * hist_zj = new TH1D(nameHist_zj,"",Nbins,xmin,xmax);
+  TH1D * hist_st = new TH1D(nameHist_st,"",Nbins,xmin,xmax);
   TH1D * hist_wj = new TH1D(nameHist_wj,"",Nbins,xmin,xmax);
+
   tree->Draw("mbb_reg>>"+nameHist,cuts[iCAT]);
   tree_tt->Draw("mbb_reg>>"+nameHist_tt,"weight*("+cuts[iCAT]+")");
   tree_zj->Draw("mbb_reg>>"+nameHist_zj,"weight*("+cuts[iCAT]+")");
+  tree_st->Draw("mbb_reg>>"+nameHist_st,"weight*("+cuts[iCAT]+")");
   tree_wj->Draw("mbb_reg>>"+nameHist_wj,"weight*("+cuts[iCAT]+")");
 
   TH1D * histData = (TH1D*)hist->Clone("dataHist_"+names[iCAT]);
 
   hist->Add(hist_tt,-1);
   hist->Add(hist_zj,-1);
+  hist->Add(hist_st,-1);
+  hist->Add(hist_wj,-1);
+
   delete dummy;
 
   RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
@@ -88,20 +97,22 @@ void CreatePDF (int iCAT,
 
 void CreateDataTemplates_chb() {
 
-  TFile * file = new TFile("ntuple/mbb_and_bdt_all_Nom.root");
+
+  TFile * file = new TFile("ntuples/mbb_and_bdt_all_Nom.root");
   TTree * tree = (TTree*)file->Get("Mass_and_BDT_DATA");
   TNtuple * tree_tt = (TNtuple*)file->Get("Mass_and_BDT_tt");
   TNtuple * tree_zj = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
   TNtuple * tree_wj = (TNtuple*)file->Get("Mass_and_BDT_WJets");
+  TNtuple * tree_st = (TNtuple*)file->Get("Mass_and_BDT_Sandgle_Top");
 
-  TFile * fileOutput = new TFile("rootshape/data_singleb_shapes.root","recreate");
-
+ 
+  TFile * fileOutput = new TFile("root_shape/data_doubleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","data");
-  int iorder[5] = {5,4,4,5,4};
 
+  int iorder[5] = {6,4,3,3}; 
   for (int i=0; i<4; ++i) 
-    CreatePDF(i,iorder[i],tree,tree_tt,tree_zj,tree_wj,w);
+    CreatePDF(i,iorder[i],tree,tree_tt,tree_zj,tree_wj,tree_st,w);
   
   w->Write("w");
   fileOutput->Write();

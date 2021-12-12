@@ -6,22 +6,18 @@ void CreateDatacards_sys(bool TF = false)
 
   using namespace RooFit;
 
-  TFile * file = new TFile("rootshape/data_singleb_shapes.root");
-  TFile * fileSig = new TFile("rootshape/signal_singleb_shapes.root");
-  TFile * fileTop = new TFile("rootshape/tt_singleb_shapes.root");
-  TFile * fileZj  = new TFile("rootshape/zj_singleb_shapes.root");
-  TFile * fileWj  = new TFile("rootshape/wj_singleb_shapes.root");
+  TFile * file = new TFile("root_shape/data_doubleb_shapes.root");
+  TFile * fileSig = new TFile("root_shape/signal_doubleb_shapes.root");
+  TFile * fileTop = new TFile("root_shape/tt_doubleb_shapes.root");
+  TFile * fileZj  = new TFile("root_shape/zj_doubleb_shapes.root");
+  TFile * fileWj  = new TFile("root_shape/wj_doubleb_shapes.root");
 
-  TFile  *fs =  new TFile("VBFHToBB_Zbb_2016_UL_uncertainties_merged.root");
+  TFile  *fs =  new TFile("VBFHToBB_Zbb_2016_UL_uncertainties_merged_DB.root");
   RooWorkspace * w = (RooWorkspace*)file->Get("w");
   RooWorkspace * wSig = (RooWorkspace*)fileSig->Get("w");
   RooWorkspace * wtt = (RooWorkspace*)fileTop->Get("w");
   RooWorkspace * wzj = (RooWorkspace*)fileZj->Get("w");
 
-  TH1F * vbfh_jec_up = (TH1F*)fs->Get("VBF_Hbb_JEC_up");
-  TH1F * vbfh_jec_dn = (TH1F*)fs->Get("VBF_Hbb_JEC_dn");
-  TH1F * vbfh_jer_up = (TH1F*)fs->Get("VBF_Hbb_JER_up");
-  TH1F * vbfh_jer_dn = (TH1F*)fs->Get("VBF_Hbb_JER_dn");
   TH1F * vbfh_btg_up = (TH1F*)fs->Get("VBF_Hbb_BTG_up");
   TH1F * vbfh_btg_dn = (TH1F*)fs->Get("VBF_Hbb_BTG_dn");
   TH1F * vbfh_pu_up = (TH1F*)fs->Get("VBF_Hbb_PU_up");
@@ -32,12 +28,8 @@ void CreateDatacards_sys(bool TF = false)
   TH1F * vbfh_fsr_dn = (TH1F*)fs->Get("VBF_Hbb_FSR_dn");
   TH1F * vbfh_puid_up = (TH1F*)fs->Get("VBF_Hbb_PUID_up");
   TH1F * vbfh_puid_dn = (TH1F*)fs->Get("VBF_Hbb_PUID_dn");
-  TH1F * vbfh_trig_up = (TH1F*)fs->Get("VBF_Hbb_OnlineBTG_up");
-  TH1F * vbfh_trig_dn = (TH1F*)fs->Get("VBF_Hbb_OnlineBTG_dn");
-  TH1F * ggh_jec_up = (TH1F*)fs->Get("ggF_Hbb_JEC_up");
-  TH1F * ggh_jec_dn = (TH1F*)fs->Get("ggF_Hbb_JEC_dn");
-  TH1F * ggh_jer_up = (TH1F*)fs->Get("ggF_Hbb_JER_up");
-  TH1F * ggh_jer_dn = (TH1F*)fs->Get("ggF_Hbb_JER_dn");
+  TH1F * vbfh_trig_up = (TH1F*)fs->Get("VBF_Hbb_TRIG_up");
+  TH1F * vbfh_trig_dn = (TH1F*)fs->Get("VBF_Hbb_TRIG_dn");
   TH1F * ggh_btg_up = (TH1F*)fs->Get("ggF_Hbb_BTG_up");
   TH1F * ggh_btg_dn = (TH1F*)fs->Get("ggF_Hbb_BTG_dn");
   TH1F * ggh_pu_up = (TH1F*)fs->Get("ggF_Hbb_PU_up");
@@ -48,12 +40,8 @@ void CreateDatacards_sys(bool TF = false)
   TH1F * ggh_fsr_dn = (TH1F*)fs->Get("ggF_Hbb_FSR_dn");
   TH1F * ggh_puid_up = (TH1F*)fs->Get("ggF_Hbb_PUID_up");
   TH1F * ggh_puid_dn = (TH1F*)fs->Get("ggF_Hbb_PUID_dn");
-  TH1F * ggh_trig_up = (TH1F*)fs->Get("ggF_Hbb_OnlineBTG_up");
-  TH1F * ggh_trig_dn = (TH1F*)fs->Get("ggF_Hbb_OnlineBTG_dn");
-  TH1F * tt_jec_up = (TH1F*)fs->Get("tt_JEC_up");
-  TH1F * tt_jec_dn = (TH1F*)fs->Get("tt_JEC_dn");
-  TH1F * tt_jer_up = (TH1F*)fs->Get("tt_JER_up");
-  TH1F * tt_jer_dn = (TH1F*)fs->Get("tt_JER_dn");
+  TH1F * ggh_trig_up = (TH1F*)fs->Get("ggF_Hbb_TRIG_up");
+  TH1F * ggh_trig_dn = (TH1F*)fs->Get("ggF_Hbb_TRIG_dn");
   TH1F * tt_btg_up = (TH1F*)fs->Get("tt_BTG_up");
   TH1F * tt_btg_dn = (TH1F*)fs->Get("tt_BTG_dn");
   TH1F * tt_pu_up = (TH1F*)fs->Get("tt_PU_up");
@@ -64,12 +52,8 @@ void CreateDatacards_sys(bool TF = false)
   TH1F * tt_fsr_dn = (TH1F*)fs->Get("tt_FSR_dn");
   TH1F * tt_puid_up = (TH1F*)fs->Get("tt_PUID_up");
   TH1F * tt_puid_dn = (TH1F*)fs->Get("tt_PUID_dn");
-  TH1F * tt_trig_up = (TH1F*)fs->Get("tt_OnlineBTG_up");
-  TH1F * tt_trig_dn = (TH1F*)fs->Get("tt_OnlineBTG_dn");
-  TH1F * zj_jec_up = (TH1F*)fs->Get("ZJets_JEC_up");
-  TH1F * zj_jec_dn = (TH1F*)fs->Get("ZJets_JEC_dn");
-  TH1F * zj_jer_up = (TH1F*)fs->Get("ZJets_JER_up");
-  TH1F * zj_jer_dn = (TH1F*)fs->Get("ZJets_JER_dn");
+  TH1F * tt_trig_up = (TH1F*)fs->Get("tt_TRIG_up");
+  TH1F * tt_trig_dn = (TH1F*)fs->Get("tt_TRIG_dn");
   TH1F * zj_btg_up = (TH1F*)fs->Get("ZJets_BTG_up");
   TH1F * zj_btg_dn = (TH1F*)fs->Get("ZJets_BTG_dn");
   TH1F * zj_pu_up = (TH1F*)fs->Get("ZJets_PU_up");
@@ -84,13 +68,9 @@ void CreateDatacards_sys(bool TF = false)
   TH1F * zj_fsr_dn = (TH1F*)fs->Get("ZJets_FSR_dn");
   TH1F * zj_puid_up = (TH1F*)fs->Get("ZJets_PUID_up");
   TH1F * zj_puid_dn = (TH1F*)fs->Get("ZJets_PUID_dn");
-  TH1F * zj_trig_up = (TH1F*)fs->Get("ZJets_OnlineBTG_up");
-  TH1F * zj_trig_dn = (TH1F*)fs->Get("ZJets_OnlineBTG_dn");
+  TH1F * zj_trig_up = (TH1F*)fs->Get("ZJets_TRIG_up");
+  TH1F * zj_trig_dn = (TH1F*)fs->Get("ZJets_TRIG_dn");
   TH1F * wj_qgl = (TH1F*)fs->Get("WJets_QGL_up");
-  TH1F * wj_jec_up = (TH1F*)fs->Get("WJets_JEC_up");
-  TH1F * wj_jec_dn = (TH1F*)fs->Get("WJets_JEC_dn");
-  TH1F * wj_jer_up = (TH1F*)fs->Get("WJets_JER_up");
-  TH1F * wj_jer_dn = (TH1F*)fs->Get("WJets_JER_dn");
   TH1F * wj_btg_up = (TH1F*)fs->Get("WJets_BTG_up");
   TH1F * wj_btg_dn = (TH1F*)fs->Get("WJets_BTG_dn");
   TH1F * wj_pu_up = (TH1F*)fs->Get("WJets_PU_up");
@@ -101,14 +81,14 @@ void CreateDatacards_sys(bool TF = false)
   TH1F * wj_fsr_dn = (TH1F*)fs->Get("WJets_FSR_dn");
   TH1F * wj_puid_up = (TH1F*)fs->Get("WJets_PUID_up");
   TH1F * wj_puid_dn = (TH1F*)fs->Get("WJets_PUID_dn");
-  TH1F * wj_trig_up = (TH1F*)fs->Get("WJets_OnlineBTG_up");
-  TH1F * wj_trig_dn = (TH1F*)fs->Get("WJets_OnlineBTG_dn");
+  TH1F * wj_trig_up = (TH1F*)fs->Get("WJets_TRIG_up");
+  TH1F * wj_trig_dn = (TH1F*)fs->Get("WJets_TRIG_dn");
 
 
   for (int i=0; i<4; ++i) 
    {
     ostringstream str;
-    str << "datacards/datacards_ZBB_singleb_" << names[i] << "_11_12_2021.txt";
+    str << "datacards/datacards_ZBB_doubleb_" << names[i] << "_11_12_2021.txt";
     string nn = str.str();
     const char * p = nn.c_str();
     std::ofstream textfile(p);
@@ -116,13 +96,13 @@ void CreateDatacards_sys(bool TF = false)
     textfile << "jmax *" << endl;
     textfile << "kmax *" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
-    textfile << "shapes          qcd             *   SingleBTag_ZBB_2016_UL/rootshape/data_singleb_shapes.root       w:qcd_$CHANNEL" << endl;
-    textfile << "shapes          data_obs        *   SingleBTag_ZBB_2016_UL/rootshape/data_singleb_shapes.root       w:data_$CHANNEL" << endl;
-    textfile << "shapes          qqH_hbb         *   SingleBTag_ZBB_2016_UL/rootshape/signal_singleb_shapes.root   w:qqH_$CHANNEL" << endl;
-    textfile << "shapes          ggH_hbb         *   SingleBTag_ZBB_2016_UL/rootshape/signal_singleb_shapes.root   w:ggH_$CHANNEL" << endl;
-    textfile << "shapes          tt              *   SingleBTag_ZBB_2016_UL/rootshape/tt_singleb_shapes.root  w:tt_$CHANNEL" << endl;
-    textfile << "shapes          zj              *   SingleBTag_ZBB_2016_UL/rootshape/zj_singleb_shapes.root  w:zj_$CHANNEL" << endl;
-    textfile << "shapes          wj              *   SingleBTag_ZBB_2016_UL/rootshape/wj_singleb_shapes.root  w:wj_$CHANNEL" << endl;
+    textfile << "shapes          qcd             *   DoubleBTag_ZBB_2016_UL/root_shape/data_doubleb_shapes.root       w:qcd_$CHANNEL" << endl;
+    textfile << "shapes          data_obs        *   DoubleBTag_ZBB_2016_UL/root_shape/data_doubleb_shapes.root       w:data_$CHANNEL" << endl;
+    textfile << "shapes          qqH_hbb         *   DoubleBTag_ZBB_2016_UL/root_shape/signal_doubleb_shapes.root   w:qqH_$CHANNEL" << endl;
+    textfile << "shapes          ggH_hbb         *   DoubleBTag_ZBB_2016_UL/root_shape/signal_doubleb_shapes.root   w:ggH_$CHANNEL" << endl;
+    textfile << "shapes          tt              *   DoubleBTag_ZBB_2016_UL/root_shape/tt_doubleb_shapes.root  w:tt_$CHANNEL" << endl;
+    textfile << "shapes          zj              *   DoubleBTag_ZBB_2016_UL/root_shape/zj_doubleb_shapes.root  w:zj_$CHANNEL" << endl;
+    textfile << "shapes          wj              *   DoubleBTag_ZBB_2016_UL/root_shape/wj_doubleb_shapes.root  w:wj_$CHANNEL" << endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
     textfile << "bin             " << names[i] << endl;
     textfile << "observation   -1" << endl;
@@ -147,7 +127,6 @@ void CreateDatacards_sys(bool TF = false)
    textfile << fixed << setprecision(3)<< "CMS_QGLweight_2016  lnN     " << (1 + zj_qgl->GetBinContent(i+1))  << "	-	" << (1 + wj_qgl->GetBinContent(i+1)) << "	" << (1 + tt_qgl->GetBinContent(i+1)) << "	" << (1 + ggh_qgl->GetBinContent(i+1)) << "	" << (1 + vbfh_qgl->GetBinContent(i+1)) <<  endl;
     textfile << "----------------------------------------------------------------------------------------------------" << endl;
     textfile << "CMS_norm_wj       lnN   -     -        1.3	-	 -    -" << endl;
-    //    textfile << "CMS_norm_zj       lnN   1.3     -        -	-	 -    -" << endl;
     textfile << "CMS_norm_tt       lnN   -     -	-      1.3  -    -" << endl;
     textfile << "QCDscale_ggH      lnN   -     -	-      -    1.046/0.933   - " << endl;
     textfile << "PDFscale_ggH      lnN   -     -	-      -    1.019/0.981   - " << endl;

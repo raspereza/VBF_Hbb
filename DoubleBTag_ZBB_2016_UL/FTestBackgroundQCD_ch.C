@@ -3,45 +3,51 @@
 //**********************************************//
 //  Determination of FTest with Chebysev Pol    //
 //**********************************************//
-void FTestBackgroundQCD_ch(int iCAT = 3) {
+void FTestBackgroundQCD_ch(int iCAT=1) {
 
   using namespace RooFit;
   SetStyle();
 
-  TFile * file = new TFile("ntuple/mbb_and_bdt_all_Nom.root");
-  TNtuple * tree = (TNtuple*) file->Get("Mass_and_BDT_DATA");
-  TNtuple * wjmc = (TNtuple*) file->Get("Mass_and_BDT_WJets");
-  TNtuple * zjmc = (TNtuple*) file->Get("Mass_and_BDT_ZJets");
-  TNtuple * ttmc = (TNtuple*) file->Get("Mass_and_BDT_tt");
+  TFile * file = new TFile("ntuples/mbb_and_bdt_all_Nom.root");
+  //TFile * file = new TFile("mbb_and_bdt_all_loose_WP_2nd_bjet.root");
+  TNtuple * tree = (TNtuple*)file->Get("Mass_and_BDT_DATA");
+  TNtuple * wjmc = (TNtuple*)file->Get("Mass_and_BDT_WJets");
+  TNtuple * zjmc = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
+  TNtuple * ttmc = (TNtuple*)file->Get("Mass_and_BDT_tt");
+  TNtuple * stmc = (TNtuple*)file->Get("Mass_and_BDT_Sandgle_Top");
 
   TH1::SetDefaultSumw2(true);
   TH1D * hist[5];
   TH1D * hist_wj[5];
   TH1D * hist_zj[5];
   TH1D * hist_tt[5];
+  TH1D * hist_st[5];
+
   TH1D * ratioHist[5];
   TString names[5] = {"CAT4","CAT5","CAT6","CAT7","CAT8"};
   TCanvas * dummy = new TCanvas("dummy","",800,700);
   for (int i=0; i<5; ++i) {
     TString nameHist = "mbb_"+names[i];
+
     TString nameHist_wj = "mbb_wj"+names[i];
     TString nameHist_zj = "mbb_zj"+names[i];
     TString nameHist_tt = "mbb_tt"+names[i];
+    TString nameHist_st = "mbb_st"+names[i];
 
     TString nameRatioHist = "mbb_ratio_"+names[i];
     hist[i] = new TH1D(nameHist,"",NbinsBkg,xmin,xmax);
     hist_wj[i] = new TH1D(nameHist_wj,"",NbinsBkg,xmin,xmax);
     hist_zj[i] = new TH1D(nameHist_zj,"",NbinsBkg,xmin,xmax);
     hist_tt[i] = new TH1D(nameHist_tt,"",NbinsBkg,xmin,xmax);
-  
+    hist_st[i] = new TH1D(nameHist_st,"",NbinsBkg,xmin,xmax);
+
     ratioHist[i] = new TH1D(nameRatioHist,"",NbinsBkg,xmin,xmax);
     tree->Draw("mbb_reg>>"+nameHist,cuts[i]);
     wjmc->Draw("mbb_reg>>"+nameHist_wj,"weight*("+cuts[i]+")");
     zjmc->Draw("mbb_reg>>"+nameHist_zj,"weight*("+cuts[i]+")");
     ttmc->Draw("mbb_reg>>"+nameHist_tt,"weight*("+cuts[i]+")");
+    stmc->Draw("mbb_reg>>"+nameHist_st,"weight*("+cuts[i]+")");
   }
-
-
 
   delete dummy;
   RooRealVar mbb("mbb","mass(bb)",xmin,xmax);
@@ -55,8 +61,7 @@ void FTestBackgroundQCD_ch(int iCAT = 3) {
   hist[iCAT]->Add(hist_wj[iCAT],-1);
   hist[iCAT]->Add(hist_zj[iCAT],-1);
   hist[iCAT]->Add(hist_tt[iCAT],-1);
-
-
+  hist[iCAT]->Add(hist_st[iCAT],-1);
 
   RooDataHist data("data","data_",mbb,hist[iCAT]);
   double prob[10];

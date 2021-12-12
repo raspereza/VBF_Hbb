@@ -9,13 +9,13 @@ std::map<TString,TString> label = {
     {"JERDown","JERDown"},
 };
 
-TString cuts[5] = {"bdtout<0.0",
+TString cuts[5] = {"bdtout < 0.0",
 		   "bdtout>=0.0 && bdtout<0.3",
-		   "bdtout>=0.3 && bdtout<0.5",
-		   "bdtout>=0.5"};
+		   "bdtout>=0.3 && bdtout<0.6",
+		   "bdtout>=0.6"};
 
 
-TString dirName = "ntuple/"; 
+TString dirName = "ntuples/"; 
 TString FileNamesBDT[5] = {
   "mbb_and_bdt_all_Nom.root",
   "mbb_and_bdt_all_JEC_up.root",
@@ -42,25 +42,32 @@ std::vector<std::string> polynomNames = {
   "TF_POL3",
   "TF_POL4",
 };
-
+/*  
 TString names[5] = {"CAT4",
-                    "CAT5",
-                    "CAT6",
-                    "CAT7"};
+		    "CAT5",
+		    "CAT6",
+		    "CAT7",
+		    "CAT8"};
+*/
+TString names[5] = {"CAT0",
+                    "CAT1",
+                    "CAT2",
+                    "CAT3"};
 
 std::vector<std::string> namesCAT = {
-  "CAT4",
-  "CAT5",
-  "CAT6",
-  "CAT7"
+  "CAT0",
+  "CAT1",
+  "CAT2",
+  "CAT3"
 }; // needed to define transfer functions
 
-int NbinsBkg = 55;
-int NbinsSig = 24;
-int NbinsWJ  = 12;
-int Nbins    = 1100;
-float xmin   = 60;
-float xmax   = 170;
+int NbinsBkg = 110;
+int NbinsSig = 30;
+int NbinsWJ = 15;
+int Nbins = 1100;
+float xmin = 60;
+float xmax = 170;
+
 
 TH1D * DivideHist(TH1D* hist, TH1D* hist0, TString Name) {
 

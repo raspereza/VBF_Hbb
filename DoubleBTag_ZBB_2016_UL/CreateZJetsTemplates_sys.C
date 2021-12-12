@@ -2,10 +2,10 @@
 
 using namespace RooFit;
 
-std::ofstream outtext("wj_out.txt");
+std::ofstream outtext("zj_out.txt");
 
 void CreateSignalPDF(int iCAT,
-		     std::map<TString, TNtuple*> treeWJets,
+		     std::map<TString, TNtuple*> treeZJets,
 		     RooRealVar theta_JES,
 		     RooRealVar theta_JER,
 		     RooWorkspace * w) {
@@ -34,18 +34,18 @@ void CreateSignalPDF(int iCAT,
     std::cout << "Systematics name : " << sysName << std::endl;
     std::cout << std::endl;
 
-    TString nameHist = "mbb_wj";//+namesCAT[iCAT]+"_"+sysName;
+    TString nameHist = "mbb_zj";//+namesCAT[iCAT]+"_"+sysName;
 
-    TH1D * hist = new TH1D(nameHist,"",NbinsWJ,xmin,xmax);    
-    treeWJets[sysName]->Draw("mbb_reg>>"+nameHist,"weight*("+cuts[iCAT]+")");
+    TH1D * hist = new TH1D(nameHist,"",NbinsSig,xmin,xmax);    
+    treeZJets[sysName]->Draw("mbb_reg>>"+nameHist,"weight*("+cuts[iCAT]+")");
     mapNorm[sysName] = hist->GetSumOfWeights();
-    delete hist;
+    //    delete hist;
 
-    hist = new TH1D(nameHist,"",NbinsWJ,xmin,xmax);
-    treeWJets[sysName]->Draw("mbb_reg>>"+nameHist,"weight");
+    //    hist = new TH1D(nameHist,"",NbinsSig,xmin,xmax);
+    //    treeZJets[sysName]->Draw("mbb_reg>>"+nameHist,"weight");
 
     RooRealVar mbbx("mbb","mass(bb)",xmin,xmax);
-    RooRealVar meanx("mean","Mean",80,50,200);
+    RooRealVar meanx("mean","Mean",90,80,200);
     RooRealVar sigmax("sigma","Width",10,0,30);
     RooRealVar alphax("alpha","Alpha",1,0,20);
     RooRealVar nx("n","n",2,0,20);
@@ -99,14 +99,14 @@ void CreateSignalPDF(int iCAT,
   }
   delete dummy;
 
-  RooRealVar mean("mean_wj_"+names[iCAT],"mean",80,50,200);
-  RooRealVar sigma("sigma_wj_"+names[iCAT],"sigma",10,0,30);
-  RooRealVar alpha("alpha_wj_"+names[iCAT],"alpha",2,0.,20.);
-  RooRealVar n("n_wj_"+names[iCAT],"n",2,0,20);
-  RooRealVar fsig("f_wj_"+names[iCAT],"fsig",0.5,0,1);
-  RooRealVar b0("b0_wj_"+names[iCAT],"b0",0.5,0,1);
-  RooRealVar b1("b1_wj_"+names[iCAT],"b1",0.5,0,1);
-  RooRealVar b2("b2_wj_"+names[iCAT],"b2",0.5,0,1);
+  RooRealVar mean("mean_zj_"+names[iCAT],"mean",90,80,200);
+  RooRealVar sigma("sigma_zj_"+names[iCAT],"sigma",10,0,30);
+  RooRealVar alpha("alpha_zj_"+names[iCAT],"alpha",2,0.,20.);
+  RooRealVar n("n_zj_"+names[iCAT],"n",2,0,20);
+  RooRealVar fsig("f_zj_"+names[iCAT],"fsig",0.5,0,1);
+  RooRealVar b0("b0_zj_"+names[iCAT],"b0",0.5,0,1);
+  RooRealVar b1("b1_zj_"+names[iCAT],"b1",0.5,0,1);
+  RooRealVar b2("b2_zj_"+names[iCAT],"b2",0.5,0,1);
   RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
 
   double Mean = 0.5*(mapMean["JESUp"]+mapMean["JESDown"]);
@@ -124,21 +124,21 @@ void CreateSignalPDF(int iCAT,
   b1.setVal(B1);
   b2.setVal(B2);
 
-  RooRealVar shift_JES("shift_JES_wj_"+names[iCAT],"shift_JES",d_Mean,d_Mean-1.0,d_Mean+1.0);
-  RooRealVar shift_JER("shift_JER_wj_"+names[iCAT],"shift_JER",d_Sigma,d_Sigma-1.0,d_Sigma+1.0);
+  RooRealVar shift_JES("shift_JES_zj_"+names[iCAT],"shift_JES",d_Mean,d_Mean-1.0,d_Mean+1.0);
+  RooRealVar shift_JER("shift_JER_zj_"+names[iCAT],"shift_JER",d_Sigma,d_Sigma-1.0,d_Sigma+1.0);
 
-  RooFormulaVar mean_shifted("mean_shifted_wj_" +names[iCAT],
+  RooFormulaVar mean_shifted("mean_shifted_zj_" +names[iCAT],
 			     "@0 + @1*@2",
 			     RooArgList(mean,theta_JES,shift_JES));
 
-  RooFormulaVar sigma_shifted("sigma_shifted_wj_"+names[iCAT],
+  RooFormulaVar sigma_shifted("sigma_shifted_zj_"+names[iCAT],
 			      "@0 + @1*@2",
 			      RooArgList(sigma,theta_JER,shift_JER));
     
-  RooBernstein BRN_wj("brn_wj_"+names[iCAT],"Bernstein",mbb,RooArgList(b0,b1,b2));
-  RooCBShape cb_wj("cb_wj_"+names[iCAT],"CBshape",mbb,mean_shifted,sigma_shifted,alpha,n);
-  RooGaussian gaus_wj("gaus_wj_"+names[iCAT],"Gaussian",mbb,mean_shifted,sigma_shifted);
-  RooAddPdf signal_wj("wj_"+names[iCAT],"WJets",RooArgList(cb_wj,BRN_wj),fsig);
+  RooBernstein BRN_zj("brn_zj_"+names[iCAT],"Bernstein",mbb,RooArgList(b0,b1,b2));
+  RooCBShape cb_zj("cb_zj_"+names[iCAT],"CBshape",mbb,mean_shifted,sigma_shifted,alpha,n);
+  RooGaussian gaus_zj("gaus_zj_"+names[iCAT],"Gaussian",mbb,mean_shifted,sigma_shifted);
+  RooAddPdf signal_zj("zj_"+names[iCAT],"ZJets",RooArgList(cb_zj,BRN_zj),fsig);
 
   double norm_Central = mapNorm["Nom"];
   double d_norm_JES_Up = mapNorm["JESUp"] - mapNorm["Nom"];
@@ -146,13 +146,13 @@ void CreateSignalPDF(int iCAT,
   double d_norm_JER_Up = mapNorm["JERUp"] - mapNorm["Nom"];
   double d_norm_JER_Down = mapNorm["Nom"] - mapNorm["JERDown"];
 
-  RooRealVar norm_Nom("norm_Nom_wj_"+names[iCAT],"norm_Nom",norm_Central,0.,2.*norm_Central);
-  RooRealVar norm_JES_Up("norm_JES_Up_wj_"+names[iCAT],"norm_JES_Up",d_norm_JES_Up,-100.,100.);
-  RooRealVar norm_JES_Down("norm_JES_Down_wj_"+names[iCAT],"norm_JES_Down",d_norm_JES_Down,-100.,100.);
-  RooRealVar norm_JER_Up("norm_JER_Up_wj_"+names[iCAT],"norm_JER_Up",d_norm_JER_Up,-100.,100.);
-  RooRealVar norm_JER_Down("norm_JER_Down_wj_"+names[iCAT],"norm_JER_Down",d_norm_JER_Down,-100.,100.);
+  RooRealVar norm_Nom("norm_Nom_zj_"+names[iCAT],"norm_Nom",norm_Central,0.,2.*norm_Central);
+  RooRealVar norm_JES_Up("norm_JES_Up_zj_"+names[iCAT],"norm_JES_Up",d_norm_JES_Up,-100.,100.);
+  RooRealVar norm_JES_Down("norm_JES_Down_zj_"+names[iCAT],"norm_JES_Down",d_norm_JES_Down,-100.,100.);
+  RooRealVar norm_JER_Up("norm_JER_Up_zj_"+names[iCAT],"norm_JER_Up",d_norm_JER_Up,-100.,100.);
+  RooRealVar norm_JER_Down("norm_JER_Down_zj_"+names[iCAT],"norm_JER_Down",d_norm_JER_Down,-100.,100.);
 
-  RooFormulaVar yield_wj("wj_"+names[iCAT]+"_norm",
+  RooFormulaVar yield_zj("zj_"+names[iCAT]+"_norm",
 			 "@0 + (@1>=0.0)*@1*@2 + (@1<0.0)*@1*@3 + (@4>=0.0)*@4*@5 + (@4<0.0)*@4*@6",
 			 RooArgList(norm_Nom,theta_JES,norm_JES_Up,norm_JES_Down,theta_JER,norm_JER_Up,norm_JER_Down));
 
@@ -178,13 +178,13 @@ void CreateSignalPDF(int iCAT,
   
   outtext << "+++++++++++++ " << names[iCAT] << " ++++++++++++++" << endl;
   outtext << endl;
-  outtext << "Mean  (WJets) = " << mean_shifted.getVal() << endl;
+  outtext << "Mean  (ZJets) = " << mean_shifted.getVal() << endl;
   outtext << "Mean  (nom)   = " << mapMean["Nom"] << endl;
   outtext << "Mean  (ave)   = " << Mean << endl;
   outtext << "Mean  (Up)    = " << mapMean["JESUp"] << endl;
   outtext << "Mean  (Down)  = " << mapMean["JESDown"] << endl;
   outtext << endl;
-  outtext << "Sigma (WJets) = " << sigma_shifted.getVal() << endl;
+  outtext << "Sigma (ZJets) = " << sigma_shifted.getVal() << endl;
   outtext << "Sigma (nom)   = " << mapSigma["Nom"] << endl;
   outtext << "Sigma (ave)   = " << Sigma << endl;
   outtext << "Sigma (Up)    = " << mapSigma["JERUp"] << endl;
@@ -197,22 +197,23 @@ void CreateSignalPDF(int iCAT,
   outtext << "JERDown   = " << mapNorm["JERDown"] << endl;
   outtext << endl;
 
-  w->import(signal_wj);
-  w->import(yield_wj);
+  w->import(signal_zj);
+  w->import(yield_zj);
 
 }
 
-void CreateWJetsTemplates_sys() {
+void CreateZJetsTemplates_sys() {
   
-  std::map<TString,TNtuple *> treeWJets;
+  std::map<TString,TNtuple *> treeZJets;
 
   for (int i=0; i<5; ++i) {
     TFile * file = new TFile(dirName+"/"+FileNamesBDT[i]);
     TString sysName = sysNames[i];
-    treeWJets[sysName] = (TNtuple*)file->Get("Mass_and_BDT_WJets");
+    treeZJets[sysName] = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
   }
 
-  TFile * fileOutput = new TFile("rootshape/wj_singleb_shapes.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/zj_doubleb_shapes.root","recreate");
+  //TFile * fileOutput = new TFile("workspace_singleb_powheg/zj_singleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","signal");
 
@@ -220,7 +221,7 @@ void CreateWJetsTemplates_sys() {
   RooRealVar theta_JER("CMS_JER_2016","CMS_JER_2016",0.,-5.,5.);
 
   for (int i=0; i<4; ++i) 
-    CreateSignalPDF(i,treeWJets,theta_JES,theta_JER,w);
+    CreateSignalPDF(i,treeZJets,theta_JES,theta_JER,w);
 
   w->Write("w");
   fileOutput->Write();

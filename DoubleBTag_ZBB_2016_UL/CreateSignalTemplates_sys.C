@@ -45,9 +45,12 @@ void CreateSignalPDF(int iCAT,
     treeGGH[sysName]->Draw("mbb_reg>>"+nameGGHHist,"weight*("+cuts[iCAT]+")");
     treeVBF[sysName]->Draw("mbb_reg>>"+nameVBFHist,"weight*("+cuts[iCAT]+")");
 
+    outtext << "qqH Total: " << histVBF->GetSumOfWeights() <<  endl;
+    outtext << "ggH Total: " << histGGH->GetSumOfWeights() <<  endl;
+
     mapNormGGH[sysName] = histGGH->GetSumOfWeights();
     mapNormVBF[sysName] = histVBF->GetSumOfWeights();
-
+    
     //    delete histGGH;
     //    delete histVBF;
 
@@ -266,13 +269,12 @@ void CreateSignalTemplates_sys() {
   std::map<TString,TNtuple *> treeVBF;
 
   for (int i=0; i<5; ++i) {
-    TFile * file = new TFile(dirName+"/"+FileNamesBDT[i]);
+    TFile * file_qqh = new TFile(dirName+"/"+FileNamesBDT[i]);
     TString sysName = sysNames[i];
-    treeGGH[sysName] = (TNtuple*)file->Get("Mass_and_BDT_ggF_Hbb");
-    treeVBF[sysName] = (TNtuple*)file->Get("Mass_and_BDT_VBF_Hbb");
+    treeVBF[sysName] = (TNtuple*)file_qqh->Get("Mass_and_BDT_VBF_Hbb_Dipol");
+    treeGGH[sysName] = (TNtuple*)file_qqh->Get("Mass_and_BDT_ggF_Hbb");
   }
-
-  TFile * fileOutput = new TFile("rootshape/signal_singleb_shapes.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/signal_doubleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","signal");
 
