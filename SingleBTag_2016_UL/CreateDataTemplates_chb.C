@@ -9,6 +9,8 @@ void CreatePDF (int iCAT,
                 TNtuple * tree_zj,
                 TNtuple * tree_wj,
                 TNtuple * tree_st,
+                TNtuple * tree_vbf,
+                TNtuple * tree_ggh,
 		RooWorkspace * w) {
 
   TH1::SetDefaultSumw2(true);
@@ -19,18 +21,24 @@ void CreatePDF (int iCAT,
   TString nameHist_zj = "mbb_zj_"+names[iCAT];
   TString nameHist_wj = "mbb_wj_"+names[iCAT];
   TString nameHist_st = "mbb_st_"+names[iCAT];
+  TString nameHist_vbf = "mbb_vbf_"+names[iCAT];
+  TString nameHist_ggh = "mbb_ggh_"+names[iCAT];
 
   TH1D * hist = new TH1D(nameHist,"",Nbins,xmin,xmax);
   TH1D * hist_tt = new TH1D(nameHist_tt,"",Nbins,xmin,xmax);
   TH1D * hist_zj = new TH1D(nameHist_zj,"",Nbins,xmin,xmax);
-  TH1D * hist_st = new TH1D(nameHist_tt,"",Nbins,xmin,xmax);
-  TH1D * hist_wj = new TH1D(nameHist_zj,"",Nbins,xmin,xmax);
+  TH1D * hist_st = new TH1D(nameHist_st,"",Nbins,xmin,xmax);
+  TH1D * hist_wj = new TH1D(nameHist_wj,"",Nbins,xmin,xmax);
+  TH1D * hist_vbf = new TH1D(nameHist_vbf,"",Nbins,xmin,xmax);
+  TH1D * hist_ggh = new TH1D(nameHist_ggh,"",Nbins,xmin,xmax);
 
   tree->Draw("mbb_reg>>"+nameHist,cuts[iCAT]);
   tree_tt->Draw("mbb_reg>>"+nameHist_tt,"weight*("+cuts[iCAT]+")");
   tree_zj->Draw("mbb_reg>>"+nameHist_zj,"weight*("+cuts[iCAT]+")");
   tree_st->Draw("mbb_reg>>"+nameHist_st,"weight*("+cuts[iCAT]+")");
   tree_wj->Draw("mbb_reg>>"+nameHist_wj,"weight*("+cuts[iCAT]+")");
+  tree_vbf->Draw("mbb_reg>>"+nameHist_vbf,"weight*("+cuts[iCAT]+")");
+  tree_ggh->Draw("mbb_reg>>"+nameHist_ggh,"weight*("+cuts[iCAT]+")");
 
   TH1D * histData = (TH1D*)hist->Clone("dataHist_"+names[iCAT]);
 
@@ -38,6 +46,8 @@ void CreatePDF (int iCAT,
   hist->Add(hist_zj,-1);
   hist->Add(hist_st,-1);
   hist->Add(hist_wj,-1);
+  hist->Add(hist_vbf,-1);
+  hist->Add(hist_ggh,-1);
 
   delete dummy;
 
@@ -98,22 +108,22 @@ void CreatePDF (int iCAT,
 void CreateDataTemplates_chb() {
 
 
-  //TFile * file = new TFile("mbb_and_bdt_all_no_selection_2nd_bjet.root");
-  TFile * file = new TFile("/afs/cern.ch/work/m/mukherje/private/VBFHbb_stat/CMSSW_10_2_13/src/VBF_Hbb/SingleBTag_2016_UL/ntuples/mbb_and_bdt_all_Nom.root");
+  TFile * file = new TFile(dirName+"/mbb_and_bdt_all_Nom.root");
   TTree * tree = (TTree*)file->Get("Mass_and_BDT_DATA");
   TNtuple * tree_tt = (TNtuple*)file->Get("Mass_and_BDT_tt");
   TNtuple * tree_zj = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
   TNtuple * tree_wj = (TNtuple*)file->Get("Mass_and_BDT_WJets");
   TNtuple * tree_st = (TNtuple*)file->Get("Mass_and_BDT_Sandgle_Top");
-
+  TNtuple * tree_vbf = (TNtuple*)file->Get("Mass_and_BDT_VBF_Hbb_Dipol");
+  TNtuple * tree_ggh = (TNtuple*)file->Get("Mass_and_BDT_ggF_Hbb");
  
   TFile * fileOutput = new TFile("root_shape/data_singleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","data");
 
-  int iorder[5] = {3,2,2,2,2}; 
+  int iorder[5] = {4,3,3,3,3}; 
   for (int i=0; i<5; ++i) 
-    CreatePDF(i,iorder[i],tree,tree_tt,tree_zj,tree_wj,tree_st,w);
+    CreatePDF(i,iorder[i],tree,tree_tt,tree_zj,tree_wj,tree_st,tree_vbf,tree_ggh,w);
   
   w->Write("w");
   fileOutput->Write();
