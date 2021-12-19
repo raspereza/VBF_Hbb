@@ -44,7 +44,7 @@ void PlotDataFitsQCD(int iCAT=0,
 
   tree->Draw(variable+">>"+nameHist,Cuts);
   tree->Draw(variable+">>"+nameBlindHist,CutsBlind);
-  double yield_ini = hist->GetSumOfweights();
+  double yield_ini = hist->GetSumOfWeights();
 
   for (auto sample_name : sample_names) {
     TNtuple * tuple = (TNtuple*)file->Get("Mass_and_BDT_"+sample_name);
@@ -353,11 +353,7 @@ void PlotDataFitsQCD(int iCAT=0,
 
   canv->Update();
 
-  /*
-  if(BERN)
-    canv->Print("QCD_modelling_"+names[iCAT]+"_"+blinded+"_BERN_POL_DB.png");
-  else 
-    canv->Print("2016_UL_QCD_modelling_"+names[iCAT]+"_"+blinded+"_CHEV_POL_pol_DB.png");
-  */
+  canv->Print("QCD_chv_"+names[iCAT]+"_"+blinded+".png");
+  
 
 }
