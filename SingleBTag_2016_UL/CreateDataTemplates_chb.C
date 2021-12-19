@@ -2,9 +2,11 @@
 
 using namespace RooFit;
 
+std::ofstream textout("data_chv.txt");
+
 void CreatePDF (int iCAT,
 		int iORDER,
-		TTree * tree,
+		TNtuple * tree,
                 TNtuple * tree_tt,
                 TNtuple * tree_zj,
                 TNtuple * tree_wj,
@@ -17,6 +19,8 @@ void CreatePDF (int iCAT,
 
   TCanvas * dummy = new TCanvas("dummy","",800,700);
   TString nameHist = "mbb_"+names[iCAT];
+  TString nameHistSubtr = "mbbSubtr_"+names[iCAT];
+
   TString nameHist_tt = "mbb_tt_"+names[iCAT];
   TString nameHist_zj = "mbb_zj_"+names[iCAT];
   TString nameHist_wj = "mbb_wj_"+names[iCAT];
@@ -24,23 +28,24 @@ void CreatePDF (int iCAT,
   TString nameHist_vbf = "mbb_vbf_"+names[iCAT];
   TString nameHist_ggh = "mbb_ggh_"+names[iCAT];
 
-  TH1D * hist = new TH1D(nameHist,"",Nbins,xmin,xmax);
-  TH1D * hist_tt = new TH1D(nameHist_tt,"",Nbins,xmin,xmax);
-  TH1D * hist_zj = new TH1D(nameHist_zj,"",Nbins,xmin,xmax);
-  TH1D * hist_st = new TH1D(nameHist_st,"",Nbins,xmin,xmax);
-  TH1D * hist_wj = new TH1D(nameHist_wj,"",Nbins,xmin,xmax);
-  TH1D * hist_vbf = new TH1D(nameHist_vbf,"",Nbins,xmin,xmax);
-  TH1D * hist_ggh = new TH1D(nameHist_ggh,"",Nbins,xmin,xmax);
+  TH1D * histData = new TH1D(nameHist,"",Nbins,xmin,xmax);
+  TH1D * hist = new TH1D(nameHistSubtr,"",NbinsBkg,xmin,xmax);
+
+  TH1D * hist_tt = new TH1D(nameHist_tt,"",NbinsBkg,xmin,xmax);
+  TH1D * hist_zj = new TH1D(nameHist_zj,"",NbinsBkg,xmin,xmax);
+  TH1D * hist_st = new TH1D(nameHist_st,"",NbinsBkg,xmin,xmax);
+  TH1D * hist_wj = new TH1D(nameHist_wj,"",NbinsBkg,xmin,xmax);
+  TH1D * hist_vbf = new TH1D(nameHist_vbf,"",NbinsBkg,xmin,xmax);
+  TH1D * hist_ggh = new TH1D(nameHist_ggh,"",NbinsBkg,xmin,xmax);
 
   tree->Draw("mbb_reg>>"+nameHist,cuts[iCAT]);
+  tree->Draw("mbb_reg>>"+nameHistSubtr,cuts[iCAT]);
   tree_tt->Draw("mbb_reg>>"+nameHist_tt,"weight*("+cuts[iCAT]+")");
   tree_zj->Draw("mbb_reg>>"+nameHist_zj,"weight*("+cuts[iCAT]+")");
   tree_st->Draw("mbb_reg>>"+nameHist_st,"weight*("+cuts[iCAT]+")");
   tree_wj->Draw("mbb_reg>>"+nameHist_wj,"weight*("+cuts[iCAT]+")");
   tree_vbf->Draw("mbb_reg>>"+nameHist_vbf,"weight*("+cuts[iCAT]+")");
   tree_ggh->Draw("mbb_reg>>"+nameHist_ggh,"weight*("+cuts[iCAT]+")");
-
-  TH1D * histData = (TH1D*)hist->Clone("dataHist_"+names[iCAT]);
 
   hist->Add(hist_tt,-1);
   hist->Add(hist_zj,-1);
@@ -83,20 +88,17 @@ void CreatePDF (int iCAT,
   RooDataHist data("data_"+names[iCAT],"data",mbb,histData);  
 
   RooFitResult * res = CHV.fitTo(dataSubtr,Save(),SumW2Error(kTRUE));  
-
-  cout << endl;
-  cout << "+++++++++++++++ " << names[iCAT] << " +++++++++++++++++++" << endl;
-  cout << endl;
-  b0.Print();
-  b1.Print();
-  b2.Print();
-  b3.Print();
-  b4.Print();
-  b5.Print();
+  RooChi2Var chi2Roo = RooChi2Var("chi2"+names[iCAT],"chi2",CHV,dataSubtr) ;
+  double ndof = NbinsBkg - iORDER;
+  double chi2 = chi2Roo.getVal();
+  double prob = TMath::Prob(chi2,ndof);
   res->Print();
-  cout << "TOTAL YIELD = " << yield << endl;
-  cout << endl;
-  cout << "+++++++++++++++++++++++++++++++++++++++++" << endl;
+  textout << endl;
+  textout << "+++++++++++++++ " << names[iCAT] << " +++++++++++++++++++" << endl;
+  textout << endl;
+  textout << "Chi2/ndof = " << chi2 << "/" << ndof << " = " << chi2/ndof << "  prob = " << prob << endl;
+  textout << "TOTAL DATA YIELD = " << histData->GetSumOfWeights() << endl;
+  textout << "TOTAL QCD  YIELD = " << yield << endl;
   cout << endl;
 
   w->import(CHV);
@@ -107,13 +109,12 @@ void CreatePDF (int iCAT,
 
 void CreateDataTemplates_chb() {
 
-
   TFile * file = new TFile(dirName+"/mbb_and_bdt_all_Nom.root");
-  TTree * tree = (TTree*)file->Get("Mass_and_BDT_DATA");
-  TNtuple * tree_tt = (TNtuple*)file->Get("Mass_and_BDT_tt");
-  TNtuple * tree_zj = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
-  TNtuple * tree_wj = (TNtuple*)file->Get("Mass_and_BDT_WJets");
-  TNtuple * tree_st = (TNtuple*)file->Get("Mass_and_BDT_Sandgle_Top");
+  TNtuple * tree     = (TNtuple*)file->Get("Mass_and_BDT_DATA");
+  TNtuple * tree_tt  = (TNtuple*)file->Get("Mass_and_BDT_tt");
+  TNtuple * tree_zj  = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
+  TNtuple * tree_wj  = (TNtuple*)file->Get("Mass_and_BDT_WJets");
+  TNtuple * tree_st  = (TNtuple*)file->Get("Mass_and_BDT_Sandgle_Top");
   TNtuple * tree_vbf = (TNtuple*)file->Get("Mass_and_BDT_VBF_Hbb_Dipol");
   TNtuple * tree_ggh = (TNtuple*)file->Get("Mass_and_BDT_ggF_Hbb");
  
@@ -121,7 +122,8 @@ void CreateDataTemplates_chb() {
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","data");
 
-  int iorder[5] = {4,3,3,3,3}; 
+
+  int iorder[5] = {3,2,2,2,2}; 
   for (int i=0; i<5; ++i) 
     CreatePDF(i,iorder[i],tree,tree_tt,tree_zj,tree_wj,tree_st,tree_vbf,tree_ggh,w);
   

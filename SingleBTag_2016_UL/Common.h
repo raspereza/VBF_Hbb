@@ -9,14 +9,14 @@ std::map<TString,TString> label = {
     {"JERDown","JERDown"},
 };
 
-TString cuts[5] = {"bdtout<0.0",
-		   "bdtout>=0.0 && bdtout<0.3",
-		   "bdtout>=0.3 && bdtout<0.5",
-		   "bdtout>=0.5 && bdtout<0.75",
+TString cuts[5] = {"bdtout<0.00",
+		   "bdtout>=0.00 && bdtout<0.30",
+		   "bdtout>=0.30 && bdtout<0.50",
+		   "bdtout>=0.50 && bdtout<0.75",
 		   "bdtout>=0.75"};
 
 
-TString dirName =  "/afs/cern.ch/work/m/mukherje/private/VBFHbb_stat/CMSSW_10_2_13/src/VBF_Hbb/SingleBTag_2016_UL/ntuples/"; 
+TString dirName =  "ntuple";
 TString FileNamesBDT[5] = {
   "mbb_and_bdt_all_Nom.root",
   "mbb_and_bdt_all_JEC_up.root",
@@ -51,24 +51,27 @@ TString names[5] = {"CAT4",
 		    "CAT8"};
 
 std::vector<std::string> namesCAT = {
-  "CAT3",
   "CAT4",
   "CAT5",
   "CAT6",
-  "CAT7"
+  "CAT7",
+  "CAT8"
 }; // needed to define transfer functions
 
-int NbinsBkg = 150;
+int NbinsBkg = 75;
 int NbinsSig = 30;
 int Nbins = 1500;
 
-float xmin = 80;
-float xmax = 230;
+float xmin = 70;
+float xmax = 220;
+
+float xmin_mc = 70;
+float xmax_mc = 220;
+
+float xmin_blind = 100;
+float xmax_blind = 150;
 
 int Nbins_wj = 15;
-
-float xmin_wj = 50;
-float xmax_wj = 250;
 
 TH1D * DivideHist(TH1D* hist, TH1D* hist0, TString Name) {
 
@@ -88,7 +91,8 @@ TH1D * DivideHist(TH1D* hist, TH1D* hist0, TString Name) {
     if (xNum>0&&xDen>0) {
       double xratio  = xNum/xDen;
       double xratioR = TMath::Sqrt(NumR*NumR+DenR*DenR);
-      double xratioE = xratio*xratioR;
+      //      double xratioE = xratio*xratioR;
+      double xratioE = xNumE/xDen;
       ratioH->SetBinContent(iB,xratio);
       ratioH->SetBinError(iB,xratioE);
     }

@@ -54,13 +54,13 @@ void CreateSignalPDF(int iCAT,
     delete histGGH;
     delete histVBF;
 
-    histGGH = new TH1D(nameGGHHist,"",NbinsSig,xmin,xmax);
-    histVBF = new TH1D(nameVBFHist,"",NbinsSig,xmin,xmax);
+    histGGH = new TH1D(nameGGHHist,"",NbinsSig,xmin_mc,xmax_mc);
+    histVBF = new TH1D(nameVBFHist,"",NbinsSig,xmin_mc,xmax_mc);
     
-    treeGGH[sysName]->Draw("mbb_reg>>"+nameGGHHist,"weight");
-    treeVBF[sysName]->Draw("mbb_reg>>"+nameVBFHist,"weight");
+    treeGGH[sysName]->Draw("mbb_reg>>"+nameGGHHist,"weight*("+cuts[iCAT]+")");
+    treeVBF[sysName]->Draw("mbb_reg>>"+nameVBFHist,"weight*("+cuts[iCAT]+")");
 
-    RooRealVar mbbx("mbb","mass(bb)",xmin,xmax);
+    RooRealVar mbbx("mbb","mass(bb)",xmin_mc,xmax_mc);
 
     RooRealVar meanx("mean","Mean",125,80,200);
     RooRealVar sigmax("sigma","Width",10,0,30);
@@ -271,7 +271,7 @@ void CreateSignalTemplates_sys() {
   for (int i=0; i<5; ++i) {
     TFile * file_qqh = new TFile(dirName+"/"+FileNamesBDT[i]);
     TString sysName = sysNames[i];
-    treeVBF[sysName] = (TNtuple*)file_qqh->Get("Mass_and_BDT_VBF_Hbb");
+    treeVBF[sysName] = (TNtuple*)file_qqh->Get("Mass_and_BDT_VBF_Hbb_Dipol");
     treeGGH[sysName] = (TNtuple*)file_qqh->Get("Mass_and_BDT_ggF_Hbb");
   }
   TFile * fileOutput = new TFile("root_shape/signal_singleb_shapes.root","recreate");
