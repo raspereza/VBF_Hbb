@@ -97,11 +97,11 @@ void CreatePDF(int iCAT,
   RooRealVar f_sig("f_sig","fsig",0.5,0,1);
   //
 
-  RooRealVar a1("a1_"+names[iCAT],"a1",-0.2,0.2); a1.setVal(0.);
-  RooRealVar a2("a2_"+names[iCAT],"a2",-0.2,0.2); a2.setVal(0.);
-  RooRealVar a3("a3_"+names[iCAT],"a3",-0.2,0.2); a3.setVal(0.);
-  RooRealVar a4("a4_"+names[iCAT],"a4",-0.2,0.2); a4.setVal(0.);
-  RooRealVar a5("a5_"+names[iCAT],"a5",-0.2,0.2); a5.setVal(0.);
+  RooRealVar a1("a1_"+names[iCAT],"a1",-1.5,1.5); a1.setVal(0.);
+  RooRealVar a2("a2_"+names[iCAT],"a2",-1.5,1.5); a2.setVal(0.);
+  RooRealVar a3("a3_"+names[iCAT],"a3",-1.5,1.5); a3.setVal(0.);
+  RooRealVar a4("a4_"+names[iCAT],"a4",-1.5,1.5); a4.setVal(0.);
+  RooRealVar a5("a5_"+names[iCAT],"a5",-1.5,1.5); a5.setVal(0.);
 
   RooArgList argListPolExp;
   
@@ -151,7 +151,7 @@ void CreatePDF(int iCAT,
   b2_sig.setConstant(true);
   f_sig.setConstant(true);
 
-  RooRealVar tau_decay("tau_decay_"+names[iCAT],"tau_decay",-1.0e-02,-5.0e-03);
+  RooRealVar tau_decay("tau_decay_"+names[iCAT],"tau_decay",-1.0e-01,-1.0e-06);
   tau_decay.setVal(-9.0e-03);
   argListPolExp.add(tau_decay);
 
@@ -245,6 +245,13 @@ void CreatePDF(int iCAT,
   outtext << "TOTAL DATA YIELD = " << hist->GetSumOfWeights() << endl;
   outtext << endl;
   RooRealVar qcd_yield("qcd_"+names[iCAT]+"_norm","Yield",xQCD,0.5*xQCD,2*xQCD);
+
+  a1.setConstant(false);
+  a2.setConstant(false);
+  a3.setConstant(false);
+  a4.setConstant(false);
+  a5.setConstant(false);
+  tau_decay.setConstant(false);
 
   w->import(QCD);
   w->import(data_ws);

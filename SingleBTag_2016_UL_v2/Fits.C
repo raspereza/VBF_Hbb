@@ -342,7 +342,7 @@ void Fits(int iCAT=3,
   char str2[20];
   sprintf(str2,"P(#chi^{2}) = %4.2f",prob);
   char str3[20];
-  sprintf(str3,"exp+pol%1i+Zpeak",iORDER);   
+  sprintf(str3,"exp*tpol%1i+Zpeak",iORDER);   
 
   TCanvas * canv = new TCanvas("canv","",550,650);
   TPad *upper = new TPad("upper", "pad",0,0.31,1,1);
@@ -387,8 +387,8 @@ void Fits(int iCAT=3,
   text3->Draw();
   char str[20];
   int cat_n = iCAT + 4;
-  sprintf(str,"SingleB CAT %d",cat_n);
-  TLatex * text = new TLatex(0.6,0.84,str);
+  sprintf(str,"2016  SingleB CAT%d",cat_n);
+  TLatex * text = new TLatex(0.5,0.84,str);
   text->SetNDC();
   text->SetTextFont(22);
   text->SetTextSize(0.06);

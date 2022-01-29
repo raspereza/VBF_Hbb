@@ -1,7 +1,7 @@
 #include "HttStylesNew.cc"
 #include "Common.h"
-void Fits(int iCAT=3, 
-	  int iORDER=0,
+void Fits(int iCAT=0, 
+	  int iORDER=1,
 	  bool blind=true,
 	  double ymin_ratio = 0.69,
 	  double ymax_ratio = 1.31) {
@@ -387,8 +387,8 @@ void Fits(int iCAT=3,
   text3->Draw();
   char str[20];
   int cat_n = iCAT + 4;
-  sprintf(str,"SingleB CAT %d",cat_n);
-  TLatex * text = new TLatex(0.6,0.84,str);
+  sprintf(str,"2018 SingleB CAT%d",cat_n);
+  TLatex * text = new TLatex(0.5,0.84,str);
   text->SetNDC();
   text->SetTextFont(22);
   text->SetTextSize(0.06);
