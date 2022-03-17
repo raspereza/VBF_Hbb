@@ -1,80 +1,120 @@
-+++++++++++++ CAT0 ++++++++++++++
++++++++++++++ DoubleB1_2016 ++++++++++++++
 
-Mean  (ZJets) = 93.5835
-Mean  (nom)   = 93.5429
-Mean  (ave)   = 93.5835
-Mean  (Up)    = 94.6797
-Mean  (Down)  = 92.4873
+Mean  (ZJets) = 94.4552
+Mean  (nom)   = 94.4557
+Mean  (ave)   = 94.4552
+Mean  (Up)    = 94.4552
+Mean  (Down)  = 94.4552
 
-Sigma (ZJets) = 11.3226
-Sigma (nom)   = 10.9596
-Sigma (ave)   = 11.3226
-Sigma (Up)    = 11.4715
-Sigma (Down)  = 11.1736
+Sigma (ZJets) = 9.50333
+Sigma (nom)   = 9.50334
+Sigma (ave)   = 9.50333
+Sigma (Up)    = 9.50333
+Sigma (Down)  = 9.50333
 
-Norm      = 9865.41
-JESUp     = 9890.11
-JESDown   = 9523.52
-JERUp     = 9723.2
-JERDown   = 9800.45
+Norm      = 159.647
+JESUp     = 159.647
+JESDown   = 159.647
+JERUp     = 159.647
+JERDown   = 159.647
 
-+++++++++++++ CAT1 ++++++++++++++
++++++++++++++ DoubleB2_2016 ++++++++++++++
 
-Mean  (ZJets) = 93.5835
-Mean  (nom)   = 93.5429
-Mean  (ave)   = 93.5835
-Mean  (Up)    = 94.6797
-Mean  (Down)  = 92.4873
+Mean  (ZJets) = 94.4552
+Mean  (nom)   = 94.4557
+Mean  (ave)   = 94.4552
+Mean  (Up)    = 94.4552
+Mean  (Down)  = 94.4552
 
-Sigma (ZJets) = 11.3226
-Sigma (nom)   = 10.9596
-Sigma (ave)   = 11.3226
-Sigma (Up)    = 11.4715
-Sigma (Down)  = 11.1736
+Sigma (ZJets) = 9.50333
+Sigma (nom)   = 9.50334
+Sigma (ave)   = 9.50333
+Sigma (Up)    = 9.50333
+Sigma (Down)  = 9.50333
 
-Norm      = 1709.98
-JESUp     = 1711.47
-JESDown   = 1685.8
-JERUp     = 1688.36
-JERDown   = 1690.19
+Norm      = 221.843
+JESUp     = 221.843
+JESDown   = 221.843
+JERUp     = 221.843
+JERDown   = 221.843
 
-+++++++++++++ CAT2 ++++++++++++++
++++++++++++++ DoubleB3_2016 ++++++++++++++
 
-Mean  (ZJets) = 93.5835
-Mean  (nom)   = 93.5429
-Mean  (ave)   = 93.5835
-Mean  (Up)    = 94.6797
-Mean  (Down)  = 92.4873
+Mean  (ZJets) = 94.4552
+Mean  (nom)   = 94.4557
+Mean  (ave)   = 94.4552
+Mean  (Up)    = 94.4552
+Mean  (Down)  = 94.4552
 
-Sigma (ZJets) = 11.3226
-Sigma (nom)   = 10.9596
-Sigma (ave)   = 11.3226
-Sigma (Up)    = 11.4715
-Sigma (Down)  = 11.1736
+Sigma (ZJets) = 9.50333
+Sigma (nom)   = 9.50334
+Sigma (ave)   = 9.50333
+Sigma (Up)    = 9.50333
+Sigma (Down)  = 9.50333
 
-Norm      = 1508.78
-JESUp     = 1520.16
-JESDown   = 1468.89
-JERUp     = 1468.39
-JERDown   = 1503.46
+Norm      = 220.851
+JESUp     = 220.851
+JESDown   = 220.851
+JERUp     = 220.851
+JERDown   = 220.851
 
-+++++++++++++ CAT3 ++++++++++++++
++++++++++++++ DoubleB4_2016 ++++++++++++++
 
-Mean  (ZJets) = 93.5835
-Mean  (nom)   = 93.5429
-Mean  (ave)   = 93.5835
-Mean  (Up)    = 94.6797
-Mean  (Down)  = 92.4873
+Mean  (ZJets) = 94.4552
+Mean  (nom)   = 94.4557
+Mean  (ave)   = 94.4552
+Mean  (Up)    = 94.4552
+Mean  (Down)  = 94.4552
 
-Sigma (ZJets) = 11.3226
-Sigma (nom)   = 10.9596
-Sigma (ave)   = 11.3226
-Sigma (Up)    = 11.4715
-Sigma (Down)  = 11.1736
+Sigma (ZJets) = 9.50333
+Sigma (nom)   = 9.50334
+Sigma (ave)   = 9.50333
+Sigma (Up)    = 9.50333
+Sigma (Down)  = 9.50333
 
-Norm      = 1133.38
-JESUp     = 1148.87
-JESDown   = 1087.49
-JERUp     = 1108.49
-JERDown   = 1125.66
+Norm      = 69.0124
+JESUp     = 69.0124
+JESDown   = 69.0124
+JERUp     = 69.0124
+JERDown   = 69.0124
+
++++++++++++++ DoubleB5_2016 ++++++++++++++
+
+Mean  (ZJets) = 94.4552
+Mean  (nom)   = 94.4557
+Mean  (ave)   = 94.4552
+Mean  (Up)    = 94.4552
+Mean  (Down)  = 94.4552
+
+Sigma (ZJets) = 9.50333
+Sigma (nom)   = 9.50334
+Sigma (ave)   = 9.50333
+Sigma (Up)    = 9.50333
+Sigma (Down)  = 9.50333
+
+Norm      = 1653.5
+JESUp     = 1653.5
+JESDown   = 1653.5
+JERUp     = 1653.5
+JERDown   = 1653.5
+
++++++++++++++ DoubleB6_2016 ++++++++++++++
+
+Mean  (ZJets) = 94.4552
+Mean  (nom)   = 94.4557
+Mean  (ave)   = 94.4552
+Mean  (Up)    = 94.4552
+Mean  (Down)  = 94.4552
+
+Sigma (ZJets) = 9.50333
+Sigma (nom)   = 9.50334
+Sigma (ave)   = 9.50333
+Sigma (Up)    = 9.50333
+Sigma (Down)  = 9.50333
+
+Norm      = 533.005
+JESUp     = 533.005
+JESDown   = 533.005
+JERUp     = 533.005
+JERDown   = 533.005
 

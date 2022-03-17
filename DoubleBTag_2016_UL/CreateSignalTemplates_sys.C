@@ -39,11 +39,11 @@ void CreateSignalPDF(int iCAT,
     TString nameGGHHist = "mbb_ggh";//+namesCAT[iCAT]+"_"+sysName;
     TString nameVBFHist = "mbb_vbf";//+namesCAT[iCAT]+"_"+sysName;
 
-    TH1D * histGGH = new TH1D(nameGGHHist,"",NbinsSig,xmin_mc,xmax_mc);
-    TH1D * histVBF = new TH1D(nameVBFHist,"",NbinsSig,xmin_mc,xmax_mc);
+    TH1D * histGGH = new TH1D(nameGGHHist,"",NbinsSig,xmin,xmax);
+    TH1D * histVBF = new TH1D(nameVBFHist,"",NbinsSig,xmin,xmax);
     
-    treeGGH[sysName]->Draw("mbb_reg>>"+nameGGHHist,"weight*("+cuts[iCAT]+")");
-    treeVBF[sysName]->Draw("mbb_reg>>"+nameVBFHist,"weight*("+cuts[iCAT]+")");
+    treeGGH[sysName]->Draw(variable+">>"+nameGGHHist,"weight*("+cuts[iCAT]+")");
+    treeVBF[sysName]->Draw(variable+">>"+nameVBFHist,"weight*("+cuts[iCAT]+")");
 
     outtext << "qqH Total: " << histVBF->GetSumOfWeights() <<  endl;
     outtext << "ggH Total: " << histGGH->GetSumOfWeights() <<  endl;
@@ -54,13 +54,13 @@ void CreateSignalPDF(int iCAT,
     delete histGGH;
     delete histVBF;
 
-    histGGH = new TH1D(nameGGHHist,"",NbinsSig,xmin_mc,xmax_mc);
-    histVBF = new TH1D(nameVBFHist,"",NbinsSig,xmin_mc,xmax_mc);
+    histGGH = new TH1D(nameGGHHist,"",NbinsSig,xmin,xmax);
+    histVBF = new TH1D(nameVBFHist,"",NbinsSig,xmin,xmax);
     
-    treeGGH[sysName]->Draw("mbb_reg>>"+nameGGHHist,"weight");
-    treeVBF[sysName]->Draw("mbb_reg>>"+nameVBFHist,"weight");
+    treeGGH[sysName]->Draw(variable+">>"+nameGGHHist,"weight");
+    treeVBF[sysName]->Draw(variable+">>"+nameVBFHist,"weight");
 
-    RooRealVar mbbx("mbb","mass(bb)",xmin_mc,xmax_mc);
+    RooRealVar mbbx("mbb","mass(bb)",xmin,xmax);
 
     RooRealVar meanx("mean","Mean",125,80,200);
     RooRealVar sigmax("sigma","Width",10,0,30);
@@ -126,7 +126,7 @@ void CreateSignalPDF(int iCAT,
   RooRealVar b0("b0_sig_"+names[iCAT],"b0",0.5,0,1);
   RooRealVar b1("b1_sig_"+names[iCAT],"b1",0.5,0,1);
   RooRealVar b2("b2_sig_"+names[iCAT],"b2",0.5,0,1);
-  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin_mc,xmax_mc);
+  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
 
   double Mean = 0.5*(mapMean["JESUp"]+mapMean["JESDown"]);
   double d_Mean = mapMean["JESUp"] - Mean;
@@ -143,8 +143,15 @@ void CreateSignalPDF(int iCAT,
   b1.setVal(B1);
   b2.setVal(B2);
 
+  //
+  d_Mean = 1.5;
+  d_Sigma = 0.5;
+  //
+
   RooRealVar shift_JES("shift_JES_sig_"+names[iCAT],"shift_JES",d_Mean,d_Mean-1.0,d_Mean+1.0);
   RooRealVar shift_JER("shift_JER_sig_"+names[iCAT],"shift_JER",d_Sigma,d_Sigma-1.0,d_Sigma+1.0);
+
+
 
   RooFormulaVar mean_shifted_ggH("mean_shifted_ggH_" +names[iCAT],
 				 "@0 + @1*@2",
@@ -171,35 +178,38 @@ void CreateSignalPDF(int iCAT,
   RooAddPdf signal_qqH("qqH_"+names[iCAT],"qqH",RooArgList(cb_qqH,BRN_qqH),fsig);
 
   double normGGH_Central = mapNormGGH["Nom"];
-  double d_normGGH_JES_Up = mapNormGGH["JESUp"] - mapNormGGH["Nom"];
-  double d_normGGH_JES_Down = mapNormGGH["Nom"] - mapNormGGH["JESDown"];
-  double d_normGGH_JER_Up = mapNormGGH["JERUp"] - mapNormGGH["Nom"];
-  double d_normGGH_JER_Down = mapNormGGH["Nom"] - mapNormGGH["JERDown"];
-
+  double normGGH_mean_JES = 0.5*(mapNormGGH["JESUp"]+mapNormGGH["JESDown"]); 
+  double normGGH_mean_JER = 0.5*(mapNormGGH["JERUp"]+mapNormGGH["JERDown"]);
+  double normGGH_shift_JES = (mapNormGGH["JESUp"]/normGGH_mean_JES -1.0)*normGGH_Central;
+  double normGGH_shift_JER = (mapNormGGH["JERUp"]/normGGH_mean_JER -1.0)*normGGH_Central;
+  
   double normVBF_Central = mapNormVBF["Nom"];
-  double d_normVBF_JES_Up = mapNormVBF["JESUp"] - mapNormVBF["Nom"];
-  double d_normVBF_JES_Down = mapNormVBF["Nom"] - mapNormVBF["JESDown"];
-  double d_normVBF_JER_Up = mapNormVBF["JERUp"] - mapNormVBF["Nom"];
-  double d_normVBF_JER_Down = mapNormVBF["Nom"] - mapNormVBF["JERDown"];
+  double normVBF_mean_JES = 0.5*(mapNormVBF["JESUp"]+mapNormVBF["JESDown"]); 
+  double normVBF_mean_JER = 0.5*(mapNormVBF["JERUp"]+mapNormVBF["JERDown"]);
+  double normVBF_shift_JES = (mapNormVBF["JESUp"]/normVBF_mean_JES -1.0)*normVBF_Central;
+  double normVBF_shift_JER = (mapNormVBF["JERUp"]/normVBF_mean_JER -1.0)*normVBF_Central;
 
-  RooRealVar normGGH_Nom("norm_GGH_Nom_sig_"+names[iCAT],"norm_GGH_Nom",normGGH_Central,0.,2.*normGGH_Central);
-  RooRealVar normGGH_JES_Up("normGGH_JES_Up_sig_"+names[iCAT],"normGGH_JES_Up",d_normGGH_JES_Up,-100.,100.);
-  RooRealVar normGGH_JES_Down("normGGH_JES_Down_sig_"+names[iCAT],"normGGH_JES_Down",d_normGGH_JES_Down,-100.,100.);
-  RooRealVar normGGH_JER_Up("normGGH_JER_Up_sig_"+names[iCAT],"normGGH_JER_Up",d_normGGH_JER_Up,-100.,100.);
-  RooRealVar normGGH_JER_Down("normGGH_JER_Down_sig_"+names[iCAT],"normGGH_JER_Down",d_normGGH_JER_Down,-100.,100.);
+  normGGH_shift_JES = 0.1*normGGH_Central;
+  normVBF_shift_JES = 0.1*normVBF_Central;
 
-  RooRealVar normVBF_Nom("norm_VBF_Nom_sig_"+names[iCAT],"norm_VBF_Nom",normVBF_Central,0.,2.*normVBF_Central);
-  RooRealVar normVBF_JES_Up("normVBF_JES_Up_sig_"+names[iCAT],"normVBF_JES_Up",d_normVBF_JES_Up,-100.,100.);
-  RooRealVar normVBF_JES_Down("normVBF_JES_Down_sig_"+names[iCAT],"normVBF_JES_Down",d_normVBF_JES_Down,-100.,100.);
-  RooRealVar normVBF_JER_Up("normVBF_JER_Up_sig_"+names[iCAT],"normVBF_JER_Up",d_normVBF_JER_Up,-100.,100.);
-  RooRealVar normVBF_JER_Down("normVBF_JER_Down_sig_"+names[iCAT],"normVBF_JER_Down",d_normVBF_JER_Down,-100.,100.);
+  normGGH_shift_JER = 0.02*normGGH_Central;
+  normVBF_shift_JER = 0.02*normVBF_Central;
+  
+
+  RooRealVar NormGGH_Nom("norm_Nom_ggH_"+names[iCAT],"norm_Nom_ggH",normGGH_Central,0.,2.*normGGH_Central);
+  RooRealVar NormGGH_shift_JES("norm_shift_JES_ggH_"+names[iCAT],"norm_shift_JES_ggH",normGGH_shift_JES,normGGH_shift_JES-10.,normGGH_shift_JES+10.);
+  RooRealVar NormGGH_shift_JER("norm_shift_JER_ggH_"+names[iCAT],"norm_shift_JER_ggH",normGGH_shift_JER,normGGH_shift_JER-10.,normGGH_shift_JER+10.);
+
+  RooRealVar NormVBF_Nom("norm_Nom_qqH_"+names[iCAT],"norm_Nom_qqH",normVBF_Central,0.,2.*normVBF_Central);
+  RooRealVar NormVBF_shift_JES("norm_shift_JES_qqH_"+names[iCAT],"norm_shift_JES_qqH",normVBF_shift_JES,normVBF_shift_JES-10.,normVBF_shift_JES+10.);
+  RooRealVar NormVBF_shift_JER("norm_shift_JER_qqH_"+names[iCAT],"norm_shift_JER_qqH",normVBF_shift_JER,normVBF_shift_JER-10.,normVBF_shift_JER+10.);
 
   RooFormulaVar yield_GGH("ggH_"+names[iCAT]+"_norm",
-			  "@0 + (@1>=0.0)*@1*@2 + (@1<0.0)*@1*@3 + (@4>=0.0)*@4*@5 + (@4<0.0)*@4*@6",
-			  RooArgList(normGGH_Nom,theta_JES,normGGH_JES_Up,normGGH_JES_Down,theta_JER,normGGH_JER_Up,normGGH_JER_Down));
+			  "@0 + @1*@2 + @3*@4",
+			  RooArgList(NormGGH_Nom,theta_JES,NormGGH_shift_JES,theta_JER,NormGGH_shift_JER));
   RooFormulaVar yield_VBF("qqH_"+names[iCAT]+"_norm",
-			  "@0 + (@1>=0.0)*@1*@2 + (@1<0.0)*@1*@3 + (@4>=0.0)*@4*@5 + (@4<0.0)*@4*@6",
-			  RooArgList(normVBF_Nom,theta_JES,normVBF_JES_Up,normVBF_JES_Down,theta_JER,normVBF_JER_Up,normVBF_JER_Down));
+			  "@0 + @1*@2 + @3*@4",
+			  RooArgList(NormVBF_Nom,theta_JES,NormVBF_shift_JES,theta_JER,NormVBF_shift_JER));
 
   alpha.setConstant(true);
   mean.setConstant(true);
@@ -215,17 +225,14 @@ void CreateSignalPDF(int iCAT,
   shift_JES.setConstant(true);
   shift_JER.setConstant(true);
 
-  normGGH_Nom.setConstant(true);
-  normGGH_JES_Up.setConstant(true);
-  normGGH_JES_Down.setConstant(true);
-  normGGH_JER_Up.setConstant(true);
-  normGGH_JER_Down.setConstant(true);
+  NormGGH_Nom.setConstant(true);
+  NormGGH_shift_JES.setConstant(true);
+  NormGGH_shift_JER.setConstant(true);
   
-  normVBF_Nom.setConstant(true);
-  normVBF_JES_Up.setConstant(true);
-  normVBF_JES_Down.setConstant(true);
-  normVBF_JER_Up.setConstant(true);
-  normVBF_JER_Down.setConstant(true);
+  NormVBF_Nom.setConstant(true);
+  NormVBF_shift_JES.setConstant(true);
+  NormVBF_shift_JER.setConstant(true);
+
   
   outtext << "+++++++++++++ " << names[iCAT] << " ++++++++++++++++" << endl;
   outtext << endl;
@@ -272,7 +279,7 @@ void CreateSignalTemplates_sys() {
     TFile * file_qqh = new TFile(dirName+"/"+FileNamesBDT[i]);
     TString sysName = sysNames[i];
     treeVBF[sysName] = (TNtuple*)file_qqh->Get("Mass_and_BDT_VBF_Hbb_Dipol");
-    treeGGH[sysName] = (TNtuple*)file_qqh->Get("Mass_and_BDT_ggF_Hbb");
+    treeGGH[sysName] = (TNtuple*)file_qqh->Get("Mass_and_BDT_ggF_Hbb_POWHEG");
   }
   TFile * fileOutput = new TFile("root_shape/signal_doubleb_shapes.root","recreate");
   fileOutput->cd("");
@@ -281,7 +288,7 @@ void CreateSignalTemplates_sys() {
   RooRealVar theta_JES("CMS_JES_2016","CMS_JES_2016",0.,-5.,5.);
   RooRealVar theta_JER("CMS_JER_2016","CMS_JER_2016",0.,-5.,5.);
 
-  for (int i=0; i<4; ++i) 
+  for (int i=0; i<6; ++i) 
     CreateSignalPDF(i,treeGGH,treeVBF,theta_JES,theta_JER,w);
 
   w->Write("w");

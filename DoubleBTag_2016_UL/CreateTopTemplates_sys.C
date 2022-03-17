@@ -26,7 +26,7 @@ void CreateSignalPDF(int iCAT,
   double N_CB = 2.0;
   double FSig = 0.9;
 
-  for (unsigned int i=0; i<5; ++i) {
+  for (unsigned int i=0; i<nCATs; ++i) {
 
     TString sysName = sysNames[i];
 
@@ -38,8 +38,8 @@ void CreateSignalPDF(int iCAT,
     TString nameHist = "mbb_tt";//+namesCAT[iCAT]+"_"+sysName;
     TString nameHistST = "mbb_st";
 
-    TH1D * hist = new TH1D(nameHist,"",NbinsSig,xmin_mc,xmax_mc);    
-    TH1D * histST = new TH1D(nameHistST,"",NbinsSig,xmin_mc,xmax_mc);
+    TH1D * hist = new TH1D(nameHist,"",NbinsSig,xmin,xmax);    
+    TH1D * histST = new TH1D(nameHistST,"",NbinsSig,xmin,xmax);
 
     treeTTbar[sysName]->Draw("mbb_reg>>"+nameHist,"weight*("+cuts[iCAT]+")");
     treeST[sysName]->Draw("mbb_reg>>"+nameHistST,"weight*("+cuts[iCAT]+")");
@@ -52,8 +52,8 @@ void CreateSignalPDF(int iCAT,
     hist = new TH1D(nameHist,"",NbinsSig,xmin_mc,xmax_mc);
     histST = new TH1D(nameHistST,"",NbinsSig,xmin_mc,xmax_mc);    
 
-    treeTTbar[sysName]->Draw("mbb_reg>>"+nameHist,"weight");
-    treeST[sysName]->Draw("mbb_reg>>"+nameHistST,"weight");
+    treeTTbar[sysName]->Draw("mbb_reg>>"+nameHist,"weight*("+cuts[iCAT]+")");
+    treeST[sysName]->Draw("mbb_reg>>"+nameHistST,"weight*("+cuts[iCAT]+")");
 
     hist->Add(histST);
 
@@ -90,7 +90,7 @@ void CreateSignalPDF(int iCAT,
     RooBernstein BRNx("brn","Bernstein",mbbx,RooArgList(b0x,b1x,b2x));
     RooCBShape cbx("cb","CBshape",mbbx,meanx,sigmax,alphax,nx);
     RooGaussian gausx("gaus","Gauss",mbbx,meanx,sigmax);
-    RooAddPdf signalx("signal","signal",RooArgList(gausx,BRNx),fsigx);
+    RooAddPdf signalx("signal","signal",RooArgList(cbx,BRNx),fsigx);
 
     RooDataHist data("data","data",mbbx,hist);
     RooFitResult * res = signalx.fitTo(data,Save(),SumW2Error(kTRUE));
@@ -120,7 +120,7 @@ void CreateSignalPDF(int iCAT,
   RooRealVar b0("b0_tt_"+names[iCAT],"b0",0.5,0,1);
   RooRealVar b1("b1_tt_"+names[iCAT],"b1",0.5,0,1);
   RooRealVar b2("b2_tt_"+names[iCAT],"b2",0.5,0,1);
-  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin_mc,xmax_mc);
+  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
 
   double Mean = 0.5*(mapMean["JESUp"]+mapMean["JESDown"]);
   double d_Mean = mapMean["JESUp"] - Mean;
@@ -151,7 +151,7 @@ void CreateSignalPDF(int iCAT,
   RooBernstein BRN_tt("brn_tt_"+names[iCAT],"Bernstein",mbb,RooArgList(b0,b1,b2));
   RooCBShape cb_tt("cb_tt_"+names[iCAT],"CBshape",mbb,mean_shifted,sigma_shifted,alpha,n);
   RooGaussian gaus_tt("gaus_tt_"+names[iCAT],"Gaussian",mbb,mean_shifted,sigma_shifted);
-  RooAddPdf signal_tt("tt_"+names[iCAT],"TTbar",RooArgList(gaus_tt,BRN_tt),fsig);
+  RooAddPdf signal_tt("tt_"+names[iCAT],"TTbar",RooArgList(cb_tt,BRN_tt),fsig);
 
   double norm_Central = mapNorm["Nom"];
   double d_norm_JES_Up = mapNorm["JESUp"] - mapNorm["Nom"];
@@ -227,14 +227,14 @@ void CreateTopTemplates_sys() {
     treeST[sysName] = (TNtuple*)file->Get("Mass_and_BDT_Sandgle_Top");
   }
 
-  TFile * fileOutput = new TFile("root_shape/tt_doubleb_shapes.root","recreate");
+  TFile * fileOutput = new TFile("root_shape/tt_singleb_shapes.root","recreate");
   fileOutput->cd("");
   RooWorkspace * w = new RooWorkspace("w","signal");
 
   RooRealVar theta_JES("CMS_JES_2016","CMS_JES_2016",0.,-5.,5.);
   RooRealVar theta_JER("CMS_JER_2016","CMS_JER_2016",0.,-5.,5.);
 
-  for (int i=0; i<4; ++i) 
+  for (int i=0; i<5; ++i) 
     CreateSignalPDF(i,treeTTbar,treeST,theta_JES,theta_JER,w);
 
   w->Write("w");

@@ -9,14 +9,19 @@ std::map<TString,TString> label = {
     {"JERDown","JERDown"},
 };
 
-TString cuts[4] = {"bdtout<0.0",
-		   "bdtout>=0.0 && bdtout<0.3",
-		   "bdtout>=0.3 && bdtout<0.6",
-		   "bdtout>=0.6"};
+TString variable = "mbb_reg";
+
+TString cuts[6] = {
+  "bdtout_2>=0.10 && bdtout_2<0.11",
+  "bdtout_2>=0.11",
+  "bdtout_2<0.1 && bdtout_0>=0.6 && bdtout_0<0.75",
+  "bdtout_2<0.1 && bdtout_0>=0.75",
+  "bdtout_2<0.1 && bdtout_0<0.6 && bdtout_1>=0.5 && bdtout_1<0.75",
+  "bdtout_2<0.1 && bdtout_0<0.6 && bdtout_1>=0.75",
+};
 
 
-TString dirName = "ntuples/";
-
+TString dirName =  "ntuples";
 TString FileNamesBDT[5] = {
   "mbb_and_bdt_all_Nom.root",
   "mbb_and_bdt_all_JEC_up.root",
@@ -27,13 +32,28 @@ TString FileNamesBDT[5] = {
 
 TString sysNames[5] = {"Nom","JESUp","JESDown","JERUp","JERDown"};
 
+std::vector<std::string> genericPolynomExp = {
+  "TMath::Exp(@1*@0)",
+  "TMath::Exp(@2*@0)*(@1*((@0-125.0)/125.0) + 1.0)",
+  "TMath::Exp(@3*@0)*(@2*((@0-125.0)/125.0)*((@0-125.0)/125.0) + @1*((@0-125.0)/125.0) + 1.0)",
+  "TMath::Exp(@4*@0)*(@3*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0)+@2*((@0-125.0)/125.0)*((@0-125.0)/125.0) + @1*((@0-125.0)/125.0) + 1.0)"
+};
+
+std::vector<std::string> polynomExpNames = {
+  "EXP_POL0",
+  "EXP_POL1",
+  "EXP_POL2",
+  "EXP_POL3"
+};
+
+
 std::vector<std::string> genericPolynoms = {
   "1",
-  "@1*((@0-125.0)/50.0) + 1",
-  "@2*((@0-125.0)/50.0)*((@0-125.0)/50.0) + @1*((@0-125.0)/50.0) + 1",
-  "@3*((@0-125.0)/50.0)*((@0-125.0)/50.0)*((@0-125.0)/50.0)+@2*((@0-125.0)/50.0)*((@0-125.0)/50.0) + @1*((@0-125.0)/50.0) + 1",
-  "@4*((@0-125.0)/50.0)*((@0-125.0)/50.0)*((@0-125.0)/50.0)*((@0-125.0)/50.0)+@3*((@0-125.0)/50.0)*((@0-125.0)/50.0)*((@0-125.0)/50.0)+@2*((@0-125.0)/50.0)*((@0-125.0)/50.0) + @1*((@0-125.0)/50.0) + 1",
-  "@5*((@0-125.0)/50.0)*((@0-125.0)/50.0)*((@0-125.0)/50.0)*((@0-125.0)/50.0)*((@0-125.0)/50.0)+@4*((@0-125.0)/50.0)*((@0-125.0)/50.0)*((@0-125.0)/50.0)*((@0-125.0)/50.0)+@3*((@0-125.0)/50.0)*((@0-125.0)/50.0)*((@0-125.0)/50.0)+@2*((@0-125.0)/50.0)*((@0-125.0)/50.0) + @1*((@0-125.0)/50.0) + 1"
+  "@1*((@0-125.0)/125.0) + 1",
+  "@2*((@0-125.0)/125.0)*((@0-125.0)/125.0) + @1*((@0-125.0)/125.0) + 1",
+  "@3*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0)+@2*((@0-125.0)/125.0)*((@0-125.0)/125.0) + @1*((@0-125.0)/125.0) + 1",
+  "@4*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0)+@3*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0)+@2*((@0-125.0)/125.0)*((@0-125.0)/125.0) + @1*((@0-125.0)/125.0) + 1",
+  "@5*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0)+@4*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0)+@3*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0)+@2*((@0-125.0)/125.0)*((@0-125.0)/125.0) + @1*((@0-125.0)/125.0) + 1"
 };
 
 std::vector<std::string> polynomNames = {
@@ -44,30 +64,46 @@ std::vector<std::string> polynomNames = {
   "TF_POL4",
 };
   
-TString names[5] = {"CAT0",
-		    "CAT1",
-		    "CAT2",
-		    "CAT3"};
+TString names[6] = {
+  "DoubleB1_2016",
+  "DoubleB2_2016",
+  "DoubleB3_2016",
+  "DoubleB4_2016",
+  "DoubleB5_2016",
+  "DoubleB6_2016"
+};
 
 std::vector<std::string> namesCAT = {
-  "CAT0",
-  "CAT1",
-  "CAT2",
-  "CAT3"
+  "DoubleB1_2016",
+  "DoubleB2_2016",
+  "DoubleB3_2016",
+  "DoubleB4_2016",
+  "DoubleB5_2016",
+  "DoubleB6_2016"
 }; // needed to define transfer functions
 
-int NbinsBkg = 75;
-int NbinsSig = 34;
+int nCATs = 6;
 
-int Nbins = 1500;
+//double znorm[5] = {1.0,1.0,3.51,1.,1.,1.};
+double znorm[6] = {1.,1.,1.,1.,1.,1.};
 
-float xmin = 70;
-float xmax = 220;
+int NbinsBkg = 60;
+int NbinsSig = 30;
+int Nbins = 1200;
 
-int NbinsSig_wj = 17; 
-float xmin_mc = 50; 
-float xmax_mc = 220;
+float xmin = 80;
+float xmax = 200;
 
+float xmin_mc = 80;
+float xmax_mc = 200;
+
+float xmin_blind = 104;
+float xmax_blind = 146;
+
+TString Xmin_blind("104");
+TString Xmax_blind("146");
+
+int Nbins_wj = 16;
 
 TH1D * DivideHist(TH1D* hist, TH1D* hist0, TString Name) {
 
@@ -87,7 +123,8 @@ TH1D * DivideHist(TH1D* hist, TH1D* hist0, TString Name) {
     if (xNum>0&&xDen>0) {
       double xratio  = xNum/xDen;
       double xratioR = TMath::Sqrt(NumR*NumR+DenR*DenR);
-      double xratioE = xratio*xratioR;
+      //      double xratioE = xratio*xratioR;
+      double xratioE = xNumE/xDen;
       ratioH->SetBinContent(iB,xratio);
       ratioH->SetBinError(iB,xratioE);
     }
