@@ -1,33 +1,32 @@
 #include "HttStylesNew.cc"
 
-void Plot_2D() {
+void Plot_2D(int nPoints = 50, // sqrt(number_of_points) 
+	     double x1 = 0, // lower boundary of r_qqH
+	     double x2 = 2,  // upper boundary of r_qqH
+	     double y1 = -10, // lower boundary of r_ggH
+	     double y2 = 10, // upper boundar of r_ggH
+	     TString fileName = "higgsCombine.datacards_combined_UL.MultiDimFit.mH125"
+	     ) {
 
   SetStyle();
 
-  TFile * file = new TFile("higgsCombine.datacards_singleb_Run2_UL_v2.MultiDimFit.mH125.root");
+  double deltaY = (y2-y1)/double(nPoints);
+
+  TFile * file = new TFile(fileName+".root");
   TCanvas * dummy = new TCanvas("dummy","",500,500);
   TTree * limit = (TTree*)file->Get("limit");
-  TH2D * hist   = new TH2D("hist",  "",40,-0.5,2.5,40,-15.,15.);
-  TH2D * update = new TH2D("update","",40,-0.5,2.5,40,-15.,15.);
+  TH2D * hist   = new TH2D("hist",  "",nPoints,x1,x2,nPoints,y1,y2);
+  TH2D * update = new TH2D("update","",nPoints,x1,x2,nPoints,y1,y2);
   limit->Draw("r_ggH:r_qqH>>hist","2*deltaNLL");
+  delete dummy;
 
   double xmin[100];
   double ymin[100];
   double xmax[100];
   double ymax[100];
 
-  double xmin2[100];
-  double ymin2[100];
-  double xmax2[100];
-  double ymax2[100];
-  
-  unsigned int imin = 0;
-  unsigned int imax = 0;
-  unsigned int imin2 = 0;
-  unsigned int imax2 = 0;
-
-  for (int i=1; i<=40; ++i) {
-    for (int j=1; j<=40; ++j) {
+  for (int i=1; i<=nPoints; ++i) {
+    for (int j=1; j<=nPoints; ++j) {
       double value = hist->GetBinContent(i,j);
       double x = hist->GetXaxis()->GetBinCenter(i);
       double y = hist->GetYaxis()->GetBinCenter(j);
@@ -35,15 +34,18 @@ void Plot_2D() {
 	value = 0.5*(hist->GetBinContent(i-1,j)+
 		     hist->GetBinContent(i+1,j));
       }
-      //      std::cout << "[" << x << "," << y << "] : " << value << std::endl;
+      //      printf("[%5.2f,%5.2f] : %5.2f\n",x,y,value);
       update->SetBinContent(i,j,value);
     }
   }
 
 
-  for (int i=1; i<=40; ++i) {
+  unsigned int imin = 0;
+  unsigned int imax = 0;
+
+  for (int i=1; i<=nPoints; ++i) {
     double y = update->GetYaxis()->GetBinCenter(i);
-    for (int j=2; j<=40; ++j) {
+    for (int j=2; j<=nPoints-1; ++j) {
       double x1 = update->GetXaxis()->GetBinCenter(j-1);
       double x2 = update->GetXaxis()->GetBinCenter(j);
       double n1 = update->GetBinContent(j-1,i);
@@ -60,27 +62,11 @@ void Plot_2D() {
 	ymin[imin] = y;
 	imin += 1;
       }
-
-      if (n1<4.0&&n2>4.0) {
-	double x = x1 + (4.0-n1)*(x2-x1)/(n2-n1);
-	xmax2[imax2] = x;
-	ymax2[imax2] = y;
-	imax2 += 1;
-      }
-      if (n1>4.0&&n2<4.0) {
-	double x = x1 + (4.0-n1)*(x2-x1)/(n2-n1);
-	xmin2[imin2] = x;
-	ymin2[imin2] = y;
-	imin2 += 1;
-      }
     }
   }	  
   std::cout << std::endl;
   for (unsigned int i=0; i<imin; ++i) 
-    std::cout << ymin[i] << ":" << xmin[i] << std::endl;
-  std::cout << std::endl;
-  for (unsigned int i=0; i<imax; ++i) 
-    std::cout << ymax[i] << ":" << xmax[i] << std::endl;
+    printf("%6.3f : %6.3f - %6.3f \n",ymin[i],xmin[i],xmax[i]);
   std::cout << std::endl;
 
   TGraph * GraphMin = new TGraph(imin,xmin,ymin);
@@ -91,24 +77,30 @@ void Plot_2D() {
   GraphMin->SetLineColor(2);
   GraphMin->SetLineWidth(3);
 
-  TGraph * GraphMin2 = new TGraph(imin2,xmin2,ymin2);
-  TGraph * GraphMax2 = new TGraph(imax2,xmax2,ymax2);
+  double xupper[4], yupper[4];
+  double xlower[4], ylower[4];
 
-  double xupper[2], yupper[2];
-  double xlower[2], ylower[2];
+  double xLowerMean = 0.5*(xmax[0] + xmin[0]);
+  double xLowerDiff = xmax[0] - xmin[0];
+  double yLower = ymin[0] - 0.25*deltaY;
 
-  yupper[0] = ymin[0];
-  yupper[1] = ymax[0];
-  xupper[0] = xmin[0];
-  xupper[1] = xmax[0];
+  xlower[0] = xmin[0]; ylower[0] = ymin[0];
+  xlower[1] = xLowerMean - 0.1*xLowerDiff; ylower[1] = yLower;
+  xlower[2] = xLowerMean + 0.1*xLowerDiff; ylower[2] = yLower;
+  xlower[3] = xmax[0]; ylower[3] = ymin[0];
 
-  ylower[0] = ymin[imin-1];
-  ylower[1] = ymax[imax-1];
-  xlower[0] = xmin[imin-1];
-  xlower[1] = xmax[imax-1];
+  double xUpperMean = 0.5*(xmax[imax-1] + xmin[imin-1]);
+  double xUpperDiff = xmax[imax-1] - xmin[imin-1];
+  double yUpper = ymax[imax-1] + 0.25*deltaY;
+
+  xupper[0] = xmin[imin-1]; yupper[0] = ymin[imin-1];
+  xupper[1] = xUpperMean - 0.1*xUpperDiff; yupper[1] = yUpper;
+  xupper[2] = xUpperMean + 0.1*xUpperDiff; yupper[2] = yUpper;
+  xupper[3] = xmax[imax-1]; yupper[3] = ymin[imin-1];
+
   
-  TGraph * GraphLower = new TGraph(2,xlower,ylower);
-  TGraph * GraphUpper = new TGraph(2,xupper,yupper);
+  TGraph * GraphLower = new TGraph(4,xlower,ylower);
+  TGraph * GraphUpper = new TGraph(4,xupper,yupper);
   
 
   GraphLower->SetLineColor(2);
@@ -116,8 +108,8 @@ void Plot_2D() {
   GraphUpper->SetLineWidth(3);
   GraphUpper->SetLineColor(2);
 
-  update->GetXaxis()->SetRangeUser(-0.5,2.5);
-  update->GetYaxis()->SetRangeUser(-14,14);
+  update->GetXaxis()->SetRangeUser(0,2);
+  update->GetYaxis()->SetRangeUser(-10,10);
 
   double xbest[1] = {1.};
   double ybest[1] = {1.};
@@ -127,13 +119,12 @@ void Plot_2D() {
   graphBest->SetMarkerSize(4.0);
   graphBest->SetMarkerColor(kBlue);
 
-  TH2D * frame = new TH2D("frame","",2,-0.5,2.5,2,-15,15);
+  TH2D * frame = new TH2D("frame","",2,0,2,2,-4.99,6.99);
   frame->GetXaxis()->SetTitle("r_{qqH}");
   frame->GetYaxis()->SetTitle("r_{ggH}");
   frame->GetXaxis()->SetTitleSize(0.06);
   frame->GetYaxis()->SetTitleSize(0.06);
 
-  delete dummy;
   TCanvas * canv = MakeCanvas("canv","",600,600);    
   frame->Draw();
   //  update->Draw("colzsame");
@@ -144,12 +135,12 @@ void Plot_2D() {
   graphBest->Draw("psame");
   canv->SetGridx(true);
   canv->SetGridy(true);
-  TLine * line1 = new TLine(-0.5,1.,2.5,1.);
+  TLine * line1 = new TLine(0.,1.,2,1.);
   line1->SetLineColor(kBlue);
   line1->SetLineWidth(2);
   line1->SetLineStyle(2);
   line1->Draw();
-  TLine * line2 = new TLine(1,-15.,1,15.);
+  TLine * line2 = new TLine(1.,-5.,1.,7.);
   line2->SetLineColor(kBlue);
   line2->SetLineWidth(2);
   line2->SetLineStyle(2);
@@ -160,7 +151,7 @@ void Plot_2D() {
   leg->AddEntry(GraphMin,"68% C.L.","l");
   leg->Draw();
   canv->Update();
-  canv->Print("2D.png");
+  canv->Print("2D_scan.png");
 
 
 }
