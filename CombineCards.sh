@@ -1,13 +1,9 @@
 #!/bin/sh
-# $1 = with_sys, bias
 
-rm datacards_singleb_${1}.txt
-cp SingleBTag/datacards_${1}/datacards_singleb_CAT*.txt ./
-combineCards.py datacards_singleb_CAT*.txt > datacards_singleb_${1}.txt
+rm *.txt
+./CombineCards_DoubleB_2016_UL.sh
+./CombineCards_DoubleB_2018_UL.sh
+./CombineCards_SingleB_2016_UL_v2.sh
+./CombineCards_SingleB_2018_UL_v2.sh
+combineCards.py datacards_doubleb_2016_UL.txt datacards_doubleb_2018_UL.txt datacards_singleb_2016_UL_v2.txt datacards_singleb_2018_UL_v2.txt > datacards_Run2_UL.txt
 
-rm datacards_doubleb_${1}.txt
-cp DoubleBTag/datacards_${1}/datacards_doubleb_CAT*.txt ./
-combineCards.py datacards_doubleb_CAT*.txt > datacards_doubleb_${1}.txt
-
-rm datacards_${1}.txt
-combineCards.py datacards_singleb_CAT*.txt datacards_doubleb_CAT*.txt > datacards_${1}.txt
