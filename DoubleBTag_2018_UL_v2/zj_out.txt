@@ -1,0 +1,120 @@
++++++++++++++ DoubleB1_2018 ++++++++++++++
+
+Mean  (ZJets) = 95.0693
+Mean  (nom)   = 95.1049
+Mean  (ave)   = 95.0693
+Mean  (Up)    = 96.4742
+Mean  (Down)  = 93.6643
+
+Sigma (ZJets) = 9.93323
+Sigma (nom)   = 9.05477
+Sigma (ave)   = 9.93323
+Sigma (Up)    = 10.1441
+Sigma (Down)  = 9.72231
+
+Norm      = 253.43
+JESUp     = 273.075
+JESDown   = 215.125
+JERUp     = 252.106
+JERDown   = 248.005
+
++++++++++++++ DoubleB2_2018 ++++++++++++++
+
+Mean  (ZJets) = 95.0693
+Mean  (nom)   = 95.1049
+Mean  (ave)   = 95.0693
+Mean  (Up)    = 96.4742
+Mean  (Down)  = 93.6643
+
+Sigma (ZJets) = 9.93323
+Sigma (nom)   = 9.05477
+Sigma (ave)   = 9.93323
+Sigma (Up)    = 10.1441
+Sigma (Down)  = 9.72231
+
+Norm      = 166.08
+JESUp     = 179.609
+JESDown   = 139.299
+JERUp     = 159.108
+JERDown   = 164.62
+
++++++++++++++ DoubleB3_2018 ++++++++++++++
+
+Mean  (ZJets) = 95.0693
+Mean  (nom)   = 95.1049
+Mean  (ave)   = 95.0693
+Mean  (Up)    = 96.4742
+Mean  (Down)  = 93.6643
+
+Sigma (ZJets) = 9.93323
+Sigma (nom)   = 9.05477
+Sigma (ave)   = 9.93323
+Sigma (Up)    = 10.1441
+Sigma (Down)  = 9.72231
+
+Norm      = 145.107
+JESUp     = 163.89
+JESDown   = 100.201
+JERUp     = 134.372
+JERDown   = 139.914
+
++++++++++++++ DoubleB4_2018 ++++++++++++++
+
+Mean  (ZJets) = 95.0693
+Mean  (nom)   = 95.1049
+Mean  (ave)   = 95.0693
+Mean  (Up)    = 96.4742
+Mean  (Down)  = 93.6643
+
+Sigma (ZJets) = 9.93323
+Sigma (nom)   = 9.05477
+Sigma (ave)   = 9.93323
+Sigma (Up)    = 10.1441
+Sigma (Down)  = 9.72231
+
+Norm      = 23.8695
+JESUp     = 25.5808
+JESDown   = 13.5066
+JERUp     = 20.9097
+JERDown   = 23.0961
+
++++++++++++++ DoubleB5_2018 ++++++++++++++
+
+Mean  (ZJets) = 95.0693
+Mean  (nom)   = 95.1049
+Mean  (ave)   = 95.0693
+Mean  (Up)    = 96.4742
+Mean  (Down)  = 93.6643
+
+Sigma (ZJets) = 9.93323
+Sigma (nom)   = 9.05477
+Sigma (ave)   = 9.93323
+Sigma (Up)    = 10.1441
+Sigma (Down)  = 9.72231
+
+Norm      = 477.331
+JESUp     = 493.32
+JESDown   = 459.518
+JERUp     = 467.178
+JERDown   = 468.316
+
++++++++++++++ DoubleB6_2018 ++++++++++++++
+
+Mean  (ZJets) = 95.0693
+Mean  (nom)   = 95.1049
+Mean  (ave)   = 95.0693
+Mean  (Up)    = 96.4742
+Mean  (Down)  = 93.6643
+
+Sigma (ZJets) = 9.93323
+Sigma (nom)   = 9.05477
+Sigma (ave)   = 9.93323
+Sigma (Up)    = 10.1441
+Sigma (Down)  = 9.72231
+
+Norm      = 490.362
+JESUp     = 503.184
+JESDown   = 475.578
+JERUp     = 481.99
+JERDown   = 486.355
+

@@ -1,0 +1,228 @@
+qqH Total: 7.7548
+ggH Total: 38.3014
+qqH Total: 8.15551
+ggH Total: 40.3489
+qqH Total: 6.81568
+ggH Total: 36.5381
+qqH Total: 7.59685
+ggH Total: 38.7679
+qqH Total: 7.58526
+ggH Total: 39.712
++++++++++++++ DoubleB1_2018 ++++++++++++++++
+
+Mean  (ggH)  = 124.336
+Mean  (qqH)  = 124.336
+Mean  (nom)  = 124.276
+Mean  (ave)  = 124.336
+Mean  (Up)   = 125.942
+Mean  (Down) = 122.731
+
+Sigma (ggH)  = 12.7255
+Sigma (qqH)  = 12.7255
+Sigma (nom)  = 11.751
+Sigma (ave)  = 12.7255
+Sigma (Up)   = 12.9479
+Sigma (Down) = 12.5032
+
+Norm    (ggH)  = 38.3014
+JESUp   (ggH)  = 40.3489
+JESDown (ggH)  = 36.5381
+JERUp   (ggH)  = 38.7679
+JERDown (ggH)  = 39.712
+
+Norm    (qqH)  = 7.7548
+JESUp   (qqH)  = 8.15551
+JESDown (qqH)  = 6.81568
+JERUp   (qqH)  = 7.59685
+JERDown (qqH)  = 7.58526
+
+qqH Total: 4.52168
+ggH Total: 35.7293
+qqH Total: 4.50043
+ggH Total: 36.4892
+qqH Total: 3.67926
+ggH Total: 29.9595
+qqH Total: 4.30999
+ggH Total: 32.5686
+qqH Total: 4.39393
+ggH Total: 33.4362
++++++++++++++ DoubleB2_2018 ++++++++++++++++
+
+Mean  (ggH)  = 124.336
+Mean  (qqH)  = 124.336
+Mean  (nom)  = 124.276
+Mean  (ave)  = 124.336
+Mean  (Up)   = 125.942
+Mean  (Down) = 122.731
+
+Sigma (ggH)  = 12.7255
+Sigma (qqH)  = 12.7255
+Sigma (nom)  = 11.751
+Sigma (ave)  = 12.7255
+Sigma (Up)   = 12.9479
+Sigma (Down) = 12.5032
+
+Norm    (ggH)  = 35.7293
+JESUp   (ggH)  = 36.4892
+JESDown (ggH)  = 29.9595
+JERUp   (ggH)  = 32.5686
+JERDown (ggH)  = 33.4362
+
+Norm    (qqH)  = 4.52168
+JESUp   (qqH)  = 4.50043
+JESDown (qqH)  = 3.67926
+JERUp   (qqH)  = 4.30999
+JERDown (qqH)  = 4.39393
+
+qqH Total: 34.7285
+ggH Total: 7.92306
+qqH Total: 37.3527
+ggH Total: 9.12479
+qqH Total: 28.9244
+ggH Total: 6.49483
+qqH Total: 33.4631
+ggH Total: 7.35094
+qqH Total: 34.0799
+ggH Total: 7.44662
++++++++++++++ DoubleB3_2018 ++++++++++++++++
+
+Mean  (ggH)  = 124.336
+Mean  (qqH)  = 124.336
+Mean  (nom)  = 124.276
+Mean  (ave)  = 124.336
+Mean  (Up)   = 125.942
+Mean  (Down) = 122.731
+
+Sigma (ggH)  = 12.7255
+Sigma (qqH)  = 12.7255
+Sigma (nom)  = 11.751
+Sigma (ave)  = 12.7255
+Sigma (Up)   = 12.9479
+Sigma (Down) = 12.5032
+
+Norm    (ggH)  = 7.92306
+JESUp   (ggH)  = 9.12479
+JESDown (ggH)  = 6.49483
+JERUp   (ggH)  = 7.35094
+JERDown (ggH)  = 7.44662
+
+Norm    (qqH)  = 34.7285
+JESUp   (qqH)  = 37.3527
+JESDown (qqH)  = 28.9244
+JERUp   (qqH)  = 33.4631
+JERDown (qqH)  = 34.0799
+
+qqH Total: 14.4922
+ggH Total: 2.28923
+qqH Total: 15.0252
+ggH Total: 2.29117
+qqH Total: 9.69815
+ggH Total: 1.10084
+qqH Total: 13.5947
+ggH Total: 2.09174
+qqH Total: 13.9805
+ggH Total: 2.10054
++++++++++++++ DoubleB4_2018 ++++++++++++++++
+
+Mean  (ggH)  = 124.336
+Mean  (qqH)  = 124.336
+Mean  (nom)  = 124.276
+Mean  (ave)  = 124.336
+Mean  (Up)   = 125.942
+Mean  (Down) = 122.731
+
+Sigma (ggH)  = 12.7255
+Sigma (qqH)  = 12.7255
+Sigma (nom)  = 11.751
+Sigma (ave)  = 12.7255
+Sigma (Up)   = 12.9479
+Sigma (Down) = 12.5032
+
+Norm    (ggH)  = 2.28923
+JESUp   (ggH)  = 2.29117
+JESDown (ggH)  = 1.10084
+JERUp   (ggH)  = 2.09174
+JERDown (ggH)  = 2.10054
+
+Norm    (qqH)  = 14.4922
+JESUp   (qqH)  = 15.0252
+JESDown (qqH)  = 9.69815
+JERUp   (qqH)  = 13.5947
+JERDown (qqH)  = 13.9805
+
+qqH Total: 7.8045
+ggH Total: 13.8922
+qqH Total: 7.78907
+ggH Total: 14.3247
+qqH Total: 7.92649
+ggH Total: 14.0772
+qqH Total: 7.8126
+ggH Total: 14.9276
+qqH Total: 7.74009
+ggH Total: 14.3406
++++++++++++++ DoubleB5_2018 ++++++++++++++++
+
+Mean  (ggH)  = 124.336
+Mean  (qqH)  = 124.336
+Mean  (nom)  = 124.276
+Mean  (ave)  = 124.336
+Mean  (Up)   = 125.942
+Mean  (Down) = 122.731
+
+Sigma (ggH)  = 12.7255
+Sigma (qqH)  = 12.7255
+Sigma (nom)  = 11.751
+Sigma (ave)  = 12.7255
+Sigma (Up)   = 12.9479
+Sigma (Down) = 12.5032
+
+Norm    (ggH)  = 13.8922
+JESUp   (ggH)  = 14.3247
+JESDown (ggH)  = 14.0772
+JERUp   (ggH)  = 14.9276
+JERDown (ggH)  = 14.3406
+
+Norm    (qqH)  = 7.8045
+JESUp   (qqH)  = 7.78907
+JESDown (qqH)  = 7.92649
+JERUp   (qqH)  = 7.8126
+JERDown (qqH)  = 7.74009
+
+qqH Total: 3.8568
+ggH Total: 7.84042
+qqH Total: 4.0312
+ggH Total: 7.68647
+qqH Total: 3.92982
+ggH Total: 7.36016
+qqH Total: 4.00119
+ggH Total: 7.64761
+qqH Total: 3.95104
+ggH Total: 7.62377
++++++++++++++ DoubleB6_2018 ++++++++++++++++
+
+Mean  (ggH)  = 124.336
+Mean  (qqH)  = 124.336
+Mean  (nom)  = 124.276
+Mean  (ave)  = 124.336
+Mean  (Up)   = 125.942
+Mean  (Down) = 122.731
+
+Sigma (ggH)  = 12.7255
+Sigma (qqH)  = 12.7255
+Sigma (nom)  = 11.751
+Sigma (ave)  = 12.7255
+Sigma (Up)   = 12.9479
+Sigma (Down) = 12.5032
+
+Norm    (ggH)  = 7.84042
+JESUp   (ggH)  = 7.68647
+JESDown (ggH)  = 7.36016
+JERUp   (ggH)  = 7.64761
+JERDown (ggH)  = 7.62377
+
+Norm    (qqH)  = 3.8568
+JESUp   (qqH)  = 4.0312
+JESDown (qqH)  = 3.92982
+JERUp   (qqH)  = 4.00119
+JERDown (qqH)  = 3.95104
+
