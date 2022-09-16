@@ -1,14 +1,20 @@
 #include "HttStylesNew.cc"
 
 void Plot_2D(int nPoints = 50, // sqrt(number_of_points) 
-	     double x1 = 0, // lower boundary of r_qqH
-	     double x2 = 2,  // upper boundary of r_qqH
-	     double y1 = -10, // lower boundary of r_ggH
-	     double y2 = 10, // upper boundar of r_ggH
-	     TString fileName = "higgsCombine.datacards_combined_UL.MultiDimFit.mH125"
+	     double x1 = -0.5, // lower boundary of r_qqH
+	     double x2 = 2.5,  // upper boundary of r_qqH
+	     double y1 = -15, // lower boundary of r_ggH
+	     double y2 = 15, // upper boundar of r_ggH
+	     TString fileName = "higgsCombine.datacards_singleb_Run2_EWK.MultiDimFit.mH125"
 	     ) {
 
   SetStyle();
+
+  double xmin_frame = -0.5;
+  double xmax_frame =  2.5;
+
+  double ymin_frame = -15;
+  double ymax_frame =  15;
 
   double deltaY = (y2-y1)/double(nPoints);
 
@@ -82,34 +88,32 @@ void Plot_2D(int nPoints = 50, // sqrt(number_of_points)
 
   double xLowerMean = 0.5*(xmax[0] + xmin[0]);
   double xLowerDiff = xmax[0] - xmin[0];
-  double yLower = ymin[0] - 0.25*deltaY;
+  double yLower = ymin[0] - 0.5*deltaY;
 
   xlower[0] = xmin[0]; ylower[0] = ymin[0];
-  xlower[1] = xLowerMean - 0.1*xLowerDiff; ylower[1] = yLower;
-  xlower[2] = xLowerMean + 0.1*xLowerDiff; ylower[2] = yLower;
+  xlower[1] = xLowerMean - 0.2*xLowerDiff; ylower[1] = yLower;
+  xlower[2] = xLowerMean + 0.2*xLowerDiff; ylower[2] = yLower;
   xlower[3] = xmax[0]; ylower[3] = ymin[0];
 
   double xUpperMean = 0.5*(xmax[imax-1] + xmin[imin-1]);
   double xUpperDiff = xmax[imax-1] - xmin[imin-1];
-  double yUpper = ymax[imax-1] + 0.25*deltaY;
+  double yUpper = ymax[imax-1] + 0.7*deltaY;
 
   xupper[0] = xmin[imin-1]; yupper[0] = ymin[imin-1];
-  xupper[1] = xUpperMean - 0.1*xUpperDiff; yupper[1] = yUpper;
-  xupper[2] = xUpperMean + 0.1*xUpperDiff; yupper[2] = yUpper;
+  xupper[1] = xUpperMean - 0.2*xUpperDiff; yupper[1] = yUpper;
+  xupper[2] = xUpperMean + 0.2*xUpperDiff; yupper[2] = yUpper;
   xupper[3] = xmax[imax-1]; yupper[3] = ymin[imin-1];
-
   
   TGraph * GraphLower = new TGraph(4,xlower,ylower);
   TGraph * GraphUpper = new TGraph(4,xupper,yupper);
-  
 
   GraphLower->SetLineColor(2);
   GraphLower->SetLineWidth(3);
   GraphUpper->SetLineWidth(3);
   GraphUpper->SetLineColor(2);
 
-  update->GetXaxis()->SetRangeUser(0,2);
-  update->GetYaxis()->SetRangeUser(-10,10);
+  update->GetXaxis()->SetRangeUser(xmin_frame,xmax_frame);
+  update->GetYaxis()->SetRangeUser(ymin_frame,ymax_frame);
 
   double xbest[1] = {1.};
   double ybest[1] = {1.};
@@ -119,7 +123,7 @@ void Plot_2D(int nPoints = 50, // sqrt(number_of_points)
   graphBest->SetMarkerSize(4.0);
   graphBest->SetMarkerColor(kBlue);
 
-  TH2D * frame = new TH2D("frame","",2,0,2,2,-4.99,6.99);
+  TH2D * frame = new TH2D("frame","",2,xmin_frame,xmax_frame,2,ymin_frame,ymax_frame);
   frame->GetXaxis()->SetTitle("r_{qqH}");
   frame->GetYaxis()->SetTitle("r_{ggH}");
   frame->GetXaxis()->SetTitleSize(0.06);
@@ -135,12 +139,12 @@ void Plot_2D(int nPoints = 50, // sqrt(number_of_points)
   graphBest->Draw("psame");
   canv->SetGridx(true);
   canv->SetGridy(true);
-  TLine * line1 = new TLine(0.,1.,2,1.);
+  TLine * line1 = new TLine(xmin_frame,1.,xmax_frame,1.);
   line1->SetLineColor(kBlue);
   line1->SetLineWidth(2);
   line1->SetLineStyle(2);
   line1->Draw();
-  TLine * line2 = new TLine(1.,-5.,1.,7.);
+  TLine * line2 = new TLine(1.,ymin_frame,1.,ymax_frame);
   line2->SetLineColor(kBlue);
   line2->SetLineWidth(2);
   line2->SetLineStyle(2);
