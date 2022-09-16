@@ -1,0 +1,22 @@
+#!/bin/bash
+rm *.txt
+cp SingleBTag_2016_UL_v3/datacards/*_2016_v3.txt ./
+cp SingleBTag_2018_UL_v2/datacards/*_2018_v2.txt ./
+rm datacards_singleb_2016_UL_v3.txt
+combineCards.py datacards_singleb_CAT5_2016_v3.txt datacards_singleb_CAT6_2016_v3.txt datacards_singleb_CAT7_2016_v3.txt > datacards_singleb_2016_UL_v3.txt
+
+rm datacards_singleb_2018_UL_v2.txt
+combineCards.py datacards_singleb_CAT5_2018_v2.txt datacards_singleb_CAT6_2018_v2.txt datacards_singleb_CAT7_2018_v2.txt > datacards_singleb_2018_UL_v2.txt
+
+rm datacards_singleb_Run2_UL.txt
+combineCards.py datacards_singleb_CAT5_2016_v3.txt datacards_singleb_CAT5_2018_v2.txt datacards_singleb_CAT6_2016_v3.txt datacards_singleb_CAT6_2018_v2.txt datacards_singleb_CAT7_2016_v3.txt datacards_singleb_CAT7_2018_v2.txt > datacards_singleb_Run2_UL.txt
+
+#rm datacards_singleb_2016_UL_v2.txt
+#combineCards.py datacards_singleb_CAT4_2016_v2.txt datacards_singleb_CAT5_2016_v2.txt datacards_singleb_CAT6_2016_v2.txt datacards_singleb_CAT7_2016_v2.txt > datacards_singleb_2016_UL_v2.txt
+
+#rm datacards_singleb_2018_UL_v2.txt
+#combineCards.py datacards_singleb_CAT4_2018_v2.txt datacards_singleb_CAT5_2018_v2.txt datacards_singleb_CAT6_2018_v2.txt datacards_singleb_CAT7_2018_v2.txt > datacards_singleb_2018_UL_v2.txt
+
+#combineCards.py datacards_singleb_CAT4_2016_v2.txt datacards_singleb_CAT4_2018_v2.txt datacards_singleb_CAT5_2016_v2.txt datacards_singleb_CAT5_2018_v2.txt datacards_singleb_CAT6_2016_v2.txt datacards_singleb_CAT6_2018_v2.txt datacards_singleb_CAT7_2016_v2.txt datacards_singleb_CAT7_2018_v2.txt > datacards_singleb_Run2_UL_v2.txt
+
+
