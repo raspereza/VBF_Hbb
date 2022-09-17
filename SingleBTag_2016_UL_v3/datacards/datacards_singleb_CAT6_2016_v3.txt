@@ -1,0 +1,52 @@
+imax 1
+jmax *
+kmax *
+----------------------------------------------------------------------------------------------------
+shapes          qcd             *   SingleBTag_2016_UL_v3/root_shape/data_singleb_shapes.root       w:qcd_$CHANNEL
+shapes          data_obs        *   SingleBTag_2016_UL_v3/root_shape/data_singleb_shapes.root       w:data_$CHANNEL
+shapes          qqH_hbb         *   SingleBTag_2016_UL_v3/root_shape/signal_singleb_shapes.root   w:qqH_$CHANNEL
+shapes          ggH_hbb         *   SingleBTag_2016_UL_v3/root_shape/signal_singleb_shapes.root   w:ggH_$CHANNEL
+shapes          qqH_hbb_bias    *   SingleBTag_2016_UL_v3/root_shape/signal_singleb_shapes.root   w:qqH_$CHANNEL
+shapes          ggH_hbb_bias    *   SingleBTag_2016_UL_v3/root_shape/signal_singleb_shapes.root   w:ggH_$CHANNEL
+shapes          zj              *   SingleBTag_2016_UL_v3/root_shape/zj_singleb_shapes_splitted.root  w:qcdzj_$CHANNEL
+shapes          zj_ewk          *   SingleBTag_2016_UL_v3/root_shape/zj_singleb_shapes_splitted.root  w:ewkzj_$CHANNEL
+----------------------------------------------------------------------------------------------------
+bin             CAT6_2016
+observation   -1
+----------------------------------------------------------------------------------------------------
+bin             CAT6_2016   CAT6_2016   CAT6_2016   CAT6_2016   CAT6_2016   CAT6_2016    CAT6_2016
+process          ggH_hbb   qqH_hbb   qcd   zj   zj_ewk	   ggH_hbb_bias  qqH_hbb_bias
+process            -1         0       1     2    3	4	5       
+rate     1     1    1    1    1    1 	1
+----------------------------------------------------------------------------------------------------
+CMS_BR_hbb     lnN	1.007/0.994	1.007/0.994	-     -	   -     1.007/0.994     1.007/0.994
+----------------------------------------------------------------------------------------------------
+lumi_13TeV_BCC_2016  lnN  1.002    1.002    -    1.002	  1.002   1.002    1.002
+lumi_13TeV_LS_2016   lnN  1.002    1.002    -    1.002	  1.002   1.002    1.002
+lumi_13TeV_XY_2016   lnN  1.020    1.020    -    1.020	  1.020   1.020    1.020
+----------------------------------------------------------------------------------------------------
+CMS_BTag_2016       lnN     1.054/0.947  1.054/0.946        -       1.062/0.939   1.062/0.939   1.054/0.947  1.054/0.946
+CMS_PUweight_2016   lnN     1.124/0.880  1.054/0.942        -       1.049/0.944   1.049/0.944   1.124/0.880  1.054/0.942
+CMS_QGLweight_2016  lnN     1.120  0.994        -       1.026   1.026   1.120  0.994
+CMS_PS_ISR     lnN     1.045/0.940  1.008/0.990        -       1.173/0.796   1.173/0.796   1.045/0.940  1.008/0.990
+CMS_PS_FSR     lnN     1.028/1.082  1.075/0.893        -       1.186/0.740   1.186/0.740   1.028/1.082  1.075/0.893
+CMS_Trig_2016     lnN     1.154/0.846  1.151/0.849        -       1.152/0.848   1.152/0.848   1.154/0.846  1.151/0.849
+CMS_PileUpID_2016     lnN     1.022/0.977  0.991/1.010        -       0.981/1.023   0.981/1.023   1.022/0.977  0.991/1.010
+VBF_Dipole_Recoil	lnN		-	1.099   -   -	 -   -  1.099
+----------------------------------------------------------------------------------------------------
+QCDscale_ggH      lnN  1.046/0.933   -    -    -	-	1.046/0.933   -
+PDFscale_ggH      lnN  1.019/0.981   -    -	-	-	1.019/0.981   -
+alphas_ggH        lnN  1.026/0.974   -    -    -	-	1.026/0.974   -
+QCDscale_qqH      lnN  -   1.004/0.997    -    -	-       -   1.004/0.997
+PDFscale_qqH      lnN  -   1.021/0.979    -    -	-       -   1.021/0.979
+alphas_qqH        lnN  -   1.005/0.995    -    -	-       -   1.005/0.995
+CMS_PDF_set       lnN    1.020   1.016    -    -	-     1.020  1.016
+----------------------------------------------------------------------------------------------------
+CMS_JES_2016  param 0.0 1.0
+CMS_JER_2016  param 0.0 1.0
+bias_CAT6_2016 rateParam CAT6_2016 ggH_hbb_bias  0 [-1,1] 
+bias_CAT6_2016 rateParam CAT6_2016 qqH_hbb_bias  0 [-1,1] 
+bias_CAT6_2016 param 0 0.2
+normQCDZ rateParam CAT6_2016 zj 1     [-20,20]
+normEWKZ rateParam CAT6_2016 zj_ewk 1 [-20,20]
+
