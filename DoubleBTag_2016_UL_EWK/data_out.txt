@@ -1,0 +1,84 @@
+
++++++++++++ DoubleB1_2016 +++++++++++++
+ Cut : bdtout_2>=0.10 && bdtout_2<0.11
+
+Fitted range : Chi2/ndof = 44.4898/38 = 1.17078  prob = 0.217294
+Full range   : Chi2/ndof = 59.6453/59 = 1.01094  prob = 0.452022
+
+integral (QCD)   = 40776.4
+integral (Zbb)   = 650.621
+integral (Bkg)   = 41427
+integral (Sig)   = 8.28199e-06
+
+TOTAL DATA YIELD = 41427
+
+
++++++++++++ DoubleB2_2016 +++++++++++++
+ Cut : bdtout_2>=0.11
+
+Fitted range : Chi2/ndof = 42.1243/38 = 1.10853  prob = 0.297059
+Full range   : Chi2/ndof = 67.836/59 = 1.14976  prob = 0.201375
+
+integral (QCD)   = 58124.8
+integral (Zbb)   = 762.185
+integral (Bkg)   = 58887
+integral (Sig)   = 0.000390829
+
+TOTAL DATA YIELD = 58887
+
+
++++++++++++ DoubleB3_2016 +++++++++++++
+ Cut : bdtout_2<0.1 && bdtout_0>=0.65 && bdtout_0<0.75
+
+Fitted range : Chi2/ndof = 36.0764/36 = 1.00212  prob = 0.465075
+Full range   : Chi2/ndof = 59.9309/57 = 1.05142  prob = 0.369882
+
+integral (QCD)   = 22401.8
+integral (Zbb)   = 0.00373983
+integral (Bkg)   = 22401.8
+integral (Sig)   = 0.172338
+
+TOTAL DATA YIELD = 22402
+
+
++++++++++++ DoubleB4_2016 +++++++++++++
+ Cut : bdtout_2<0.1 && bdtout_0>=0.75
+
+Fitted range : Chi2/ndof = 45.0773/36 = 1.25215  prob = 0.142699
+Full range   : Chi2/ndof = 59.1994/57 = 1.03859  prob = 0.395236
+
+integral (QCD)   = 13117.5
+integral (Zbb)   = 36.5218
+integral (Bkg)   = 13154
+integral (Sig)   = 9.73401e-05
+
+TOTAL DATA YIELD = 13154
+
+
++++++++++++ DoubleB5_2016 +++++++++++++
+ Cut : bdtout_2<0.1 && bdtout_0<0.6 && bdtout_1>=0.60 && bdtout_1<0.75
+
+Fitted range : Chi2/ndof = 36.6627/36 = 1.01841  prob = 0.437947
+Full range   : Chi2/ndof = 55.5602/57 = 0.974741  prob = 0.529246
+
+integral (QCD)   = 78056.3
+integral (Zbb)   = 651.46
+integral (Bkg)   = 78707.7
+integral (Sig)   = 144.261
+
+TOTAL DATA YIELD = 78852
+
+
++++++++++++ DoubleB6_2016 +++++++++++++
+ Cut : bdtout_2<0.1 && bdtout_0<0.6 && bdtout_1>=0.75
+
+Fitted range : Chi2/ndof = 37.0201/38 = 0.974213  prob = 0.514619
+Full range   : Chi2/ndof = 58.5262/59 = 0.99197  prob = 0.492926
+
+integral (QCD)   = 29238.3
+integral (Zbb)   = 171.981
+integral (Bkg)   = 29410.3
+integral (Sig)   = 584.728
+
+TOTAL DATA YIELD = 29995
+
