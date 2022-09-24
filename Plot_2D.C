@@ -1,26 +1,20 @@
 #include "HttStylesNew.cc"
 
-void Plot_2D(int nPoints = 50, // sqrt(number_of_points) 
-	     double x1 = -0.5, // lower boundary of r_qqH
-	     double x2 = 2.5,  // upper boundary of r_qqH
-	     double y1 = -15, // lower boundary of r_ggH
-	     double y2 = 15, // upper boundar of r_ggH
-	     TString fileName = "higgsCombine.datacards_singleb_Run2_EWK.MultiDimFit.mH125"
-	     ) {
+std::map<TString, TGraph*> Find_2D(int nPoints, // sqrt(number_of_points) 
+				   double x1, // lower boundary of r_qqH
+				   double x2,  // upper boundary of r_qqH
+				   double y1, // lower boundary of r_ggH
+				   double y2, // upper boundar of r_ggH
+				   TTree * limit, // tree
+				   double dnll, // 1sigma = 1, 2ssigma = 4 
+				   double dLower = 0.5, // adjustments
+				   double dUpper = 0.5  // adjustments
+				   ) { 
 
-  SetStyle();
-
-  double xmin_frame = -0.5;
-  double xmax_frame =  2.5;
-
-  double ymin_frame = -15;
-  double ymax_frame =  15;
 
   double deltaY = (y2-y1)/double(nPoints);
 
-  TFile * file = new TFile(fileName+".root");
   TCanvas * dummy = new TCanvas("dummy","",500,500);
-  TTree * limit = (TTree*)file->Get("limit");
   TH2D * hist   = new TH2D("hist",  "",nPoints,x1,x2,nPoints,y1,y2);
   TH2D * update = new TH2D("update","",nPoints,x1,x2,nPoints,y1,y2);
   limit->Draw("r_ggH:r_qqH>>hist","2*deltaNLL");
@@ -56,14 +50,14 @@ void Plot_2D(int nPoints = 50, // sqrt(number_of_points)
       double x2 = update->GetXaxis()->GetBinCenter(j);
       double n1 = update->GetBinContent(j-1,i);
       double n2 = update->GetBinContent(j,i);
-      if (n1<1.0&&n2>1.0) {
-	double x = x1 + (1.0-n1)*(x2-x1)/(n2-n1);
+      if (n1<dnll&&n2>dnll) {
+	double x = x1 + (dnll-n1)*(x2-x1)/(n2-n1);
 	xmax[imax] = x;
 	ymax[imax] = y;
 	imax += 1;
       }
-      if (n1>1.0&&n2<1.0) {
-	double x = x1 + (1.0-n1)*(x2-x1)/(n2-n1);
+      if (n1>dnll&&n2<dnll) {
+	double x = x1 + (dnll-n1)*(x2-x1)/(n2-n1);
 	xmin[imin] = x;
 	ymin[imin] = y;
 	imin += 1;
@@ -78,17 +72,13 @@ void Plot_2D(int nPoints = 50, // sqrt(number_of_points)
   TGraph * GraphMin = new TGraph(imin,xmin,ymin);
   TGraph * GraphMax = new TGraph(imax,xmax,ymax);
 
-  GraphMax->SetLineColor(2);
-  GraphMax->SetLineWidth(3);
-  GraphMin->SetLineColor(2);
-  GraphMin->SetLineWidth(3);
 
   double xupper[4], yupper[4];
   double xlower[4], ylower[4];
 
   double xLowerMean = 0.5*(xmax[0] + xmin[0]);
   double xLowerDiff = xmax[0] - xmin[0];
-  double yLower = ymin[0] - 0.5*deltaY;
+  double yLower = ymin[0] - dUpper*deltaY;
 
   xlower[0] = xmin[0]; ylower[0] = ymin[0];
   xlower[1] = xLowerMean - 0.2*xLowerDiff; ylower[1] = yLower;
@@ -97,7 +87,7 @@ void Plot_2D(int nPoints = 50, // sqrt(number_of_points)
 
   double xUpperMean = 0.5*(xmax[imax-1] + xmin[imin-1]);
   double xUpperDiff = xmax[imax-1] - xmin[imin-1];
-  double yUpper = ymax[imax-1] + 0.7*deltaY;
+  double yUpper = ymax[imax-1] + dLower*deltaY;
 
   xupper[0] = xmin[imin-1]; yupper[0] = ymin[imin-1];
   xupper[1] = xUpperMean - 0.2*xUpperDiff; yupper[1] = yUpper;
@@ -107,35 +97,148 @@ void Plot_2D(int nPoints = 50, // sqrt(number_of_points)
   TGraph * GraphLower = new TGraph(4,xlower,ylower);
   TGraph * GraphUpper = new TGraph(4,xupper,yupper);
 
-  GraphLower->SetLineColor(2);
-  GraphLower->SetLineWidth(3);
-  GraphUpper->SetLineWidth(3);
-  GraphUpper->SetLineColor(2);
 
-  update->GetXaxis()->SetRangeUser(xmin_frame,xmax_frame);
-  update->GetYaxis()->SetRangeUser(ymin_frame,ymax_frame);
+  delete hist;
+  delete update;
 
-  double xbest[1] = {1.};
-  double ybest[1] = {1.};
+  std::map<TString, TGraph*> map_graph;
+  map_graph["Max"] = GraphMax;
+  map_graph["Min"] = GraphMin;
+  map_graph["Lower"] = GraphLower;
+  map_graph["Upper"] = GraphUpper;
 
+  return map_graph;
+
+}
+
+// ++++++++++++++++++++++
+// +++ Main subroutine
+// ++++++++++++++++++++++
+
+void Plot_2D( ) {
+
+  SetStyle();
+
+  TFile * fileObs = new TFile("./Fits/2Dscan_obs.root");
+  TTree * treeObs = (TTree*)fileObs->Get("limit");
+
+  TFile * fileExp = new TFile("./Fits/2Dscan_exp.root");
+  TTree * treeExp = (TTree*)fileExp->Get("limit");
+
+  double xmin_frame = -2;
+  double xmax_frame =  4;
+
+  double ymin_frame = -15;
+  double ymax_frame =  10;
+
+  double xbest[1] = {1.6};
+  double ybest[1] = {-3.6};
+
+  double xSM[1] = {1.0};
+  double ySM[1] = {1.0};
+
+  // Best fit 
   TGraph * graphBest = new TGraph(1,xbest,ybest);
   graphBest->SetMarkerStyle(43);
   graphBest->SetMarkerSize(4.0);
-  graphBest->SetMarkerColor(kBlue);
+  graphBest->SetMarkerColor(kRed);
+
+  // SM
+  TGraph * graphSM = new TGraph(1,xSM,ySM);
+  graphSM->SetMarkerStyle(43);
+  graphSM->SetMarkerSize(4.0);
+  graphSM->SetMarkerColor(kBlue);
+
+  // ******************
+  // observed contours
+  // ******************
+  double xmin = -1.0;
+  double xmax = 4.0;
+  double ymin = -10.;
+  double ymax = 8.;
+  int nPoints = 50;
+  double dnll = 1.0;
+  double dLower = 0.5;
+  double dUpper = 0.5;
+
+  std::map<TString, TGraph*> map_obs68 = 
+    Find_2D(nPoints,xmin,xmax,ymin,ymax,treeObs,dnll,dLower,dUpper);
+  for (auto graphs : map_obs68) {
+    graphs.second->SetLineColor(2);
+    graphs.second->SetLineWidth(3);
+  }
+  TGraph * Graph68_obs = map_obs68["Max"];
+
+  dLower = 0.2;
+  dUpper = 0.2;
+  dnll = 4.0;
+  std::map<TString, TGraph*> map_obs95 = 
+    Find_2D(nPoints,xmin,xmax,ymin,ymax,treeObs,dnll,dLower,dUpper);
+  for (auto graphs : map_obs95) {
+    graphs.second->SetLineColor(2);
+    graphs.second->SetLineWidth(3);
+    graphs.second->SetLineStyle(2);
+  }
+  TGraph * Graph95_obs = map_obs95["Max"];
+
+  // *****************
+  // expected contours
+  // *****************
+  xmin = -0.5;
+  xmax = 2.5;
+  ymin = -10.;
+  ymax = 10.;
+  nPoints = 50;
+  dnll = 1.0;
+  dLower = 0.5;
+  dUpper = 0.5;
+
+  std::map<TString, TGraph*> map_exp68 = 
+    Find_2D(nPoints,xmin,xmax,ymin,ymax,treeExp,dnll,dLower,dUpper);
+  for (auto graphs : map_exp68) {
+    graphs.second->SetLineColor(4);
+    graphs.second->SetLineWidth(3);
+  }
+  TGraph * Graph68_exp = map_exp68["Max"];
+
+  dLower = 0.2;
+  dUpper = 0.2;
+  dnll = 4.0;
+  std::map<TString, TGraph*> map_exp95 = 
+    Find_2D(nPoints,xmin,xmax,ymin,ymax,treeExp,dnll,dLower,dUpper);
+  for (auto graphs : map_exp95) {
+    graphs.second->SetLineColor(4);
+    graphs.second->SetLineWidth(3);
+    graphs.second->SetLineStyle(2);
+  }
+  TGraph * Graph95_exp = map_exp95["Max"];
+
+
 
   TH2D * frame = new TH2D("frame","",2,xmin_frame,xmax_frame,2,ymin_frame,ymax_frame);
   frame->GetXaxis()->SetTitle("r_{qqH}");
   frame->GetYaxis()->SetTitle("r_{ggH}");
   frame->GetXaxis()->SetTitleSize(0.06);
   frame->GetYaxis()->SetTitleSize(0.06);
+  frame->GetXaxis()->SetNdivisions(206);
 
-  TCanvas * canv = MakeCanvas("canv","",600,600);    
+  TCanvas * canv = MakeCanvas("canv","",700,700);    
   frame->Draw();
-  //  update->Draw("colzsame");
-  GraphMax->Draw("lsame");
-  GraphMin->Draw("lsame");
-  GraphLower->Draw("lsame");
-  GraphUpper->Draw("lsame");
+
+  for (auto graphs : map_obs68) {
+    graphs.second->Draw("lsame");
+  }
+  for (auto graphs : map_obs95) {
+    graphs.second->Draw("lsame");
+  }
+  for (auto graphs : map_exp68) {
+    graphs.second->Draw("lsame");
+  }
+  for (auto graphs : map_exp95) {
+    graphs.second->Draw("lsame");
+  }
+
+  graphSM->Draw("psame");
   graphBest->Draw("psame");
   canv->SetGridx(true);
   canv->SetGridy(true);
@@ -149,13 +252,18 @@ void Plot_2D(int nPoints = 50, // sqrt(number_of_points)
   line2->SetLineWidth(2);
   line2->SetLineStyle(2);
   line2->Draw();
-  TLegend * leg = new TLegend(0.57,0.72,0.82,0.9);
-  leg->SetTextSize(0.042);
+  TLegend * leg = new TLegend(0.21,0.16,0.45,0.5);
+  //  SetLegendStyle(leg);
+  leg->SetTextSize(0.03);
   leg->AddEntry(graphBest,"best fit","p");
-  leg->AddEntry(GraphMin,"68% C.L.","l");
+  leg->AddEntry(graphSM,"SM","p");
+  leg->AddEntry(Graph68_obs,"obs 68% C.L.","l");
+  leg->AddEntry(Graph95_obs,"obs 95% C.L.","l");
+  leg->AddEntry(Graph68_exp,"exp 68% C.L.","l");
+  leg->AddEntry(Graph95_exp,"exp 95% C.L.","l");
   leg->Draw();
   canv->Update();
   canv->Print("2D_scan.png");
-
+  canv->Print("2D_scan.pdf");
 
 }
