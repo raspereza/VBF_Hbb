@@ -1,5 +1,5 @@
 #!/bin/bash
-# $1 - datacards w/o 
+# $1 - datacards w/o txt extension
 # $2 - algo (saturated, KS, AD)
 # $3 - number of toys (typically >1000)
 ulimit -s unlimited
