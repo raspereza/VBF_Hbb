@@ -1,0 +1,84 @@
+
++++++++++++ DoubleB1_2016 +++++++++++++
+ Cut : bdtout_2>=0.10 && bdtout_2<0.11
+
+Fitted range : Chi2/ndof = 32.5515/36 = 0.904208  prob = 0.633393
+Full range   : Chi2/ndof = 44.6803/57 = 0.783865  prob = 0.88212
+
+integral (QCD)   = 41279.7
+integral (Zbb)   = 146.974
+integral (Bkg)   = 41426.6
+integral (Sig)   = 0.350956
+
+TOTAL DATA YIELD = 41427
+
+
++++++++++++ DoubleB2_2016 +++++++++++++
+ Cut : bdtout_2>=0.11
+
+Fitted range : Chi2/ndof = 33.8733/36 = 0.940926  prob = 0.570121
+Full range   : Chi2/ndof = 54.6321/57 = 0.958458  prob = 0.564432
+
+integral (QCD)   = 58585.6
+integral (Zbb)   = 301.367
+integral (Bkg)   = 58887
+integral (Sig)   = 0.000146874
+
+TOTAL DATA YIELD = 58887
+
+
++++++++++++ DoubleB3_2016 +++++++++++++
+ Cut : bdtout_2<0.1 && bdtout_0>=0.80 && bdtout_0<0.85
+
+Fitted range : Chi2/ndof = 41.5457/38 = 1.09331  prob = 0.318925
+Full range   : Chi2/ndof = 56.425/59 = 0.956355  prob = 0.571009
+
+integral (QCD)   = 4301.03
+integral (Zbb)   = 26.9718
+integral (Bkg)   = 4328
+integral (Sig)   = 0.00101093
+
+TOTAL DATA YIELD = 4328
+
+
++++++++++++ DoubleB4_2016 +++++++++++++
+ Cut : bdtout_2<0.1 && bdtout_0>=0.85
+
+Fitted range : Chi2/ndof = 43.9385/38 = 1.15628  prob = 0.234455
+Full range   : Chi2/ndof = 60.0363/59 = 1.01756  prob = 0.437945
+
+integral (QCD)   = 1834.1
+integral (Zbb)   = 65.8916
+integral (Bkg)   = 1900
+integral (Sig)   = 0.00406499
+
+TOTAL DATA YIELD = 1900
+
+
++++++++++++ DoubleB5_2016 +++++++++++++
+ Cut : bdtout_2<0.1 && bdtout_0<0.6 && bdtout_1>=0.60 && bdtout_1<0.75
+
+Fitted range : Chi2/ndof = 43.0222/37 = 1.16276  prob = 0.229067
+Full range   : Chi2/ndof = 58.6423/58 = 1.01107  prob = 0.451722
+
+integral (QCD)   = 77143.4
+integral (Zbb)   = 1029.12
+integral (Bkg)   = 78172.5
+integral (Sig)   = 679.478
+
+TOTAL DATA YIELD = 78852
+
+
++++++++++++ DoubleB6_2016 +++++++++++++
+ Cut : bdtout_2<0.1 && bdtout_0<0.6 && bdtout_1>=0.75
+
+Fitted range : Chi2/ndof = 33.3979/37 = 0.902647  prob = 0.63867
+Full range   : Chi2/ndof = 50.4471/58 = 0.869778  prob = 0.749082
+
+integral (QCD)   = 29664.1
+integral (Zbb)   = 221.685
+integral (Bkg)   = 29885.8
+integral (Sig)   = 109.198
+
+TOTAL DATA YIELD = 29995
+

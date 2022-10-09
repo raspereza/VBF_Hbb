@@ -1,0 +1,42 @@
+
++++++++++++ SingleB1_2018 +++++++++++++
+ Cut : bdtout>=0.25 && bdtout<0.50
+
+Fitted range : Chi2/ndof = 43.3594/38 = 1.14104  prob = 0.253429
+Full range   : Chi2/ndof = 53.6542/59 = 0.909393  prob = 0.672175
+
+integral (QCD)   = 29013.9
+integral (Zbb)   = 104.961
+integral (Bkg)   = 29118.8
+integral (Sig)   = 144.172
+
+TOTAL DATA YIELD = 29263
+
+
++++++++++++ SingleB2_2018 +++++++++++++
+ Cut : bdtout>=0.50 && bdtout<0.75
+
+Fitted range : Chi2/ndof = 46.1678/38 = 1.21494  prob = 0.170445
+Full range   : Chi2/ndof = 67.9508/59 = 1.15171  prob = 0.198682
+
+integral (QCD)   = 22628.1
+integral (Zbb)   = 324.052
+integral (Bkg)   = 22952.2
+integral (Sig)   = 441.821
+
+TOTAL DATA YIELD = 23394
+
+
++++++++++++ SingleB3_2018 +++++++++++++
+ Cut : bdtout>=0.75
+
+Fitted range : Chi2/ndof = 55.2903/38 = 1.45501  prob = 0.0345672
+Full range   : Chi2/ndof = 61.9752/59 = 1.05043  prob = 0.37048
+
+integral (QCD)   = 7860.77
+integral (Zbb)   = 201.704
+integral (Bkg)   = 8062.47
+integral (Sig)   = 139.526
+
+TOTAL DATA YIELD = 8202
+

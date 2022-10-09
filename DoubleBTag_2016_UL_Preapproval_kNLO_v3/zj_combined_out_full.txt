@@ -1,0 +1,192 @@
++++++++++++++ DoubleB1_2016 ++++++++++++++
+
+Mean  (ZJets) = 94.477
+Mean  (nom)   = 94.4752
+Mean  (ave)   = 94.477
+Mean  (Up)    = 95.4824
+Mean  (Down)  = 93.4716
+SCL Mean  (Up)    = 92.9775
+SCL Mean  (Down)  = 95.9367
+SMR Mean  (Up)    = 94.1763
+SMR Mean  (Down)  = 94.7469
+
+Sigma (ZJets) = 9.77862
+Sigma (nom)   = 9.31132
+Sigma (ave)   = 9.77862
+Sigma (Up)    = 9.96207
+Sigma (Down)  = 9.59517
+SCL Sigma (Up)    = 9.15844
+SCL Sigma (Down)  = 9.48509
+SMR Sigma (Up)    = 8.94106
+SMR Sigma (Down)  = 9.68443
+
+Norm      = 275.234
+JESUp     = 274.267
+JESDown   = 257.623
+JERUp     = 259.924
+JERDown   = 264.83
+SCLUp     = 271.565
+SCLDown   = 278.832
+SMRUp     = 275.993
+SMRDown   = 274.665
+
++++++++++++++ DoubleB2_2016 ++++++++++++++
+
+Mean  (ZJets) = 94.477
+Mean  (nom)   = 94.4752
+Mean  (ave)   = 94.477
+Mean  (Up)    = 95.4824
+Mean  (Down)  = 93.4716
+SCL Mean  (Up)    = 92.9775
+SCL Mean  (Down)  = 95.9367
+SMR Mean  (Up)    = 94.1763
+SMR Mean  (Down)  = 94.7469
+
+Sigma (ZJets) = 9.77862
+Sigma (nom)   = 9.31132
+Sigma (ave)   = 9.77862
+Sigma (Up)    = 9.96207
+Sigma (Down)  = 9.59517
+SCL Sigma (Up)    = 9.15844
+SCL Sigma (Down)  = 9.48509
+SMR Sigma (Up)    = 8.94106
+SMR Sigma (Down)  = 9.68443
+
+Norm      = 407.431
+JESUp     = 407.568
+JESDown   = 365.978
+JERUp     = 408.795
+JERDown   = 401.958
+SCLUp     = 404.036
+SCLDown   = 411.593
+SMRUp     = 407.588
+SMRDown   = 408.178
+
++++++++++++++ DoubleB3_2016 ++++++++++++++
+
+Mean  (ZJets) = 94.477
+Mean  (nom)   = 94.4752
+Mean  (ave)   = 94.477
+Mean  (Up)    = 95.4824
+Mean  (Down)  = 93.4716
+SCL Mean  (Up)    = 92.9775
+SCL Mean  (Down)  = 95.9367
+SMR Mean  (Up)    = 94.1763
+SMR Mean  (Down)  = 94.7469
+
+Sigma (ZJets) = 9.77862
+Sigma (nom)   = 9.31132
+Sigma (ave)   = 9.77862
+Sigma (Up)    = 9.96207
+Sigma (Down)  = 9.59517
+SCL Sigma (Up)    = 9.15844
+SCL Sigma (Down)  = 9.48509
+SMR Sigma (Up)    = 8.94106
+SMR Sigma (Down)  = 9.68443
+
+Norm      = 44.5889
+JESUp     = 46.7877
+JESDown   = 37.1015
+JERUp     = 41.6322
+JERDown   = 42.8534
+SCLUp     = 44.1975
+SCLDown   = 46.2868
+SMRUp     = 44.6328
+SMRDown   = 44.6656
+
++++++++++++++ DoubleB4_2016 ++++++++++++++
+
+Mean  (ZJets) = 94.477
+Mean  (nom)   = 94.4752
+Mean  (ave)   = 94.477
+Mean  (Up)    = 95.4824
+Mean  (Down)  = 93.4716
+SCL Mean  (Up)    = 92.9775
+SCL Mean  (Down)  = 95.9367
+SMR Mean  (Up)    = 94.1763
+SMR Mean  (Down)  = 94.7469
+
+Sigma (ZJets) = 9.77862
+Sigma (nom)   = 9.31132
+Sigma (ave)   = 9.77862
+Sigma (Up)    = 9.96207
+Sigma (Down)  = 9.59517
+SCL Sigma (Up)    = 9.15844
+SCL Sigma (Down)  = 9.48509
+SMR Sigma (Up)    = 8.94106
+SMR Sigma (Down)  = 9.68443
+
+Norm      = 31.2476
+JESUp     = 32.117
+JESDown   = 25.3306
+JERUp     = 28.1802
+JERDown   = 30.6755
+SCLUp     = 31.2181
+SCLDown   = 31.7954
+SMRUp     = 31.3845
+SMRDown   = 31.2476
+
++++++++++++++ DoubleB5_2016 ++++++++++++++
+
+Mean  (ZJets) = 94.477
+Mean  (nom)   = 94.4752
+Mean  (ave)   = 94.477
+Mean  (Up)    = 95.4824
+Mean  (Down)  = 93.4716
+SCL Mean  (Up)    = 92.9775
+SCL Mean  (Down)  = 95.9367
+SMR Mean  (Up)    = 94.1763
+SMR Mean  (Down)  = 94.7469
+
+Sigma (ZJets) = 9.77862
+Sigma (nom)   = 9.31132
+Sigma (ave)   = 9.77862
+Sigma (Up)    = 9.96207
+Sigma (Down)  = 9.59517
+SCL Sigma (Up)    = 9.15844
+SCL Sigma (Down)  = 9.48509
+SMR Sigma (Up)    = 8.94106
+SMR Sigma (Down)  = 9.68443
+
+Norm      = 1147.61
+JESUp     = 1157.49
+JESDown   = 1145.56
+JERUp     = 1140.6
+JERDown   = 1144.24
+SCLUp     = 1128.23
+SCLDown   = 1160.69
+SMRUp     = 1145.99
+SMRDown   = 1147.99
+
++++++++++++++ DoubleB6_2016 ++++++++++++++
+
+Mean  (ZJets) = 94.477
+Mean  (nom)   = 94.4752
+Mean  (ave)   = 94.477
+Mean  (Up)    = 95.4824
+Mean  (Down)  = 93.4716
+SCL Mean  (Up)    = 92.9775
+SCL Mean  (Down)  = 95.9367
+SMR Mean  (Up)    = 94.1763
+SMR Mean  (Down)  = 94.7469
+
+Sigma (ZJets) = 9.77862
+Sigma (nom)   = 9.31132
+Sigma (ave)   = 9.77862
+Sigma (Up)    = 9.96207
+Sigma (Down)  = 9.59517
+SCL Sigma (Up)    = 9.15844
+SCL Sigma (Down)  = 9.48509
+SMR Sigma (Up)    = 8.94106
+SMR Sigma (Down)  = 9.68443
+
+Norm      = 650.272
+JESUp     = 654.564
+JESDown   = 661.983
+JERUp     = 647.673
+JERDown   = 650.826
+SCLUp     = 640.524
+SCLDown   = 657.814
+SMRUp     = 650.126
+SMRDown   = 650.828
+

@@ -1,0 +1,146 @@
+#include "HttStylesNew.cc"
+#include "Common.h"
+
+std::ofstream outtext("data_out.txt");
+
+void CreatePDF(int iCAT, 
+	       int iORDER,
+	       TNtuple * tree,
+	       TNtuple * treeZ,
+               TNtuple * treeZ_ewk,
+	       TNtuple * treeVBF,
+	       TNtuple * treeGGH,
+	       RooWorkspace * w) {
+
+  bool blind = true;
+
+  using namespace RooFit;
+  TH1::SetDefaultSumw2(true);
+  SetStyle();
+
+  char ORDER[4];
+  sprintf(ORDER,"%1i",iORDER);
+  TString IORDER(ORDER);
+
+  TString Cuts = cuts[iCAT];
+  TString CutsBlind = Cuts + "&& (mbb_reg<"+Xmin_blind+"|| mbb_reg >"+Xmax_blind+")";
+
+  TH1::SetDefaultSumw2(true);
+
+  TCanvas * dummy = new TCanvas("dummy","",800,700);
+
+  TString nameHist = "mbb_"+names[iCAT];
+  TString nameHistZ = "mbb_zj_"+names[iCAT];
+  TString nameHistZ_ewk = "mbb_zj_ewk_"+names[iCAT];
+  TString nameHistH = "mbb_higgs_"+names[iCAT];
+  TString nameHistGGH = "mbb_ggh_"+names[iCAT];
+  TString nameHistData = "mbb_data_"+names[iCAT];
+
+  RooRealVar mbb("mbb_"+names[iCAT],"mass(bb)",xmin,xmax);
+
+  TH1D * hist = new TH1D(nameHist,"",NbinsBkg,xmin,xmax);
+  TH1D * histZ = new TH1D(nameHistZ,"",NbinsBkg,xmin,xmax);
+  TH1D * histZ_ewk = new TH1D(nameHistZ_ewk,"",NbinsBkg,xmin,xmax);
+  TH1D * histH = new TH1D(nameHistH,"",NbinsBkg,xmin,xmax);
+  TH1D * histGGH = new TH1D(nameHistGGH,"",NbinsBkg,xmin,xmax);
+  TH1D * histData = new TH1D(nameHistData,"",Nbins,xmin,xmax);
+
+  treeVBF->Draw(variable+">>"+nameHistH,"weight*("+Cuts+")");
+  treeGGH->Draw(variable+">>"+nameHistGGH,"weight*("+Cuts+")");
+  histH->Add(histH,histGGH,1.,1.);
+
+  treeZ->Draw(variable+">>"+nameHistZ,"weight*("+Cuts+")");
+  treeZ_ewk->Draw(variable+">>"+nameHistZ_ewk,"weight*("+Cuts+")");
+  histZ->Add(histZ,histZ_ewk,1.,1.);
+
+  tree->Draw(variableData+">>"+nameHist,Cuts);
+  tree->Draw(variableData+">>"+nameHistData,Cuts);
+ 
+  hist->Add(hist,histH,1.,-1.);
+  hist->Add(hist,histZ,1.,-1.);
+  
+  RooDataHist data_ws("data_"+names[iCAT],"data",mbb,histData);  
+
+  delete dummy;
+
+  // background model
+  RooRealVar a1("a1_"+names[iCAT],"a1",-5.0,5.0); a1.setVal(0.0);
+  RooRealVar a2("a2_"+names[iCAT],"a2",-5.0,5.0); a2.setVal(0.0);
+  RooRealVar a3("a3_"+names[iCAT],"a3",-5.0,5.0); a3.setVal(0.0);
+  RooRealVar a4("a4_"+names[iCAT],"a4",-5.0,5.0); a4.setVal(0.0);
+  RooRealVar a5("a5_"+names[iCAT],"a5",-5.0,5.0); a5.setVal(0.0);
+
+  RooArgList argListPolExp;
+  
+  if (iORDER>=1)
+    argListPolExp.add(a1);
+  if (iORDER>=2)
+    argListPolExp.add(a2);
+  if (iORDER>=3)
+    argListPolExp.add(a3);
+  if (iORDER>=4)
+    argListPolExp.add(a4);
+  if (iORDER>=5)
+    argListPolExp.add(a5);
+
+  RooRealVar tau_decay("tau_decay_"+names[iCAT],"tau_decay",-1.0e-01,-1.0e-06);
+  tau_decay.setVal(-9.0e-03);
+  argListPolExp.add(tau_decay);
+
+  //  RooGenericPdf QCD((string("qcd_")+namesCAT[iCAT]).c_str(),genericPolynomExp.at(iORDER).c_str(),RooArgSet(mbb,argListPolExp));
+  RooChebychev QCD("");
+
+  RooDataHist data("data_fit"+names[iCAT],"data",mbb,hist);
+  RooFitResult * fitRes = QCD.fitTo(data,SumW2Error(kTRUE),Save());
+  RooChi2Var chi2Roo =  RooChi2Var("chi2"+names[iCAT],"chi2",QCD,data) ;
+  double chi2 = chi2Roo.getVal();
+  double ndof  = NbinsBkg - 1 -iORDER;
+  double prob  = TMath::Prob(chi2,ndof);
+  outtext << endl;
+  outtext << "+++++++++++ " << names[iCAT] << " +++++++++++++" << endl;
+  outtext << " Cut : " << cuts[iCAT] << endl;
+  outtext << "Full range   : Chi2/ndof = " << chi2 << "/" << ndof << " = " << chi2/ndof << "  prob = " << prob << endl;
+  double totalYield = histData->GetSumOfWeights();
+  double xQCD = hist->GetSumOfWeights();
+  outtext << "integral (QCD)   = " << xQCD << endl;
+  outtext << "TOTAL DATA YIELD = " << histData->GetSumOfWeights() << endl;
+  outtext << endl;
+  RooRealVar qcd_yield("qcd_"+names[iCAT]+"_norm","Yield",xQCD,0.5*xQCD,2*xQCD);
+
+  a1.setConstant(false);
+  a2.setConstant(false);
+  a3.setConstant(false);
+  a4.setConstant(false);
+  a5.setConstant(false);
+  tau_decay.setConstant(false);
+
+  w->import(QCD);
+  w->import(data_ws);
+  w->import(qcd_yield);
+
+}
+
+void CreateDataTemplates_qcd() {
+  
+  TFile * file = new TFile(dirName+"/mbb_and_bdt_all_Nom.root");
+  TNtuple * tree = (TNtuple*)file->Get("Mass_and_BDT_DATA");
+  TNtuple * tree_zj = (TNtuple*)file->Get("Mass_and_BDT_ZJets");
+  TNtuple * treeZ_ewk = (TNtuple*)file->Get("Mass_and_BDT_ZJets_EWK");
+  TNtuple * tree_vbf = (TNtuple*)file->Get("Mass_and_BDT_VBF_Hbb_Dipol");
+  TNtuple * tree_ggh = (TNtuple*)file->Get("Mass_and_BDT_ggF_Hbb_POWHEG");
+ 
+  TFile * fileOutput = new TFile("root_shape/data_doubleb_shapes_2018.root","recreate");
+  fileOutput->cd("");
+  RooWorkspace * w = new RooWorkspace("w","data");
+
+  //  int iorder[6] = {2,2,2,2,2,2}; 
+  int iorder[6] = {2,2,2,0,2,1};
+  for (int i=0; i<6; ++i) 
+    CreatePDF(i,iorder[i],tree,tree_zj,treeZ_ewk,tree_vbf,tree_ggh,w);
+  
+  w->Write("w");
+  fileOutput->Write();
+  fileOutput->Close();
+
+
+}

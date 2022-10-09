@@ -1,0 +1,96 @@
++++++++++++++ SingleB1_2016 ++++++++++++++
+
+Mean  (ZJets) = 94.7205
+Mean  (nom)   = 94.7236
+Mean  (ave)   = 94.7205
+Mean  (Up)    = 95.6476
+Mean  (Down)  = 93.7933
+SCL Mean  (Up)    = 96.083
+SCL Mean  (Down)  = 93.4106
+SMR Mean  (Up)    = 95.0095
+SMR Mean  (Down)  = 94.3423
+
+Sigma (ZJets) = 9.29251
+Sigma (nom)   = 8.95368
+Sigma (ave)   = 9.29251
+Sigma (Up)    = 9.42415
+Sigma (Down)  = 9.16087
+SCL Sigma (Up)    = 9.28529
+SCL Sigma (Down)  = 8.71361
+SMR Sigma (Up)    = 9.44277
+SMR Sigma (Down)  = 8.686
+
+Norm      = 161.09
+JESUp     = 175.395
+JESDown   = 143.09
+JERUp     = 153.509
+JERDown   = 160.665
+SCLUp     = 167.838
+SCLDown   = 156.787
+SMRUp     = 161.262
+SMRDown   = 164.682
+
++++++++++++++ SingleB2_2016 ++++++++++++++
+
+Mean  (ZJets) = 94.7205
+Mean  (nom)   = 94.7236
+Mean  (ave)   = 94.7205
+Mean  (Up)    = 95.6476
+Mean  (Down)  = 93.7933
+SCL Mean  (Up)    = 96.083
+SCL Mean  (Down)  = 93.4106
+SMR Mean  (Up)    = 95.0095
+SMR Mean  (Down)  = 94.3423
+
+Sigma (ZJets) = 9.29251
+Sigma (nom)   = 8.95368
+Sigma (ave)   = 9.29251
+Sigma (Up)    = 9.42415
+Sigma (Down)  = 9.16087
+SCL Sigma (Up)    = 9.28529
+SCL Sigma (Down)  = 8.71361
+SMR Sigma (Up)    = 9.44277
+SMR Sigma (Down)  = 8.686
+
+Norm      = 151.574
+JESUp     = 177.119
+JESDown   = 127.721
+JERUp     = 151.463
+JERDown   = 150.555
+SCLUp     = 154.882
+SCLDown   = 147.463
+SMRUp     = 151.868
+SMRDown   = 151.812
+
++++++++++++++ SingleB3_2016 ++++++++++++++
+
+Mean  (ZJets) = 94.7205
+Mean  (nom)   = 94.7236
+Mean  (ave)   = 94.7205
+Mean  (Up)    = 95.6476
+Mean  (Down)  = 93.7933
+SCL Mean  (Up)    = 96.083
+SCL Mean  (Down)  = 93.4106
+SMR Mean  (Up)    = 95.0095
+SMR Mean  (Down)  = 94.3423
+
+Sigma (ZJets) = 9.29251
+Sigma (nom)   = 8.95368
+Sigma (ave)   = 9.29251
+Sigma (Up)    = 9.42415
+Sigma (Down)  = 9.16087
+SCL Sigma (Up)    = 9.28529
+SCL Sigma (Down)  = 8.71361
+SMR Sigma (Up)    = 9.44277
+SMR Sigma (Down)  = 8.686
+
+Norm      = 75.4204
+JESUp     = 84.741
+JESDown   = 62.9749
+JERUp     = 73.9325
+JERDown   = 75.0983
+SCLUp     = 76.4832
+SCLDown   = 73.3751
+SMRUp     = 75.0375
+SMRDown   = 75.0026
+

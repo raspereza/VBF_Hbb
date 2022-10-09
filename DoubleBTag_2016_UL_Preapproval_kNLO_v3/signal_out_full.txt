@@ -1,0 +1,444 @@
+qqH Total: 4.51074
+ggH Total: 26.5214
+qqH Total: 4.64234
+ggH Total: 26.0467
+qqH Total: 4.36855
+ggH Total: 25.3126
+qqH Total: 4.63968
+ggH Total: 25.7993
+qqH Total: 4.54629
+ggH Total: 25.9262
+qqH Total: 4.4897
+ggH Total: 26.5214
+qqH Total: 4.51074
+ggH Total: 26.5214
+qqH Total: 4.50026
+ggH Total: 26.5214
+qqH Total: 4.51074
+ggH Total: 26.5214
++++++++++++++ DoubleB1_2016 ++++++++++++++++
++++++++++++++ start unc ++++++++++++++++
+Mean  = 125.122
+Mean2  = 125.139
+Mean  (nom)  = 125.098
+Sigma (nom)  = 11.2823
+Sigma  = 11.794
+Sigma2  = 11.2743
+d_Mean  = 1.3276
+d_Mean2  = -2.01733
+d_Sigma  = 0.184862
+d_Sigma2  = -0.43463
++++++++++++++ end unc ++++++++++++++++
+
+Mean  (ggH)  = 125.122
+Mean  (qqH)  = 125.122
+Mean  (nom)  = 125.098
+Mean  (ave)  = 125.122
+Mean  (Up)   = 126.449
+Mean  (Down) = 123.794
+SCL Mean  (Up)   = 123.121
+SCL Mean  (Down) = 127.156
+SMR Mean  (Up)   = 124.747
+SMR Mean  (Down) = 125.456
+
+Sigma (ggH)  = 11.794
+Sigma (qqH)  = 11.794
+Sigma (nom)  = 11.2823
+Sigma (ave)  = 11.794
+Sigma (Up)   = 11.9789
+Sigma (Down) = 11.6091
+SCL Sigma (Up)   = 11.03
+SCL Sigma (Down) = 11.4042
+SMR Sigma (Up)   = 10.8397
+SMR Sigma (Down) = 11.709
+
+Norm    (ggH)  = 26.5214
+JESUp   (ggH)  = 26.0467
+JESDown (ggH)  = 25.3126
+JERUp   (ggH)  = 25.7993
+JERDown (ggH)  = 25.9262
+SCLUp   (ggH)  = 26.5214
+SCLDown (ggH)  = 26.5214
+SMRUp   (ggH)  = 26.5214
+SMRDown (ggH)  = 26.5214
+
+Norm    (qqH)  = 4.51074
+JESUp   (qqH)  = 4.64234
+JESDown (qqH)  = 4.36855
+JERUp   (qqH)  = 4.63968
+JERDown (qqH)  = 4.54629
+SCLUp   (qqH)  = 4.4897
+SCLDown (qqH)  = 4.51074
+SMRUp   (qqH)  = 4.50026
+SMRDown (qqH)  = 4.51074
+
+qqH Total: 6.07101
+ggH Total: 51.5992
+qqH Total: 6.08112
+ggH Total: 50.8572
+qqH Total: 5.55613
+ggH Total: 48.8121
+qqH Total: 5.98533
+ggH Total: 50.1879
+qqH Total: 6.06817
+ggH Total: 51.2032
+qqH Total: 6.06003
+ggH Total: 51.5992
+qqH Total: 6.04709
+ggH Total: 51.5992
+qqH Total: 6.08199
+ggH Total: 51.5992
+qqH Total: 6.06422
+ggH Total: 51.5992
++++++++++++++ DoubleB2_2016 ++++++++++++++++
++++++++++++++ start unc ++++++++++++++++
+Mean  = 125.122
+Mean2  = 125.139
+Mean  (nom)  = 125.098
+Sigma (nom)  = 11.2823
+Sigma  = 11.794
+Sigma2  = 11.2743
+d_Mean  = 1.3276
+d_Mean2  = -2.01733
+d_Sigma  = 0.184862
+d_Sigma2  = -0.43463
++++++++++++++ end unc ++++++++++++++++
+
+Mean  (ggH)  = 125.122
+Mean  (qqH)  = 125.122
+Mean  (nom)  = 125.098
+Mean  (ave)  = 125.122
+Mean  (Up)   = 126.449
+Mean  (Down) = 123.794
+SCL Mean  (Up)   = 123.121
+SCL Mean  (Down) = 127.156
+SMR Mean  (Up)   = 124.747
+SMR Mean  (Down) = 125.456
+
+Sigma (ggH)  = 11.794
+Sigma (qqH)  = 11.794
+Sigma (nom)  = 11.2823
+Sigma (ave)  = 11.794
+Sigma (Up)   = 11.9789
+Sigma (Down) = 11.6091
+SCL Sigma (Up)   = 11.03
+SCL Sigma (Down) = 11.4042
+SMR Sigma (Up)   = 10.8397
+SMR Sigma (Down) = 11.709
+
+Norm    (ggH)  = 51.5992
+JESUp   (ggH)  = 50.8572
+JESDown (ggH)  = 48.8121
+JERUp   (ggH)  = 50.1879
+JERDown (ggH)  = 51.2032
+SCLUp   (ggH)  = 51.5992
+SCLDown (ggH)  = 51.5992
+SMRUp   (ggH)  = 51.5992
+SMRDown (ggH)  = 51.5992
+
+Norm    (qqH)  = 6.07101
+JESUp   (qqH)  = 6.08112
+JESDown (qqH)  = 5.55613
+JERUp   (qqH)  = 5.98533
+JERDown (qqH)  = 6.06817
+SCLUp   (qqH)  = 6.06003
+SCLDown (qqH)  = 6.04709
+SMRUp   (qqH)  = 6.08199
+SMRDown (qqH)  = 6.06422
+
+qqH Total: 19.9201
+ggH Total: 2.77363
+qqH Total: 20.3074
+ggH Total: 2.78223
+qqH Total: 17.3884
+ggH Total: 2.3333
+qqH Total: 18.8404
+ggH Total: 2.70642
+qqH Total: 19.5848
+ggH Total: 2.69369
+qqH Total: 19.9201
+ggH Total: 2.77363
+qqH Total: 19.9251
+ggH Total: 2.77363
+qqH Total: 19.9201
+ggH Total: 2.77363
+qqH Total: 19.9201
+ggH Total: 2.77363
++++++++++++++ DoubleB3_2016 ++++++++++++++++
++++++++++++++ start unc ++++++++++++++++
+Mean  = 125.122
+Mean2  = 125.139
+Mean  (nom)  = 125.098
+Sigma (nom)  = 11.2823
+Sigma  = 11.794
+Sigma2  = 11.2743
+d_Mean  = 1.3276
+d_Mean2  = -2.01733
+d_Sigma  = 0.184862
+d_Sigma2  = -0.43463
++++++++++++++ end unc ++++++++++++++++
+
+Mean  (ggH)  = 125.122
+Mean  (qqH)  = 125.122
+Mean  (nom)  = 125.098
+Mean  (ave)  = 125.122
+Mean  (Up)   = 126.449
+Mean  (Down) = 123.794
+SCL Mean  (Up)   = 123.121
+SCL Mean  (Down) = 127.156
+SMR Mean  (Up)   = 124.747
+SMR Mean  (Down) = 125.456
+
+Sigma (ggH)  = 11.794
+Sigma (qqH)  = 11.794
+Sigma (nom)  = 11.2823
+Sigma (ave)  = 11.794
+Sigma (Up)   = 11.9789
+Sigma (Down) = 11.6091
+SCL Sigma (Up)   = 11.03
+SCL Sigma (Down) = 11.4042
+SMR Sigma (Up)   = 10.8397
+SMR Sigma (Down) = 11.709
+
+Norm    (ggH)  = 2.77363
+JESUp   (ggH)  = 2.78223
+JESDown (ggH)  = 2.3333
+JERUp   (ggH)  = 2.70642
+JERDown (ggH)  = 2.69369
+SCLUp   (ggH)  = 2.77363
+SCLDown (ggH)  = 2.77363
+SMRUp   (ggH)  = 2.77363
+SMRDown (ggH)  = 2.77363
+
+Norm    (qqH)  = 19.9201
+JESUp   (qqH)  = 20.3074
+JESDown (qqH)  = 17.3884
+JERUp   (qqH)  = 18.8404
+JERDown (qqH)  = 19.5848
+SCLUp   (qqH)  = 19.9201
+SCLDown (qqH)  = 19.9251
+SMRUp   (qqH)  = 19.9201
+SMRDown (qqH)  = 19.9201
+
+qqH Total: 17.4414
+ggH Total: 1.71026
+qqH Total: 17.8297
+ggH Total: 1.71985
+qqH Total: 14.1298
+ggH Total: 1.23617
+qqH Total: 16.2479
+ggH Total: 1.49081
+qqH Total: 16.8045
+ggH Total: 1.64177
+qqH Total: 17.4307
+ggH Total: 1.71026
+qqH Total: 17.4516
+ggH Total: 1.71026
+qqH Total: 17.4307
+ggH Total: 1.71026
+qqH Total: 17.4414
+ggH Total: 1.71026
++++++++++++++ DoubleB4_2016 ++++++++++++++++
++++++++++++++ start unc ++++++++++++++++
+Mean  = 125.122
+Mean2  = 125.139
+Mean  (nom)  = 125.098
+Sigma (nom)  = 11.2823
+Sigma  = 11.794
+Sigma2  = 11.2743
+d_Mean  = 1.3276
+d_Mean2  = -2.01733
+d_Sigma  = 0.184862
+d_Sigma2  = -0.43463
++++++++++++++ end unc ++++++++++++++++
+
+Mean  (ggH)  = 125.122
+Mean  (qqH)  = 125.122
+Mean  (nom)  = 125.098
+Mean  (ave)  = 125.122
+Mean  (Up)   = 126.449
+Mean  (Down) = 123.794
+SCL Mean  (Up)   = 123.121
+SCL Mean  (Down) = 127.156
+SMR Mean  (Up)   = 124.747
+SMR Mean  (Down) = 125.456
+
+Sigma (ggH)  = 11.794
+Sigma (qqH)  = 11.794
+Sigma (nom)  = 11.2823
+Sigma (ave)  = 11.794
+Sigma (Up)   = 11.9789
+Sigma (Down) = 11.6091
+SCL Sigma (Up)   = 11.03
+SCL Sigma (Down) = 11.4042
+SMR Sigma (Up)   = 10.8397
+SMR Sigma (Down) = 11.709
+
+Norm    (ggH)  = 1.71026
+JESUp   (ggH)  = 1.71985
+JESDown (ggH)  = 1.23617
+JERUp   (ggH)  = 1.49081
+JERDown (ggH)  = 1.64177
+SCLUp   (ggH)  = 1.71026
+SCLDown (ggH)  = 1.71026
+SMRUp   (ggH)  = 1.71026
+SMRDown (ggH)  = 1.71026
+
+Norm    (qqH)  = 17.4414
+JESUp   (qqH)  = 17.8297
+JESDown (qqH)  = 14.1298
+JERUp   (qqH)  = 16.2479
+JERDown (qqH)  = 16.8045
+SCLUp   (qqH)  = 17.4307
+SCLDown (qqH)  = 17.4516
+SMRUp   (qqH)  = 17.4307
+SMRDown (qqH)  = 17.4414
+
+qqH Total: 9.60688
+ggH Total: 29.8696
+qqH Total: 9.738
+ggH Total: 29.155
+qqH Total: 10.2668
+ggH Total: 31.3449
+qqH Total: 9.7124
+ggH Total: 29.6093
+qqH Total: 9.81414
+ggH Total: 29.5938
+qqH Total: 9.60219
+ggH Total: 29.8696
+qqH Total: 9.62394
+ggH Total: 29.9315
+qqH Total: 9.61698
+ggH Total: 29.8696
+qqH Total: 9.60018
+ggH Total: 29.8696
++++++++++++++ DoubleB5_2016 ++++++++++++++++
++++++++++++++ start unc ++++++++++++++++
+Mean  = 125.122
+Mean2  = 125.139
+Mean  (nom)  = 125.098
+Sigma (nom)  = 11.2823
+Sigma  = 11.794
+Sigma2  = 11.2743
+d_Mean  = 1.3276
+d_Mean2  = -2.01733
+d_Sigma  = 0.184862
+d_Sigma2  = -0.43463
++++++++++++++ end unc ++++++++++++++++
+
+Mean  (ggH)  = 125.122
+Mean  (qqH)  = 125.122
+Mean  (nom)  = 125.098
+Mean  (ave)  = 125.122
+Mean  (Up)   = 126.449
+Mean  (Down) = 123.794
+SCL Mean  (Up)   = 123.121
+SCL Mean  (Down) = 127.156
+SMR Mean  (Up)   = 124.747
+SMR Mean  (Down) = 125.456
+
+Sigma (ggH)  = 11.794
+Sigma (qqH)  = 11.794
+Sigma (nom)  = 11.2823
+Sigma (ave)  = 11.794
+Sigma (Up)   = 11.9789
+Sigma (Down) = 11.6091
+SCL Sigma (Up)   = 11.03
+SCL Sigma (Down) = 11.4042
+SMR Sigma (Up)   = 10.8397
+SMR Sigma (Down) = 11.709
+
+Norm    (ggH)  = 29.8696
+JESUp   (ggH)  = 29.155
+JESDown (ggH)  = 31.3449
+JERUp   (ggH)  = 29.6093
+JERDown (ggH)  = 29.5938
+SCLUp   (ggH)  = 29.8696
+SCLDown (ggH)  = 29.9315
+SMRUp   (ggH)  = 29.8696
+SMRDown (ggH)  = 29.8696
+
+Norm    (qqH)  = 9.60688
+JESUp   (qqH)  = 9.738
+JESDown (qqH)  = 10.2668
+JERUp   (qqH)  = 9.7124
+JERDown (qqH)  = 9.81414
+SCLUp   (qqH)  = 9.60219
+SCLDown (qqH)  = 9.62394
+SMRUp   (qqH)  = 9.61698
+SMRDown (qqH)  = 9.60018
+
+qqH Total: 3.08213
+ggH Total: 8.02775
+qqH Total: 3.04371
+ggH Total: 8.66431
+qqH Total: 3.33992
+ggH Total: 8.19395
+qqH Total: 3.02367
+ggH Total: 8.25338
+qqH Total: 3.04084
+ggH Total: 8.30553
+qqH Total: 3.07138
+ggH Total: 8.02775
+qqH Total: 3.09189
+ggH Total: 8.02775
+qqH Total: 3.08213
+ggH Total: 8.02775
+qqH Total: 3.08113
+ggH Total: 8.02775
++++++++++++++ DoubleB6_2016 ++++++++++++++++
++++++++++++++ start unc ++++++++++++++++
+Mean  = 125.122
+Mean2  = 125.139
+Mean  (nom)  = 125.098
+Sigma (nom)  = 11.2823
+Sigma  = 11.794
+Sigma2  = 11.2743
+d_Mean  = 1.3276
+d_Mean2  = -2.01733
+d_Sigma  = 0.184862
+d_Sigma2  = -0.43463
++++++++++++++ end unc ++++++++++++++++
+
+Mean  (ggH)  = 125.122
+Mean  (qqH)  = 125.122
+Mean  (nom)  = 125.098
+Mean  (ave)  = 125.122
+Mean  (Up)   = 126.449
+Mean  (Down) = 123.794
+SCL Mean  (Up)   = 123.121
+SCL Mean  (Down) = 127.156
+SMR Mean  (Up)   = 124.747
+SMR Mean  (Down) = 125.456
+
+Sigma (ggH)  = 11.794
+Sigma (qqH)  = 11.794
+Sigma (nom)  = 11.2823
+Sigma (ave)  = 11.794
+Sigma (Up)   = 11.9789
+Sigma (Down) = 11.6091
+SCL Sigma (Up)   = 11.03
+SCL Sigma (Down) = 11.4042
+SMR Sigma (Up)   = 10.8397
+SMR Sigma (Down) = 11.709
+
+Norm    (ggH)  = 8.02775
+JESUp   (ggH)  = 8.66431
+JESDown (ggH)  = 8.19395
+JERUp   (ggH)  = 8.25338
+JERDown (ggH)  = 8.30553
+SCLUp   (ggH)  = 8.02775
+SCLDown (ggH)  = 8.02775
+SMRUp   (ggH)  = 8.02775
+SMRDown (ggH)  = 8.02775
+
+Norm    (qqH)  = 3.08213
+JESUp   (qqH)  = 3.04371
+JESDown (qqH)  = 3.33992
+JERUp   (qqH)  = 3.02367
+JERDown (qqH)  = 3.04084
+SCLUp   (qqH)  = 3.07138
+SCLDown (qqH)  = 3.09189
+SMRUp   (qqH)  = 3.08213
+SMRDown (qqH)  = 3.08113
+
