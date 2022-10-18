@@ -51,6 +51,19 @@ std::vector<std::string> polynomExpNames = {
   "EXP_POL3"
 };
 
+std::vector<std::string> genericInvPower = {
+  "1.0",
+  "1.0/(1.0+@1*((@0-125.0)/125.0))",
+  "1.0/(1.0+@1*((@0-125.0)/125.0)+@2*((@0-125.0)/125.0)*((@0-125.0)/125.0))",
+  "1.0/(1.0+@1*((@0-125.0)/125.0)+@2*((@0-125.0)/125.0)*((@0-125.0)/125.0)+@3*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0))"
+};
+
+std::vector<std::string> invPowerNames = {
+  "INV_POL0",
+  "INV_POL1",
+  "INV_POL2",
+  "INV_POL3"
+};
 
 std::vector<std::string> genericPolynoms = {
   "1",

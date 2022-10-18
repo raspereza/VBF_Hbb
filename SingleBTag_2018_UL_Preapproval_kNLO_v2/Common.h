@@ -50,6 +50,17 @@ std::vector<std::string> polynomExpNames = {
   "EXP_POL3"
 };
 
+std::vector<std::string> exponents = {
+  "TMath::Exp(@1*@0)",
+  "TMath::Exp(@1*@0+0.01*@2*@0*@0)",
+  "TMath::Exp(@1*@0+0.01*@2*@0*@0+0.0001*@3*@0*@0*@0)",
+};
+
+std::vector<std::string> exponentNames = {
+  "EXP1",
+  "EXP2",
+  "EXP3"
+};
 
 std::vector<std::string> genericPolynoms = {
   "1",
@@ -67,6 +78,21 @@ std::vector<std::string> polynomNames = {
   "TF_POL3",
   "TF_POL4",
 };
+
+std::vector<std::string> genericInvPower = {
+  "1.0",
+  "1.0/(1.0+@1*((@0-125.0)/125.0))",
+  "1.0/(1.0+@1*((@0-125.0)/125.0)+@2*((@0-125.0)/125.0)*((@0-125.0)/125.0))",
+  "1.0/(1.0+@1*((@0-125.0)/125.0)+@2*((@0-125.0)/125.0)*((@0-125.0)/125.0)+@3*((@0-125.0)/125.0)*((@0-125.0)/125.0)*((@0-125.0)/125.0))"
+};
+
+std::vector<std::string> invPowerNames = {
+  "INV_POL0",
+  "INV_POL1",
+  "INV_POL2",
+  "INV_POL3"
+};
+
   
 TString names[4] = {
   "SingleB0_2018",
