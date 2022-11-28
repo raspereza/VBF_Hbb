@@ -119,10 +119,10 @@ void Plot_2D( ) {
 
   SetStyle();
 
-  TFile * fileObs = new TFile("./Fits2D_new/2Dscan_obs.root");
+  TFile * fileObs = new TFile("./Fits2D_paper/2Dscan_obs.root");
   TTree * treeObs = (TTree*)fileObs->Get("limit");
 
-  TFile * fileExp = new TFile("./Fits2D_new/2Dscan_exp.root");
+  TFile * fileExp = new TFile("./Fits2D_paper/2Dscan_exp.root");
   TTree * treeExp = (TTree*)fileExp->Get("limit");
 
   double xmin_frame = -2;
