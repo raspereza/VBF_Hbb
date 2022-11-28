@@ -14,7 +14,7 @@ std::map<TString, TGraph*> Find_2D(int nPoints, // sqrt(number_of_points)
 
   double deltaY = (y2-y1)/double(nPoints);
 
-  TCanvas * dummy = new TCanvas("dummy","",500,500);
+  TCanvas * dummy = new TCanvas("dummy","",600,500);
   TH2D * hist   = new TH2D("hist",  "",nPoints,x1,x2,nPoints,y1,y2);
   TH2D * update = new TH2D("update","",nPoints,x1,x2,nPoints,y1,y2);
   limit->Draw("r_ggH:r_qqH>>hist","2*deltaNLL");
@@ -119,20 +119,20 @@ void Plot_2D( ) {
 
   SetStyle();
 
-  TFile * fileObs = new TFile("./Fits/2Dscan_obs.root");
+  TFile * fileObs = new TFile("./Fits2D_new/2Dscan_obs.root");
   TTree * treeObs = (TTree*)fileObs->Get("limit");
 
-  TFile * fileExp = new TFile("./Fits/2Dscan_exp.root");
+  TFile * fileExp = new TFile("./Fits2D_new/2Dscan_exp.root");
   TTree * treeExp = (TTree*)fileExp->Get("limit");
 
   double xmin_frame = -2;
   double xmax_frame =  4;
 
   double ymin_frame = -15;
-  double ymax_frame =  10;
+  double ymax_frame =  15;
 
   double xbest[1] = {1.6};
-  double ybest[1] = {-3.6};
+  double ybest[1] = {-2.7};
 
   double xSM[1] = {1.0};
   double ySM[1] = {1.0};
@@ -153,10 +153,10 @@ void Plot_2D( ) {
   // observed contours
   // ******************
   double xmin = -1.0;
-  double xmax = 4.0;
-  double ymin = -10.;
-  double ymax = 8.;
-  int nPoints = 50;
+  double xmax = 5.0;
+  double ymin = -15.;
+  double ymax = 15.;
+  int nPoints = 100;
   double dnll = 1.0;
   double dLower = 0.5;
   double dUpper = 0.5;
@@ -184,11 +184,11 @@ void Plot_2D( ) {
   // *****************
   // expected contours
   // *****************
-  xmin = -0.5;
-  xmax = 2.5;
-  ymin = -10.;
-  ymax = 10.;
-  nPoints = 50;
+  xmin = -1.0;
+  xmax = 3.0;
+  ymin = -9.;
+  ymax = 11.;
+  nPoints = 100;
   dnll = 1.0;
   dLower = 0.5;
   dUpper = 0.5;
