@@ -131,9 +131,9 @@ void CreateSignalPDF(int iCAT,
   double d_Sigma = mapSigma["JERUp"] - Sigma;
 
   double Mean2 = 0.5*(mapMean["PNetJECUp"]+mapMean["PNetJECDown"]);
-  double d_Mean2 = mapMean["PNetJECUp"] - Mean;
+  double d_Mean2 = mapMean["PNetJECUp"] - Mean2;
   double Sigma2 = 0.5*(mapSigma["SmearUp"]+mapSigma["SmearDown"]);
-  double d_Sigma2 = mapSigma["SmearUp"] - Sigma;
+  double d_Sigma2 = mapSigma["SmearUp"] - Sigma2;
 
 
   mean.setVal(Mean);
@@ -154,11 +154,11 @@ void CreateSignalPDF(int iCAT,
 			     "@0 + @1*@2 + @3*@4",
 			     RooArgList(mean,theta_JES,shift_JES,theta_SCL,shift_SCL));
   RooFormulaVar sigma_shifted("sigma_shifted_zj_"+names[iCAT],
-			      "@0 + @1*@2 + @3*@4",
-			      RooArgList(sigma,theta_JER,shift_JER,theta_SMR,shift_SMR));
+			      "@0 + @1*@2",
+			      RooArgList(sigma,theta_JER,shift_JER));
 
   RooBernstein BRN_zj("brn_zj_"+names[iCAT],"Bernstein",mbb,RooArgList(b0,b1,b2));
-  RooCBShape cb_zj("cb_zj_"+names[iCAT],"CreateZJetscombinedTemplates_sys_full_2.CCBshape",mbb,mean_shifted,sigma_shifted,alpha,n);
+  RooCBShape cb_zj("cb_zj_"+names[iCAT],"CBshape",mbb,mean_shifted,sigma_shifted,alpha,n);
   RooGaussian gaus_zj("gaus_zj_"+names[iCAT],"Gaussian",mbb,mean_shifted,sigma_shifted);
   RooAddPdf signal_zj("zj_"+names[iCAT],"ZJets",RooArgList(cb_zj,BRN_zj),fsig);
 
@@ -171,7 +171,7 @@ void CreateSignalPDF(int iCAT,
   double norm_shift_JES = (mapNorm["JESUp"]/norm_mean_JES -1.0)*norm_Central;
   double norm_shift_JER = (mapNorm["JERUp"]/norm_mean_JER -1.0)*norm_Central;
   double norm_shift_SCL = (mapNorm["PNetJECUp"]/norm_mean_SCL -1.0)*norm_Central;
-  double norm_shift_SMR = (mapNorm["SmearUp"]/norm_mean_SMR -2.0)*norm_Central;
+  double norm_shift_SMR = (mapNorm["SmearUp"]/norm_mean_SMR -1.0)*norm_Central;
 
 
   RooRealVar Norm_Nom("norm_Nom_zj_"+names[iCAT],"norm_Nom",norm_Central,0.,2.*norm_Central);
@@ -182,9 +182,8 @@ void CreateSignalPDF(int iCAT,
 
 
   RooFormulaVar yield_zj("zj_"+names[iCAT]+"_norm",
-			 "@0 + @1*@2 + @3*@4",
-			 RooArgList(Norm_Nom,theta_JES,Norm_shift_JES,theta_JER,Norm_shift_JER));
-
+			 "@0 + @1*@2 + @3*@4 + @5*@6",
+			 RooArgList(Norm_Nom,theta_JES,Norm_shift_JES,theta_JER,Norm_shift_JER,theta_SCL,Norm_shift_SCL));
 
   alpha.setConstant(true);
   mean.setConstant(true);

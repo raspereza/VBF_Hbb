@@ -63,8 +63,8 @@ void CreateSignalPDF(int iCAT,
     histGGH = new TH1D(nameGGHHist,"",NbinsSig,xmin,xmax);
     histVBF = new TH1D(nameVBFHist,"",NbinsSig,xmin,xmax);
     
-    treeGGH[sysName]->Draw(variable+">>"+nameGGHHist,"T_weight*LUMI*T_HLTweight*T_PUweight*T_btag_weight_central*T_online_btag_weight");
-    treeVBF[sysName]->Draw(variable+">>"+nameVBFHist,"T_weight*LUMI*T_HLTweight*T_PUweight*T_btag_weight_central*T_online_btag_weight");
+    treeGGH[sysName]->Draw(variable+">>"+nameGGHHist,"T_weight*LUMI*T_HLTweight*T_PUweight*T_btag_weight_multiWP*T_online_btag_weight");
+    treeVBF[sysName]->Draw(variable+">>"+nameVBFHist,"T_weight*LUMI*T_HLTweight*T_PUweight*T_btag_weight_multiWP*T_online_btag_weight");
     histGGH->Scale(luminosity);
     histVBF->Scale(luminosity);
 
@@ -169,13 +169,11 @@ void CreateSignalPDF(int iCAT,
 				 "@0 + @1*@2 + @3*@4",
 				 RooArgList(mean,theta_JES,shift_JES,theta_SCL,shift_SCL));
   RooFormulaVar sigma_shifted_ggH("sigma_shifted_ggH_"+names[iCAT],
-				  "@0 + @1*@2 + @3*@4",
-				  RooArgList(sigma,theta_JER,shift_JER,theta_SMR,shift_SMR));
+				  "@0 + @1*@2",
+				  RooArgList(sigma,theta_JER,shift_JER));
   RooFormulaVar sigma_shifted_qqH("sigma_shifted_qqH_"+names[iCAT],
-				  "@0 + @1*@2 + @3*@4",
-				  RooArgList(sigma,theta_JER,shift_JER,theta_SMR,shift_SMR));
-
-
+				  "@0 + @1*@2",
+				  RooArgList(sigma,theta_JER,shift_JER));
 
   RooBernstein BRN_ggH("brn_ggH_"+names[iCAT],"Bernstein",mbb,RooArgList(b0,b1,b2));
   RooCBShape cb_ggH("cb_ggH_"+names[iCAT],"CBshape",mbb,mean_shifted_ggH,sigma_shifted_ggH,alpha,n);
@@ -185,7 +183,7 @@ void CreateSignalPDF(int iCAT,
 
   RooBernstein BRN_qqH("brn_qqH_"+names[iCAT],"Bernstein",mbb,RooArgList(b0,b1,b2));
   RooCBShape cb_qqH("cb_qqH_"+names[iCAT],"CBshape",mbb,mean_shifted_qqH,sigma_shifted_qqH,alpha,n);
-RooGaussian gaus_qqH("gaus_qqH_"+names[iCAT],"Gaussian",mbb,mean_shifted_qqH,sigma_shifted_qqH);
+  RooGaussian gaus_qqH("gaus_qqH_"+names[iCAT],"Gaussian",mbb,mean_shifted_qqH,sigma_shifted_qqH);
   RooAddPdf signal_qqH("qqH_"+names[iCAT],"qqH",RooArgList(cb_qqH,BRN_qqH),fsig);
 
   double normGGH_Central = mapNormGGH["Nom"];
@@ -224,11 +222,11 @@ RooGaussian gaus_qqH("gaus_qqH_"+names[iCAT],"Gaussian",mbb,mean_shifted_qqH,sig
   RooRealVar NormVBF_shift_SMR("norm_shift_SMR_qqH_"+names[iCAT],"norm_shift_SMR_qqH",normVBF_shift_SMR,normVBF_shift_SMR-10.,normVBF_shift_SMR+10.);
 
   RooFormulaVar yield_GGH("ggH_"+names[iCAT]+"_norm",
-			  "@0 + @1*@2 + @3*@4",
-			  RooArgList(NormGGH_Nom,theta_JES,NormGGH_shift_JES,theta_JER,NormGGH_shift_JER));
+			  "@0 + @1*@2 + @3*@4 + @5*@6",
+			  RooArgList(NormGGH_Nom,theta_JES,NormGGH_shift_JES,theta_JER,NormGGH_shift_JER,theta_SCL,NormGGH_shift_SCL));
   RooFormulaVar yield_VBF("qqH_"+names[iCAT]+"_norm",
-			  "@0 + @1*@2 + @3*@4",
-			  RooArgList(NormVBF_Nom,theta_JES,NormVBF_shift_JES,theta_JER,NormVBF_shift_JER));
+			  "@0 + @1*@2 + @3*@4 + @5*@6",
+			  RooArgList(NormVBF_Nom,theta_JES,NormVBF_shift_JES,theta_JER,NormVBF_shift_JER,theta_SCL,NormVBF_shift_SCL));
 
   alpha.setConstant(true);
   mean.setConstant(true);
