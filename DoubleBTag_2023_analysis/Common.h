@@ -15,66 +15,150 @@ std::map<TString,TString> label = {
 TString variable = "T_reg_mbb";
 TString variableData = "T_reg_mbb";
 
-/*
-TString cuts[4] = {
-                    "(DNN_BiClass >=0.90 && DNN_BiClass < 0.95) && (T_btgb1 > 0.2605 && T_btgb2 > 0.2605)",
-                    "(DNN_BiClass >=0.95 && DNN_BiClass < 0.975) && (T_btgb1 > 0.2605 && T_btgb2 > 0.2605)",
-                    "(DNN_BiClass >=0.975) && (T_btgb1 > 0.2605 && T_btgb2 > 0.2605)" };
+TString VBFdisc = "(DNN_VBF / (DNN_VBF + DNN_QCD + DNN_TT))";
+TString GGHdisc = "(DNN_GGH / (DNN_GGH + DNN_QCD + DNN_TT))";
+TString ZQQdisc = "(DNN_Z2Q/(DNN_QCD + DNN_Z2Q + DNN_TT))";
+TString btagCutEra =
+"((era == 2 && T_btgb1 > 0.1917  && T_btgb2 > 0.1917) || "
+ "(era == 3 && T_btgb1 > 0.1919 && T_btgb2 > 0.1919))";
 
-*/
+TString cuts[7] =
+{
+    // 1) VBF very tight
+    "((" + VBFdisc + " >= 0.94) && " + btagCutEra + ")",
+
+    // 2) VBF medium
+    "((" + VBFdisc + " >= 0.90 && " + VBFdisc + " < 0.94) && " + btagCutEra + ")",
+
+    // 3) VBF loose
+    "((" + VBFdisc + " >= 0.85 && " + VBFdisc + " < 0.9) && " + btagCutEra + ")",
+
+    // 4) GGH tight (veto VBF)
+    "((" + GGHdisc + " >= 0.78)"
+    " && (" + VBFdisc + " < 0.85) && " + btagCutEra + ")",
+
+    // 5) GGH loose (veto VBF)
+    "((" + GGHdisc + " >= 0.73 && " + GGHdisc + " < 0.780)"
+    " && (" + VBFdisc + " < 0.85) && " + btagCutEra + ")",
+
+    // 6) ZQQ tight (veto GGH & VBF)
+    "((" + ZQQdisc + " >= 0.780)"
+    " && (" + GGHdisc + " < 0.730)"
+    " && (" + VBFdisc + " < 0.85) && " + btagCutEra + ")",
+
+    // 7) ZQQ loose (veto GGH & VBF)
+    "((" + ZQQdisc + " >= 0.7 && " + ZQQdisc + " < 0.780)"
+    " && (" + GGHdisc + " < 0.73)"
+    " && (" + VBFdisc + " < 0.85) && " + btagCutEra + ")"
+};
+
+/*
  TString cuts[7] =
 {
-    "(DNN_VBF / (DNN_VBF + DNN_QCD + DNN_TT) >= 0.90 && DNN_VBF / (DNN_VBF + DNN_QCD + DNN_TT) < 0.95)  && (T_btgb1 > 0.2605 && T_btgb2 > 0.2605)",
-    "(DNN_VBF / (DNN_VBF + DNN_QCD + DNN_TT) >= 0.95 && DNN_VBF / (DNN_VBF + DNN_QCD + DNN_TT) < 0.975) && (T_btgb1 > 0.2605 && T_btgb2 > 0.2605) ",
-    "(DNN_VBF / (DNN_VBF + DNN_QCD + DNN_TT) >= 0.9750) && (T_btgb1 > 0.2605 && T_btgb2 > 0.2605) ",
-    "(DNN_GGH / (DNN_GGH + DNN_QCD + DNN_TT) >= 0.80  && DNN_GGH / (DNN_GGH + DNN_QCD + DNN_TT) < 0.90)    &&  (DNN_VBF / (DNN_VBF + DNN_QCD + DNN_TT) < 0.90) && (T_btgb1 > 0.2605 && T_btgb2 > 0.2605)",
-    "(DNN_GGH / (DNN_GGH + DNN_QCD + DNN_TT) >= 0.90) && (DNN_VBF / (DNN_VBF + DNN_QCD + DNN_TT) < 0.90)   &&  (T_btgb1 > 0.2605 && T_btgb2 > 0.2605)",
-    "(DNN_Z2Q / (DNN_Z2Q + DNN_QCD + DNN_TT) >= 0.80  && DNN_Z2Q / (DNN_Z2Q + DNN_QCD + DNN_TT) < 0.90)    &&  (DNN_GGH / (DNN_GGH + DNN_QCD + DNN_TT) < 0.80) && (DNN_VBF / (DNN_VBF + DNN_QCD + DNN_TT) < 0.90) && (T_btgb1 > 0.2605 && T_btgb2 > 0.2605)",
-    "(DNN_Z2Q / (DNN_Z2Q + DNN_QCD + DNN_TT) >= 0.90) &&  (DNN_GGH / (DNN_GGH + DNN_QCD + DNN_TT) < 0.80) &&  (DNN_VBF / (DNN_VBF + DNN_QCD + DNN_TT) < 0.90) && (T_btgb1 > 0.2605 && T_btgb2 > 0.2605)",
-};
-TString dipole[4] = {"0.0", "0.01882187502",      "0.06886822505" ,  "0.1226316401"}; 
+    // 1) VBF very tight
+    "((" + VBFdisc + " >= 0.975) && " + btagCutEra + ")",
 
-TString dirName =  "/eos/home-s/sapradha/PhD_Projects/VBF_analysis/CMSSW_14_0_9/src/VBFHBB/Analysis/test/FINAL_ANALYSIS/DNN_Ntuples_Train/2023_Ntuples_";  // use this dir for 92% and ANN
+    // 2) VBF medium
+    "((" + VBFdisc + " >= 0.93 && " + VBFdisc + " < 0.975) && " + btagCutEra + ")",
+
+    // 3) VBF loose
+    "((" + VBFdisc + " >= 0.80 && " + VBFdisc + " < 0.93) && " + btagCutEra + ")",
+
+    // 4) GGH tight (veto VBF)
+    "((" + GGHdisc + " >= 0.82)"
+    " && (" + VBFdisc + " < 0.8) && " + btagCutEra + ")",
+
+    // 5) GGH loose (veto VBF)
+    "((" + GGHdisc + " >= 0.75 && " + GGHdisc + " < 0.820)"
+    " && (" + VBFdisc + " < 0.80) && " + btagCutEra + ")",
+
+    // 6) ZQQ tight (veto GGH & VBF)
+    "((" + ZQQdisc + " >= 0.820)"
+    " && (" + GGHdisc + " < 0.75)"
+    " && (" + VBFdisc + " < 0.8) && " + btagCutEra + ")",
+
+    // 7) ZQQ loose (veto GGH & VBF)
+    "((" + ZQQdisc + " >= 0.75 && " + ZQQdisc + " < 0.820)"
+    " && (" + GGHdisc + " < 0.75)"
+    " && (" + VBFdisc + " < 0.8) && " + btagCutEra + ")"
+};
+
+*/
+TString dipole[4] = {"0.0", "0.01882187502",      "0.06886822505" ,  "0.1226316401"}; 
+TString dirName =  "/eos/home-s/sapradha/PhD_Projects/VBF_analysis/CMSSW_14_0_9/src/VBFHBB/Analysis/test/FINAL_ANALYSIS/DNN_Ntuples_Train/Run_3_DNN/Ntuples_with_DNN_score/2023";
 
 TString FileNamesVBFDNN[9] = {
-  "tree_VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_btgsf.root",            // central
-  "tree_VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_JECUp_btgsf.root",      // JEC Up
-  "tree_VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_JECDown_btgsf.root",    // JEC Down
-  "tree_VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_JERUp_btgsf.root",      // JER Up
-  "tree_VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_JERDown_btgsf.root",    // JER Down
-  "tree_VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_PNetJECUp_btgsf.root",  // PNet JEC Up
-  "tree_VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_PNetJECDown_btgsf.root",// PNet JEC Down
-  "tree_VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_PNetJECUp_btgsf.root",  // duplicate
-  "tree_VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_PNetJECDown_btgsf.root" // duplicate
+  "VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_2023BPix.root",            // central
+  "VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_2023BPix_JECUp.root",      // JEC Up
+  "VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_2023BPix_JECDown.root",    // JEC Down
+  "VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_2023BPix_JERUp.root",      // JER Up
+  "VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_2023BPix_JERDown.root",    // JER Down
+  "VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_2023BPix_PNetJECUp.root",  // PNet JEC Up
+  "VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_2023BPix_PNetJECDown.root",// PNet JEC Down
+  "VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_2023BPix_PNetJECUp.root",  // duplicate
+  "VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8_2023_2023BPix_PNetJECDown.root" // duplicate
 };
 
 TString FileNamesGGHDNN[9] = {
-  "tree_GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_btgsf.root",            // central
-  "tree_GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_JECUp_btgsf.root",      // JEC Up
-  "tree_GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_JECDown_btgsf.root",    // JEC Down
-  "tree_GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_JERUp_btgsf.root",      // JER Up
-  "tree_GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_JERDown_btgsf.root",    // JER Down
-  "tree_GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_PNetJECUp_btgsf.root",  // PNet JEC Up
-  "tree_GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_PNetJECDown_btgsf.root",// PNet JEC Down
-  "tree_GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_PNetJECUp_btgsf.root",  // duplicate
-  "tree_GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_PNetJECDown_btgsf.root" // duplicate
+  "GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_2023BPix.root",            // central
+  "GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_2023BPix_JECUp.root",      // JEC Up
+  "GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_2023BPix_JECDown.root",    // JEC Down
+  "GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_2023BPix_JERUp.root",      // JER Up
+  "GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_2023BPix_JERDown.root",    // JER Down
+  "GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_2023BPix_PNetJECUp.root",  // PNet JEC Up
+  "GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_2023BPix_PNetJECDown.root",// PNet JEC Down
+  "GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_2023BPix_PNetJECUp.root",  // duplicate
+  "GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8_2023_2023BPix_PNetJECDown.root" // duplicate
 };
 
 TString FileNamesZJetDNN[9] = {
-  "tree_Zto2Q-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_btgsf.root",             // central
-  "tree_Zto2Q-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_JECUp_btgsf.root",       // JEC Up
-  "tree_Zto2Q-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_JECDown_btgsf.root",     // JEC Down
-  "tree_Zto2Q-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_JERUp_btgsf.root",       // JER Up
-  "tree_Zto2Q-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_JERDown_btgsf.root",     // JER Down
-  "tree_Zto2Q-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_PNetJECUp_btgsf.root",   // PNet JEC Up
-  "tree_Zto2Q-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_PNetJECDown_btgsf.root", // PNet JEC Down
-  "tree_Zto2Q-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_PNetJECUp_btgsf.root",   // duplicate
-  "tree_Zto2Q-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_PNetJECDown_btgsf.root"  // duplicate
+  "Zto2Q-4Jets_HT-200toinf_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_2023BPix.root",             // central
+  "Zto2Q-4Jets_HT-200toinf_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_2023BPix_JECUp.root",       // JEC Up
+  "Zto2Q-4Jets_HT-200toinf_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_2023BPix_JECDown.root",     // JEC Down
+  "Zto2Q-4Jets_HT-200toinf_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_2023BPix_JERUp.root",       // JER Up
+  "Zto2Q-4Jets_HT-200toinf_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_2023BPix_JERDown.root",     // JER Down
+  "Zto2Q-4Jets_HT-200toinf_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_2023BPix_PNetJECUp.root",   // PNet JEC Up
+  "Zto2Q-4Jets_HT-200toinf_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_2023BPix_PNetJECDown.root", // PNet JEC Down
+  "Zto2Q-4Jets_HT-200toinf_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_2023BPix_PNetJECUp.root",   // duplicate
+  "Zto2Q-4Jets_HT-200toinf_TuneCP5_13p6TeV_madgraphMLM-pythia8_2023_2023BPix_PNetJECDown.root"  // duplicate
 };
 
-
-
+TString data_file_name = "JetMET_2023_2023BPix.root";
 TString sysNames[9] = {"Nom","JESUp","JESDown","JERUp","JERDown","PNetJECUp","PNetJECDown","SmearUp","SmearDown"};
+
+// --------------------------- systematic calculation --------------------------
+
+TString Cat_DNN_var_map[7] = {
+       VBFdisc , VBFdisc , VBFdisc , GGHdisc , GGHdisc , ZQQdisc ,ZQQdisc
+};
+TString vbf_weight = "T_weight*LUMI*T_HLTweight*T_PUweight*T_btag_weight_multiWP*T_online_btag_weight*";
+TString ggh_weight = "T_weight*LUMI*T_HLTweight*T_PUweight*T_btag_weight_multiWP*T_online_btag_weight*";
+TString zjet_weight = "T_weight*LUMI*T_HLTweight*T_PUweight*T_btag_weight_multiWP*T_online_btag_weight*T_V_pTweight_QCD*T_V_pTweight_EWK*";
+
+
+
+TString syst[] = {"CMS_pileup_2023",
+                          "CMS_btag_lf_2023","CMS_btag_lfstats1_2023","CMS_btag_lfstats2_2023",
+                          "CMS_btag_hf_2023","CMS_btag_hfstats1_2023","CMS_btag_hfstats2_2023",
+                          "CMS_btag_cferr1_2023","CMS_btag_cferr2_2023"};  // systematic_calculator , index of each systematic is being mapped to the main script 
+TString up_weights[] = {
+	"(T_PUweight_up/T_PUweight)",
+	"(T_btag_weight_up_lf/T_btag_weight_multiWP)","(T_btag_weight_up_lfstats1/T_btag_weight_multiWP)","(T_btag_weight_up_lfstats2/T_btag_weight_multiWP)",
+	"(T_btag_weight_up_hf/T_btag_weight_multiWP)","(T_btag_weight_up_hfstats1/T_btag_weight_multiWP)","(T_btag_weight_up_hfstats2/T_btag_weight_multiWP)" ,
+	"(T_btag_weight_up_cferr1/T_btag_weight_multiWP)" , "(T_btag_weight_up_cferr2/T_btag_weight_multiWP)" 
+
+};
+TString down_weights[] = {
+    "(T_PUweight_down/T_PUweight)",
+    "(T_btag_weight_down_lf/T_btag_weight_multiWP)",
+    "(T_btag_weight_down_lfstats1/T_btag_weight_multiWP)",
+    "(T_btag_weight_down_lfstats2/T_btag_weight_multiWP)",
+    "(T_btag_weight_down_hf/T_btag_weight_multiWP)",
+    "(T_btag_weight_down_hfstats1/T_btag_weight_multiWP)",
+    "(T_btag_weight_down_hfstats2/T_btag_weight_multiWP)",
+    "(T_btag_weight_down_cferr1/T_btag_weight_multiWP)",
+    "(T_btag_weight_down_cferr2/T_btag_weight_multiWP)"
+};
 
 std::vector<std::string> genericPolynomExp = {
   "TMath::Exp(@1*@0)",
@@ -123,28 +207,24 @@ std::vector<std::string> polynomNames = {
   "TF_POL4",
 };
   
-TString names[9] = {
-  "DoubleB0_2023",
-  "DoubleB1_2023",
-  "DoubleB2_2023",
-  "DoubleB3_2023",
-  "DoubleB4_2023",
-  "DoubleB5_2023",
-  "DoubleB6_2023",
-  "DoubleB7_2023",
-  "DoubleB8_2023",
+TString names[7] = {
+  "qqh_0_2023",
+  "qqh_1_2023",
+  "qqh_2_2023",
+  "ggh_0_2023",
+  "ggh_1_2023",
+  "zjet_0_2023",
+  "zjet_1_2023",
 };
 
 std::vector<std::string> namesCAT = {
-  "DoubleB0_2023",
-  "DoubleB1_2023",
-  "DoubleB2_2023",
-  "DoubleB3_2023",
-  "DoubleB4_2023",
-  "DoubleB5_2023",
-  "DoubleB6_2023",
-  "DoubleB7_2023",
-  "DoubleB8_2023",
+  "qqh_0_2023",
+  "qqh_1_2023",
+  "qqh_2_2023",
+  "ggh_0_2023",
+  "ggh_1_2023",
+  "zjet_0_2023",
+  "zjet_1_2023",
 }; // needed to define transfer functions
 
 int nCATs = 4;
@@ -154,13 +234,13 @@ double znorm[9] = {1.,1.,1.,1.,1.,1.,1.,1.,1.};
 
 int NbinsBkg = 60;
 int NbinsSig = 24;
-int Nbins = 1500;
+int Nbins = 2000;
 
 float xmin = 80;
-float xmax = 200;
+float xmax = 240;
 
 float xmin_mc = 80;
-float xmax_mc = 200;
+float xmax_mc = 240;
 
 float xmin_blind = 104;
 float xmax_blind = 146;

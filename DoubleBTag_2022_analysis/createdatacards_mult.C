@@ -1,12 +1,12 @@
 #include "TH1F.h"
-
-void createdatacards()
+#include "Common.h"
+void createdatacards_mult()
 {
 Int_t CAT[] = {0,1,2,3,4,5,6};
 for(int i=0; i < 7; i++)
 {
 	ostringstream str;
-	str << "datacard_cat" << CAT[i] << ".txt";
+	str << "datacard_cat" << CAT[i] << "mult.txt";
 	string nn = str.str();
         const char * p = nn.c_str();
         std::ofstream textfile(p);
@@ -19,39 +19,33 @@ for(int i=0; i < 7; i++)
         textfile << "jmax *" << endl;
         textfile << "kmax *" << endl;
 textfile << "----------------------------------------------------------------------------------------------------" << endl;
-textfile << "shapes          qcd             *   workspace/data_resolved_vbfhbb_2022.root       w:qcd_$CHANNEL" << endl;
+textfile << "shapes          qcd             *   workspace/data_resolved_vbfhbb_2022.root       w:multipdf_Tag0_$CHANNEL" << endl;
 textfile << "shapes          data_obs        *   workspace/data_resolved_vbfhbb_2022.root       w:data_$CHANNEL" << endl;
 textfile << "shapes          qqH_hbb         *   workspace/signal_resolved_vbfhbb_2022.root   w:qqH_$CHANNEL" << endl;
 textfile << "shapes          ggH_hbb         *   workspace/signal_resolved_vbfhbb_2022.root   w:ggH_$CHANNEL" << endl;
 textfile << "shapes          zj              *   workspace/zj_resolved_vbfhbb_2022.root  w:zj_$CHANNEL" << endl;
 textfile << "----------------------------------------------------------------------------------------------------" << endl;
-textfile << "bin             DoubleB"<< CAT[i] << "_2022" << endl;
+textfile << "bin             "<< names[i] << endl;
 textfile << "observation   -1" << endl;
 textfile << "----------------------------------------------------------------------------------------------------" << endl;
-textfile << "bin             DoubleB" << CAT[i] << "_2022   DoubleB"<< CAT[i] << "_2022   DoubleB"<< CAT[i] << "_2022   DoubleB"<< CAT[i] << "_2022" << endl;
+textfile << "bin             " << names[i] << "   "<< names[i]  << "   "<< names[i] << "   "<< names[i]  << endl;
 textfile << "process          ggH_hbb   qqH_hbb   qcd   zj" << endl;
-textfile << "process            -1         0       1     2" << endl;
+textfile << "process            5         0       1     2" << endl;
 textfile << "rate     1     1    1    1 " << endl;
 textfile << "----------------------------------------------------------------------------------------------------" << endl;
 textfile << "BR_hbb     lnN  1.007/0.994     1.007/0.994     -     -" << endl;
 textfile << "lumi_13p6TeV   lnN  1.014    1.014    -   1.014" << endl;	
-TString syst[] = {"CMS_pileup_2022EE",
-                          "CMS_btag_lf_2022","CMS_btag_lfstats1_2022EE","CMS_btag_lfstats2_2022EE",
-                          "CMS_btag_hf_2022","CMS_btag_hfstats1_2022EE","CMS_btag_hfstats2_2022EE",
-                          "CMS_btag_cferr1_2022","CMS_btag_cferr2_2022"};
+
 int nsyst = sizeof(syst)/sizeof(syst[0]);
-int j;
-if(i < 3) j = i;
-else j = 0;
 for(int kk=0; kk<nsyst; kk++)
             {
                 TH1F *hggh_up =   (TH1F*)f_ggh->Get(syst[kk]+"Up"); TH1F *hggh_dn =   (TH1F*)f_ggh->Get(syst[kk]+"Down");
 		TH1F *hqqh_up =   (TH1F*)f_qqh->Get(syst[kk]+"Up"); TH1F *hqqh_dn =   (TH1F*)f_qqh->Get(syst[kk]+"Down");
 		TH1F *hzj_up  =   (TH1F*)f_zj->Get(syst[kk]+"Up"); TH1F *hzj_dn =   (TH1F*)f_zj->Get(syst[kk]+"Down");
-		textfile <<  syst[kk]  << "  lnN   "  << hggh_up->GetBinContent(j+1) << "/" << hggh_dn->GetBinContent(j+1) << "	"  <<
-		                          hqqh_up->GetBinContent(j+1) << "/" << hqqh_dn->GetBinContent(j+1) << "	"  <<	
+		textfile <<  syst[kk]  << "  lnN   "  << hggh_up->GetBinContent(i+1) << "/" << hggh_dn->GetBinContent(i+1) << "	"  <<
+		                          hqqh_up->GetBinContent(i+1) << "/" << hqqh_dn->GetBinContent(i+1) << "	"  <<	
 					  "	-	" <<
-					  hzj_up->GetBinContent(j+1) << "/" << hzj_dn->GetBinContent(j+1) << "	"  << std::endl;
+					  hzj_up->GetBinContent(i+1) << "/" << hzj_dn->GetBinContent(i+1) << "	"  << std::endl;
 	    }
 textfile << "----------------------------------------------------------------------------------------------------" << endl;
 textfile << "PS_ISR             lnN     1.054/0.935   1.005/0.993   -  1.145/0.825  " << endl;
@@ -75,7 +69,8 @@ textfile << "CMS_JES_2022  param 0.0 1.0" << endl;
 textfile << "CMS_JER_2022  param 0.0 1.0" << endl;
 textfile << "CMS_scale_b_2022  param 0.0 1.0" << endl;
 textfile << "CMS_res_b_2022  param 0.0 1.0" << endl;
-textfile << "normZ rateParam DoubleB"<<CAT[i] <<"_2022 zj 1 [-20,20]" << endl;
+textfile << "normZ rateParam "<< names[i] <<" zj 1 [-20,20]" << endl;
+textfile << "pdfindex_Tag0_"<< names[i] << "     discrete" << endl;   
 f_ggh->Close();
 f_qqh->Close();
 f_zj->Close();
