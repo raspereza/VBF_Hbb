@@ -6,7 +6,7 @@ Int_t CAT[] = {0,1,2,3,4,5,6};
 for(int i=0; i < 7; i++)
 {
 	ostringstream str;
-	str << "datacard_cat" << CAT[i] << "mult.txt";
+	str << "datacard_cat" << CAT[i] << "mult_2023.txt";
 	string nn = str.str();
         const char * p = nn.c_str();
         std::ofstream textfile(p);
@@ -30,7 +30,7 @@ textfile << "observation   -1" << endl;
 textfile << "----------------------------------------------------------------------------------------------------" << endl;
 textfile << "bin             " << names[i] << "   "<< names[i]  << "   "<< names[i] << "   "<< names[i]  << endl;
 textfile << "process          ggH_hbb   qqH_hbb   qcd   zj" << endl;
-textfile << "process            5         0       1     2" << endl;
+textfile << "process            -1         0       1     2" << endl;
 textfile << "rate     1     1    1    1 " << endl;
 textfile << "----------------------------------------------------------------------------------------------------" << endl;
 textfile << "BR_hbb     lnN  1.007/0.994     1.007/0.994     -     -" << endl;
