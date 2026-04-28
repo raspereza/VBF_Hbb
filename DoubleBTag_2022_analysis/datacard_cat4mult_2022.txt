@@ -1,0 +1,53 @@
+imax 1
+jmax *
+kmax *
+----------------------------------------------------------------------------------------------------
+shapes          qcd             *   workspace/data_resolved_vbfhbb_2022.root       w:multipdf_Tag0_$CHANNEL
+shapes          data_obs        *   workspace/data_resolved_vbfhbb_2022.root       w:data_$CHANNEL
+shapes          qqH_hbb         *   workspace/signal_resolved_vbfhbb_2022.root   w:qqH_$CHANNEL
+shapes          ggH_hbb         *   workspace/signal_resolved_vbfhbb_2022.root   w:ggH_$CHANNEL
+shapes          zj              *   workspace/zj_resolved_vbfhbb_2022.root  w:zj_$CHANNEL
+----------------------------------------------------------------------------------------------------
+bin             ggh_1_2022
+observation   -1
+----------------------------------------------------------------------------------------------------
+bin             ggh_1_2022   ggh_1_2022   ggh_1_2022   ggh_1_2022
+process          ggH_hbb   qqH_hbb   qcd   zj
+process            -1         0       1     2
+rate     1     1    1    1 
+----------------------------------------------------------------------------------------------------
+BR_hbb     lnN  1.007/0.994     1.007/0.994     -     -
+lumi_13p6TeV   lnN  1.014    1.014    -   1.014
+CMS_pileup_2022  lnN   1.00961/0.993268	0.984114/1.00324		-	1.01081/1.00149	
+CMS_btag_lf_2022  lnN   1.04573/0.916058	1.04372/0.917155		-	1.03967/0.921118	
+CMS_btag_lfstats1_2022  lnN   0.965563/1.0359	0.967403/1.03407		-	0.966484/1.03492	
+CMS_btag_lfstats2_2022  lnN   0.970486/1.03041	0.972306/1.0286		-	0.970627/1.03034	
+CMS_btag_hf_2022  lnN   0.990633/0.973256	0.992656/0.971282		-	0.985495/0.963565	
+CMS_btag_hfstats1_2022  lnN   0.994814/1.00289	0.99397/1.00366		-	0.995324/1.00263	
+CMS_btag_hfstats2_2022  lnN   0.993385/1.00594	0.992125/1.00723		-	0.994483/1.00491	
+CMS_btag_cferr1_2022  lnN   0.961214/1.06331	0.9542/1.06883		-	0.959006/1.06893	
+CMS_btag_cferr2_2022  lnN   0.984809/1.01679	0.982189/1.01916		-	0.983671/1.01841	
+----------------------------------------------------------------------------------------------------
+PS_ISR             lnN     1.054/0.935   1.005/0.993   -  1.145/0.825  
+PS_FSR             lnN     1.149/1.037   1.053/0.943   -   1.119/0.84  
+CMS_vbfhbb_Trig_2022     lnN     1.15/0.85  1.15/0.85    -   1.15/0.85  
+CMS_zj_d1K_NLO     lnN      -	-	-	1.064 
+CMS_zj_d1kappa_EW   lnN      -      -       -       1.001 
+CMS_zj_d2K_NLO     lnN     -      -       -       1.056 
+CMS_zj_d2kappa_EW  lnN     -      -       -       1.069 
+CMS_zj_d3K_NLO     lnN     -      -       -       1.001 
+CMS_zj_d3kappa_EW  lnN     -      -       -       1.001 
+VBF_Dipole_Recoil	lnN	-   1.14/0.86   -   - 
+QCDscale_ggH      lnN  1.046/0.933   -    -   - 
+pdf_gg      lnN  1.019/0.981   -    -   -
+alphas_ggH        lnN  1.026/0.974   -    -    -        
+QCDscale_qqH      lnN  -   1.004/0.997    -    -       
+pdf_qqbar      lnN  -   1.021/0.979    -    -       
+alphas_qqH        lnN  -   1.005/0.995    -    -  
+----------------------------------------------------------------------------------------------------
+CMS_JES_2022  param 0.0 1.0
+CMS_JER_2022  param 0.0 1.0
+CMS_scale_b_2022  param 0.0 1.0
+CMS_res_b_2022  param 0.0 1.0
+normZ rateParam ggh_1_2022 zj 1 [-20,20]
+pdfindex_Tag0_ggh_1_2022     discrete

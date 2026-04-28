@@ -1,0 +1,52 @@
+imax 1
+jmax *
+kmax *
+----------------------------------------------------------------------------------------------------
+shapes          qcd             *   workspace/data_resolved_vbfhbb_2023.root       w:multipdf_Tag0_$CHANNEL
+shapes          data_obs        *   workspace/data_resolved_vbfhbb_2023.root       w:data_$CHANNEL
+shapes          qqH_hbb         *   workspace/signal_resolved_vbfhbb_2023.root   w:qqH_$CHANNEL
+shapes          ggH_hbb         *   workspace/signal_resolved_vbfhbb_2023.root   w:ggH_$CHANNEL
+shapes          zj              *   workspace/zj_resolved_vbfhbb_2023.root  w:zj_$CHANNEL
+----------------------------------------------------------------------------------------------------
+bin             qqh_2_2023
+observation   -1
+----------------------------------------------------------------------------------------------------
+bin             qqh_2_2023   qqh_2_2023   qqh_2_2023   qqh_2_2023
+process          ggH_hbb   qqH_hbb   qcd   zj
+process            -1         0       1     2
+rate     1     1    1    1 
+----------------------------------------------------------------------------------------------------
+BR_hbb     lnN  1.007/0.994     1.007/0.994     -     -
+lumi_13p6TeV   lnN  1.014    1.014    -   1.014
+CMS_pileup_2023  lnN   1.02255/0.977745	0.994764/1.00359		-	0.998508/1.00302	
+CMS_btag_lf_2023  lnN   1.03999/0.921533	1.04298/0.920062		-	1.04394/0.917534	
+CMS_btag_lfstats1_2023  lnN   0.951517/1.0491	0.959756/1.04096		-	0.949534/1.05138	
+CMS_btag_lfstats2_2023  lnN   0.956278/1.04431	0.964504/1.0354		-	0.955328/1.04488	
+CMS_btag_hf_2023  lnN   0.987532/0.978432	0.993286/0.97037		-	0.990508/1.00043	
+CMS_btag_hfstats1_2023  lnN   0.989122/1.0074	0.990837/1.00614		-	0.989937/1.00701	
+CMS_btag_hfstats2_2023  lnN   0.989147/1.00923	0.987253/1.01132		-	0.988748/1.00958	
+CMS_btag_cferr1_2023  lnN   0.984647/1.02539	0.958271/1.07974		-	0.966678/1.10249	
+CMS_btag_cferr2_2023  lnN   0.992958/1.00822	0.978979/1.02659		-	0.980945/1.03101	
+----------------------------------------------------------------------------------------------------
+PS_ISR             lnN     1.054/0.935   1.005/0.993   -  1.145/0.825  
+PS_FSR             lnN     1.149/1.037   1.053/0.943   -   1.119/0.84  
+CMS_vbfhbb_Trig_2023     lnN     1.15/0.85  1.15/0.85    -   1.15/0.85  
+CMS_zj_d1K_NLO     lnN      -	-	-	1.064 
+CMS_zj_d1kappa_EW   lnN      -      -       -       1.001 
+CMS_zj_d2K_NLO     lnN     -      -       -       1.056 
+CMS_zj_d2kappa_EW  lnN     -      -       -       1.069 
+CMS_zj_d3K_NLO     lnN     -      -       -       1.001 
+CMS_zj_d3kappa_EW  lnN     -      -       -       1.001 
+VBF_Dipole_Recoil	lnN	-   1.14/0.86   -   - 
+QCDscale_ggH      lnN  1.046/0.933   -    -   - 
+pdf_gg      lnN  1.019/0.981   -    -   -
+alphas_ggH        lnN  1.026/0.974   -    -    -        
+QCDscale_qqH      lnN  -   1.004/0.997    -    -       
+pdf_qqbar      lnN  -   1.021/0.979    -    -       
+alphas_qqH        lnN  -   1.005/0.995    -    -  
+----------------------------------------------------------------------------------------------------
+CMS_JES_2023  param 0.0 1.0
+CMS_JER_2023  param 0.0 1.0
+CMS_scale_b_2023  param 0.0 1.0
+normZ rateParam qqh_2_2023 zj 1 [-20,20]
+pdfindex_Tag0_qqh_2_2023     discrete
