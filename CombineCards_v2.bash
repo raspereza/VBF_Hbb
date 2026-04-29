@@ -28,7 +28,7 @@ combineCards.py datacards_doubleb_2016.txt datacards_doubleb_2018.txt > datacard
 combineCards.py datacards_singleb_2016.txt datacards_singleb_2018.txt > datacards_singleb_Run2.txt
 # Run 2
 combineCards.py datacards_doubleb_2016.txt datacards_doubleb_2018.txt datacards_singleb_2016.txt datacards_singleb_2018.txt > datacards_Run2.txt
+
 mv *.txt ${dir}
 mv workspace ${dir}
-
 
